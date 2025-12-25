@@ -378,21 +378,7 @@ svg {
 
 /* Блок Тарифы */
 .tariffs-section {
-    padding: clamp(60px, 8vw, 100px) 0;
     background-color: var(--white);
-    position: relative;
-}
-
-.tariffs-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 3px;
-    background: var(--primary-blue-gradient);
-    border-radius: 0 0 3px 3px;
 }
 
 .tariffs-title {
@@ -406,9 +392,12 @@ svg {
 
 .tariffs-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
     gap: 30px;
     margin-bottom: 40px;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .tariff-card-new {
@@ -591,7 +580,6 @@ svg {
 .tariff-included-list {
     list-style: none;
     padding: 0;
-    margin: 0 0 32px 0;
     display: flex;
     flex-direction: column;
     gap: 16px;
@@ -615,6 +603,30 @@ svg {
 
 .tariff-included-list li:hover .check-icon {
     transform: scale(1.1);
+}
+
+.tariff-description {
+    margin: clamp(10px, 2vw, 20px) 0;
+    padding: clamp(20px, 2.5vw, 24px);
+    background: linear-gradient(135deg, rgba(230, 242, 255, 0.15) 0%, rgba(255, 255, 255, 0.6) 100%);
+    border-radius: var(--radius-md);
+    border-left: 3px solid var(--primary-blue);
+}
+
+.tariff-description-main {
+    font-size: clamp(14px, 1.6vw, 16px);
+    line-height: 1.7;
+    color: var(--text-dark);
+    margin: 0;
+}
+
+.tariff-description-note {
+    font-size: clamp(12px, 1.4vw, 13px);
+    color: var(--text-gray);
+    font-style: italic;
+    margin: clamp(12px, 1.5vw, 16px) 0 0 0;
+    padding-top: clamp(12px, 1.5vw, 16px);
+    border-top: 1px solid rgba(0, 102, 204, 0.1);
 }
 
 .tariff-additional {
@@ -786,19 +798,6 @@ svg {
 .advantages-section {
     padding: clamp(60px, 8vw, 100px) 0;
     background-color: var(--white);
-    position: relative;
-}
-
-.advantages-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 3px;
-    background: var(--primary-blue-gradient);
-    border-radius: 0 0 3px 3px;
 }
 
 .advantages-title {
@@ -999,19 +998,6 @@ svg {
 .contacts-section {
     padding: clamp(60px, 8vw, 100px) 0;
     background-color: var(--white);
-    position: relative;
-}
-
-.contacts-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 3px;
-    background: var(--primary-blue-gradient);
-    border-radius: 0 0 3px 3px;
 }
 
 .contacts-title {
@@ -1382,19 +1368,6 @@ svg {
     padding: clamp(32px, 4vw, 48px) 0;
     background-color: var(--white);
     border-top: 1px solid rgba(0, 102, 204, 0.1);
-    position: relative;
-}
-
-.cities-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 3px;
-    background: var(--primary-blue-gradient);
-    border-radius: 0 0 3px 3px;
 }
 
 .cities-wrapper {
@@ -1481,19 +1454,6 @@ svg {
 .faq-section {
     padding: clamp(60px, 8vw, 100px) 0;
     background-color: var(--white);
-    position: relative;
-}
-
-.faq-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 3px;
-    background: var(--primary-blue-gradient);
-    border-radius: 0 0 3px 3px;
 }
 
 .faq-title {
@@ -1915,19 +1875,6 @@ svg {
 .address-check-section {
     padding: clamp(60px, 8vw, 100px) 0;
     background: linear-gradient(180deg, rgba(248, 249, 250, 0.5) 0%, rgba(255, 255, 255, 0.8) 100%);
-    position: relative;
-}
-
-.address-check-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 3px;
-    background: var(--primary-blue-gradient);
-    border-radius: 0 0 3px 3px;
 }
 
 .address-check-wrapper {
