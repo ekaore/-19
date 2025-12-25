@@ -23,7 +23,7 @@
                 <nav class="nav">
                     <ul class="nav-list">
                         <li class="nav-item">
-                            <a href="#tariffs" class="nav-link">Тариф</a>
+                            <a href="#tariffs" class="nav-link">Услуги</a>
                         </li>
                         <li class="nav-item">
                             <a href="#address-check" class="nav-link">Подключение</a>
@@ -65,7 +65,7 @@
     <!-- Блок с заголовком и подзаголовком   -->
     <section class="intro-section">
         <div class="container">
-            <h1 class="intro-title">Быстрый и стабильный интернет для дома и бизнеса — подключим уже сегодня!</h1>
+            <h4 class="intro-title">Быстрый и стабильный интернет для дома и бизнеса — подключим уже сегодня!</h4>
             <p class="intro-subtitle">Высокоскоростной интернет с гарантией стабильности. Выберите подходящий тариф и начните пользоваться качественным соединением прямо сейчас</p>
         </div>
     </section>
@@ -75,7 +75,7 @@
         <div class="container">
             <h2 class="tariffs-title">Полный набор услуг</h2>
             <div class="tariffs-grid">
-                <!-- Тариф 1 -->
+                <!-- Тариф -->
                 <div class="tariff-card-new">
                     <div class="tariff-left">
                         <div class="tariff-left-header">ЕЖЕМЕСЯЧНАЯ ПЛАТА</div>
@@ -105,7 +105,6 @@
                                 </div>
                             </div>
                         </div>
-                        <button class="tariff-connect-btn">Подключить</button>
                         <div class="tariff-left-footer">Подключение бесплатно</div>
                     </div>
                     <div class="tariff-right">
@@ -155,6 +154,10 @@
                                 </svg>
                                 <span class="addon-name">Wi-Fi роутер SNR-CPE-ME2</span>
                                 <span class="addon-price">+99 ₽</span>
+                                <label class="addon-switch">
+                                    <input type="checkbox" class="addon-switch-input" data-addon="router" data-price="99">
+                                    <span class="addon-switch-slider"></span>
+                                </label>
                             </div>
                             <div class="tariff-addon-item">
                                 <svg class="addon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -163,12 +166,112 @@
                                 </svg>
                                 <span class="addon-name">ТВ приставка Imaqliq G-Box</span>
                                 <span class="addon-price">+99 ₽</span>
+                                <label class="addon-switch">
+                                    <input type="checkbox" class="addon-switch-input" data-addon="tv-box" data-price="99">
+                                    <span class="addon-switch-slider"></span>
+                                </label>
                             </div>
+                        </div>
+                        <div class="tariff-total">
+                            <div class="tariff-total-info">
+                                <div class="tariff-total-label">Итого в месяц</div>
+                                <div class="tariff-total-price">
+                                    <span class="tariff-total-amount" id="tariffTotalAmount">699</span>
+                                    <span class="tariff-total-currency">₽</span>
+                                </div>
+                            </div>
+                            <button class="tariff-total-btn" id="tariffTotalBtn">Подключить</button>
                         </div>
                     </div>
                 </div>
+
+                <!-- Дополнительные услуги -->
+                <div class="additional-services">
+                    <!-- Цифровое телевидение -->
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="2" y="4" width="20" height="14" rx="2" stroke="currentColor" stroke-width="2"/>
+                                <path d="M7 8H17M7 12H17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <h4 class="service-title">Цифровое телевидение</h4>
+                        <ul class="service-features">
+                            <li>
+                                <svg class="service-check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <span>До 285 каналов</span>
+                            </li>
+                            <li>
+                                <svg class="service-check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <span>От 0 ₽ в месяц</span>
+                            </li>
+                        </ul>
+                        <button class="service-btn">Подробнее</button>
+                    </div>
+
+                    <!-- Видеонаблюдение -->
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="2" y="3" width="20" height="14" rx="2" stroke="currentColor" stroke-width="2"/>
+                                <circle cx="8" cy="10" r="2" stroke="currentColor" stroke-width="2"/>
+                                <path d="M22 7L16 10L12 7L2 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <h4 class="service-title">Видеонаблюдение</h4>
+                        <ul class="service-features">
+                            <li>
+                                <svg class="service-check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <span>Хранение до 30 дней</span>
+                            </li>
+                            <li>
+                                <svg class="service-check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <span>Установка IP-видеокамер</span>
+                            </li>
+                        </ul>
+                        <button class="service-btn">Подробнее</button>
+                    </div>
+
+                    <!-- Интернет в офис -->
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <h4 class="service-title">Интернет в офис</h4>
+                        <ul class="service-features">
+                            <li>
+                                <svg class="service-check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <span>Скорость до 1000 Мбит/с</span>
+                            </li>
+                            <li>
+                                <svg class="service-check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <span>Независимое оптоволокно</span>
+                            </li>
+                            <li>
+                                <svg class="service-check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <span>Приоритетная поддержка</span>
+                            </li>
+                        </ul>
+                        <button class="service-btn">Подробнее</button>
+                    </div>
+                </div>
             </div>
-            <p class="tariffs-note">Все тарифы включают бесплатное подключение</p>
         </div>
     </section>
 
@@ -209,74 +312,122 @@
     <section id="advantages" class="advantages-section">
         <div class="container">
             <h2 class="advantages-title">Преимущества</h2>
-            <div class="advantages-grid">
-                <!-- Карточка 1 -->
-                <div class="advantage-card">
-                    <div class="advantage-icon">
-                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
+            <div class="advantages-wrapper">
+                <div class="advantages-grid">
+                    <!-- Карточка 1 -->
+                    <div class="advantage-card">
+                        <div class="advantage-icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <h3 class="advantage-title">Высокоскоростной домашний интернет до 1 Гбит/с</h3>
+                        <p class="advantage-description">
+                            Наслаждайтесь просмотром видео в 4K без задержек, играйте в онлайн-игры с минимальной задержкой и скачивайте большие файлы за секунды. Идеальное решение для современных цифровых развлечений и работы с большими объемами данных.
+                        </p>
+                        <ul class="advantage-features">
+                            <li>
+                                <svg class="feature-check-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <span>Просмотр видео в 4K и Full HD</span>
+                            </li>
+                            <li>
+                                <svg class="feature-check-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <span>Онлайн-игры без лагов</span>
+                            </li>
+                            <li>
+                                <svg class="feature-check-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <span>Быстрая загрузка файлов</span>
+                            </li>
+                        </ul>
                     </div>
-                    <h3 class="advantage-title">Высокоскоростной домашний интернет до 1 Гбит/с</h3>
-                    <p class="advantage-description">
-                        Наслаждайтесь просмотром видео в 4K без задержек, играйте в онлайн-игры с минимальной задержкой и скачивайте большие файлы за секунды. Идеальное решение для современных цифровых развлечений и работы с большими объемами данных.
-                    </p>
-                    <ul class="advantage-features">
-                        <li>
-                            <svg class="feature-check-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+
+                    <!-- Карточка 2 -->
+                    <div class="advantage-card">
+                        <div class="advantage-icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-width="2"/>
+                                <path d="M8 12L11 15L16 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
-                            <span>Просмотр видео в 4K и Full HD</span>
-                        </li>
-                        <li>
-                            <svg class="feature-check-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                            <span>Онлайн-игры без лагов</span>
-                        </li>
-                        <li>
-                            <svg class="feature-check-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                            <span>Быстрая загрузка файлов</span>
-                        </li>
-                    </ul>
+                        </div>
+                        <h3 class="advantage-title">Стабильный интернет для работы из дома</h3>
+                        <p class="advantage-description">
+                            Обеспечьте надежное подключение для видеозвонков, онлайн-презентаций и удаленной работы. Стабильное соединение без перебоев гарантирует продуктивность и комфорт во время важных встреч и развлечений.
+                        </p>
+                        <ul class="advantage-features">
+                            <li>
+                                <svg class="feature-check-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <span>Качественные видеозвонки</span>
+                            </li>
+                            <li>
+                                <svg class="feature-check-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <span>Онлайн-презентации без сбоев</span>
+                            </li>
+                            <li>
+                                <svg class="feature-check-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <span>Стабильное соединение 24/7</span>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
 
-                <!-- Карточка 2 -->
+                <!-- Блок скорости ответа и бесплатных услуг -->
                 <div class="advantage-card">
                     <div class="advantage-icon">
                         <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-width="2"/>
-                            <path d="M8 12L11 15L16 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M22 16.92V19.92C22 20.52 21.52 21 20.92 21H3.08C2.48 21 2 20.52 2 19.92V16.92C2 16.32 2.48 15.84 3.08 15.84H20.92C21.52 15.84 22 16.32 22 16.92Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12 2V15.84" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M8 6L12 2L16 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                     </div>
-                    <h3 class="advantage-title">Стабильный интернет для работы из дома</h3>
+                    <h3 class="advantage-title">Быстрая поддержка и бесплатные услуги</h3>
                     <p class="advantage-description">
-                        Обеспечьте надежное подключение для видеозвонков, онлайн-презентаций и удаленной работы. Стабильное соединение без перебоев гарантирует продуктивность и комфорт во время важных встреч и развлечений.
+                        Мы бесплатно настроим роутер, ТВ-приставку или Smart-телевизор — и приедем в удобное для вас время. А если кабель повреждён — заменим его без доплат.
                     </p>
                     <ul class="advantage-features">
                         <li>
                             <svg class="feature-check-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
-                            <span>Качественные видеозвонки</span>
+                            <span>В среднем отвечаем в мессенджерах за: <strong class="support-stat-number" data-target="22">0</strong> сек</span>
                         </li>
                         <li>
                             <svg class="feature-check-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
-                            <span>Онлайн-презентации без сбоев</span>
+                            <span>За последний час отвечали на звонок за: <strong class="support-stat-number" data-target="24">0</strong> сек</span>
                         </li>
                         <li>
                             <svg class="feature-check-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
-                            <span>Стабильное соединение 24/7</span>
+                            <span>Бесплатная настройка оборудования</span>
+                        </li>
+                        <li>
+                            <svg class="feature-check-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span>Бесплатная замена поврежденного кабеля</span>
+                        </li>
+                        <li>
+                            <svg class="feature-check-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span>Выезд в удобное для вас время</span>
                         </li>
                     </ul>
                 </div>
-            </div>
         </div>
     </section>
 

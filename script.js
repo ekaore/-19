@@ -54,6 +54,12 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Инициализация FAQ
     initFAQ();
+    
+    // Инициализация переключателей дополнительных опций
+    initTariffAddons();
+    
+    // Инициализация анимации статистики поддержки
+    initSupportStatsAnimation();
 });
 
 // Функции для проверки адреса
@@ -424,6 +430,54 @@ function initModalMapPlaceholder() {
     `;
 }
 
+// Инициализация переключателей дополнительных опций
+const baseTariffPrice = 699;
+
+function initTariffAddons() {
+    const addonSwitches = document.querySelectorAll('.addon-switch-input');
+    const totalAmountElement = document.getElementById('tariffTotalAmount');
+    
+    // Функция для обновления итоговой суммы
+    function updateTotalPrice() {
+        let total = baseTariffPrice;
+        
+        addonSwitches.forEach(switchEl => {
+            if (switchEl.checked) {
+                const price = parseInt(switchEl.dataset.price) || 0;
+                total += price;
+            }
+        });
+        
+        if (totalAmountElement) {
+            totalAmountElement.textContent = total;
+        }
+    }
+    
+    addonSwitches.forEach(switchEl => {
+        switchEl.addEventListener('change', function() {
+            const price = parseInt(this.dataset.price) || 0;
+            const addonItem = this.closest('.tariff-addon-item');
+            const priceElement = addonItem.querySelector('.addon-price');
+            
+            if (this.checked) {
+                priceElement.textContent = `+${price} ₽`;
+                addonItem.style.backgroundColor = 'rgba(230, 242, 255, 0.4)';
+                addonItem.style.border = '1px solid rgba(0, 102, 204, 0.2)';
+            } else {
+                priceElement.textContent = `+${price} ₽`;
+                addonItem.style.backgroundColor = '#F5F5F5';
+                addonItem.style.border = 'none';
+            }
+            
+            // Обновляем итоговую сумму
+            updateTotalPrice();
+        });
+    });
+    
+    // Инициализируем начальную сумму
+    updateTotalPrice();
+}
+
 // Проверка адреса из модального окна
 function checkAddressFromModal(address) {
     const checkModalBtn = document.getElementById('checkModalBtn');
@@ -511,5 +565,48 @@ function initFAQ() {
             }
         });
     });
+}
+
+// Анимация статистики поддержки
+function initSupportStatsAnimation() {
+    const statNumbers = document.querySelectorAll('.advantage-features .support-stat-number');
+    
+    if (statNumbers.length === 0) return;
+    
+    const observerOptions = {
+        threshold: 0.5,
+        rootMargin: '0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const target = parseInt(entry.target.dataset.target);
+                animateSupportNumber(entry.target, target);
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+    
+    statNumbers.forEach(stat => {
+        observer.observe(stat);
+    });
+}
+
+function animateSupportNumber(element, target) {
+    const duration = 1500;
+    const start = 0;
+    const increment = target / (duration / 16);
+    let current = start;
+    
+    const timer = setInterval(() => {
+        current += increment;
+        if (current >= target) {
+            element.textContent = target;
+            clearInterval(timer);
+        } else {
+            element.textContent = Math.floor(current);
+        }
+    }, 16);
 }
 
