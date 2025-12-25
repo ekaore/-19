@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лендинг</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Для работы карты раскомментируйте и укажите ваш API ключ Yandex Maps -->
+    <!-- <script src="https://api-maps.yandex.ru/2.1/?apikey=YOUR_API_KEY&lang=ru_RU" defer></script> -->
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <!-- Логотип -->
+                <div class="logo">
+                    <a href="/">
+                        <img src="logo.png" alt="Логотип компании" class="logo-img">
+                    </a>
+                </div>
+
+                <!-- Навигация -->
+                <nav class="nav">
+                    <ul class="nav-list">
+                        <li class="nav-item">
+                            <a href="#tariffs" class="nav-link">Тарифы</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#address-check" class="nav-link">Подключение</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#advantages" class="nav-link">Преимущества</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#contacts" class="nav-link">Контакты</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#faq" class="nav-link">Вопросы</a>
+                        </li>
+                    </ul>
+                </nav>
+
+                <!-- Контакты и кнопка -->
+                <div class="header-right">
+                    <a href="tel:+79991234567" class="phone-link">8 800 222 55 19</a>
+                    <button class="btn-cabinet">
+                        <svg class="btn-cabinet-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 12C14.7614 12 17 9.76142 17 7C17 4.23858 14.7614 2 12 2C9.23858 2 7 4.23858 7 7C7 9.76142 9.23858 12 12 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M20.59 22C20.59 18.13 16.74 15 12 15C7.26 15 3.41 18.13 3.41 22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span>Личный кабинет</span>
+                    </button>
+                </div>
+
+                <!-- Мобильное меню -->
+                <button class="mobile-menu-toggle" aria-label="Открыть меню">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Блок с заголовком и подзаголовком -->
+    <section class="intro-section">
+        <div class="container">
+            <h1 class="intro-title">Быстрый и стабильный интернет для дома и бизнеса — подключим уже сегодня!</h1>
+            <p class="intro-subtitle">Высокоскоростной интернет с гарантией стабильности. Выберите подходящий тариф и начните пользоваться качественным соединением прямо сейчас</p>
+        </div>
+    </section>
+
+    <!-- Блок Тарифы -->
+    <section id="tariffs" class="tariffs-section">
+        <div class="container">
+            <h2 class="tariffs-title">Выберите подходящий тариф</h2>
+            <div class="tariffs-grid">
+                <!-- Тариф 1 -->
+                <div class="tariff-card-new">
+                    <div class="tariff-left">
+                        <div class="tariff-left-header">ЕЖЕМЕСЯЧНАЯ ПЛАТА</div>
+                        <div class="tariff-left-price">
+                            <span class="price-main">699</span>
+                            <span class="price-unit">₽/мес</span>
+                        </div>
+                        <div class="tariff-left-separator"></div>
+                        <div class="tariff-left-features">
+                            <div class="tariff-feature-item">
+                                <svg class="feature-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <div class="feature-content">
+                                    <div class="feature-title">До 1000 Мбит/с</div>
+                                    <div class="feature-subtitle">Гигабитная скорость</div>
+                                </div>
+                            </div>
+                            <div class="tariff-feature-item">
+                                <svg class="feature-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="2" y="4" width="20" height="14" rx="2" stroke="currentColor" stroke-width="2"/>
+                                    <path d="M7 8H17M7 12H17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                                <div class="feature-content">
+                                    <div class="feature-title">191 ТВ канал</div>
+                                    <div class="feature-subtitle">Включено бесплатно</div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="tariff-connect-btn">Подключить</button>
+                        <div class="tariff-left-footer">Подключение бесплатно</div>
+                    </div>
+                    <div class="tariff-right">
+                        <span class="tariff-best-seller">Хит продаж</span>
+                        <h3 class="tariff-right-title">Что входит в тариф</h3>
+                        <ul class="tariff-included-list">
+                            <li>
+                                <svg class="check-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <span>Скорость до 1 Гбит/с</span>
+                            </li>
+                            <li>
+                                <svg class="check-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <span>Цифровое ТВ 191 канал</span>
+                            </li>
+                            <li>
+                                <svg class="check-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <span>До 10 устройств одновременно</span>
+                            </li>
+                            <li>
+                                <svg class="check-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <span>Скачивание 1 ГБ за 20 секунд</span>
+                            </li>
+                            <li>
+                                <svg class="check-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <span>Подключение бесплатно</span>
+                            </li>
+                        </ul>
+                        <div class="tariff-additional">
+                            <div class="tariff-additional-title">ДОПОЛНИТЕЛЬНО</div>
+                            <div class="tariff-addon-item">
+                                <svg class="addon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M5 12.55a11 11 0 0 1 14.08 0M1.42 9a16 16 0 0 1 21.16 0M8.53 16.11a6 6 0 0 1 6.95 0M12 20h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <span class="addon-name">Wi-Fi роутер SNR-CPE-ME2</span>
+                                <span class="addon-price">+99 ₽</span>
+                            </div>
+                            <div class="tariff-addon-item">
+                                <svg class="addon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="2" y="4" width="20" height="14" rx="2" stroke="currentColor" stroke-width="2"/>
+                                    <path d="M7 8H17M7 12H17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                                <span class="addon-name">ТВ приставка Imaqliq G-Box</span>
+                                <span class="addon-price">+99 ₽</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Тариф 2 -->
+                <div class="tariff-card-new">
+                    <div class="tariff-left">
+                        <div class="tariff-left-header">ЕЖЕМЕСЯЧНАЯ ПЛАТА</div>
+                        <div class="tariff-left-price">
+                            <span class="price-main">499</span>
+                            <span class="price-unit">₽/мес</span>
+                        </div>
+                        <div class="tariff-left-separator"></div>
+                        <div class="tariff-left-features">
+                            <div class="tariff-feature-item">
+                                <svg class="feature-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <div class="feature-content">
+                                    <div class="feature-title">До 500 Мбит/с</div>
+                                    <div class="feature-subtitle">Высокая скорость</div>
+                                </div>
+                            </div>
+                            <div class="tariff-feature-item">
+                                <svg class="feature-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="2" y="4" width="20" height="14" rx="2" stroke="currentColor" stroke-width="2"/>
+                                    <path d="M7 8H17M7 12H17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                                <div class="feature-content">
+                                    <div class="feature-title">150 ТВ каналов</div>
+                                    <div class="feature-subtitle">Включено бесплатно</div>
+                                </div>
+                            </div>
+                    </div>
+                        <button class="tariff-connect-btn">Подключить</button>
+                        <div class="tariff-left-footer">Подключение бесплатно</div>
+                    </div>
+                    <div class="tariff-right">
+                        <h3 class="tariff-right-title">Что входит в тариф</h3>
+                        <ul class="tariff-included-list">
+                            <li>
+                                <svg class="check-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <span>Скорость до 500 Мбит/с</span>
+                            </li>
+                            <li>
+                                <svg class="check-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <span>Цифровое ТВ 150 каналов</span>
+                            </li>
+                            <li>
+                                <svg class="check-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <span>До 5 устройств одновременно</span>
+                            </li>
+                            <li>
+                                <svg class="check-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <span>Подключение бесплатно</span>
+                            </li>
+                    </ul>
+                        <div class="tariff-additional">
+                            <div class="tariff-additional-title">ДОПОЛНИТЕЛЬНО</div>
+                            <div class="tariff-addon-item">
+                                <svg class="addon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M5 12.55a11 11 0 0 1 14.08 0M1.42 9a16 16 0 0 1 21.16 0M8.53 16.11a6 6 0 0 1 6.95 0M12 20h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <span class="addon-name">Wi-Fi роутер SNR-CPE-ME2</span>
+                                <span class="addon-price">+99 ₽</span>
+                            </div>
+                            <div class="tariff-addon-item">
+                                <svg class="addon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="2" y="4" width="20" height="14" rx="2" stroke="currentColor" stroke-width="2"/>
+                                    <path d="M7 8H17M7 12H17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                                <span class="addon-name">ТВ приставка Imaqliq G-Box</span>
+                                <span class="addon-price">+99 ₽</span>
+                </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            <p class="tariffs-note">Все тарифы включают бесплатное подключение</p>
+        </div>
+    </section>
+
+    <!-- Блок Проверка подключения по адресу -->
+    <section id="address-check" class="address-check-section">
+        <div class="container">
+            <div class="address-check-wrapper">
+                <div class="address-check-card">
+                    <h3 class="address-check-title">Проверьте возможность подключения</h3>
+                    <div class="address-check-form-row">
+                        <input 
+                            type="text" 
+                            id="addressInput" 
+                            class="address-input" 
+                            placeholder="Введите город, улицу, дом"
+                            autocomplete="off"
+                        >
+                        <div class="address-map-preview" id="addressMapPreview">
+                            <!-- Карта будет здесь -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Блок Преимущества -->
+    <section id="advantages" class="advantages-section">
+        <div class="container">
+            <h2 class="advantages-title">Преимущества</h2>
+            <div class="advantages-grid">
+                <!-- Карточка 1 -->
+                <div class="advantage-card">
+                    <div class="advantage-icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="advantage-title">Высокоскоростной домашний интернет до 1 Гбит/с</h3>
+                    <p class="advantage-description">
+                        Наслаждайтесь просмотром видео в 4K без задержек, играйте в онлайн-игры с минимальной задержкой и скачивайте большие файлы за секунды. Идеальное решение для современных цифровых развлечений и работы с большими объемами данных.
+                    </p>
+                    <ul class="advantage-features">
+                        <li>
+                            <svg class="feature-check-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span>Просмотр видео в 4K и Full HD</span>
+                        </li>
+                        <li>
+                            <svg class="feature-check-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span>Онлайн-игры без лагов</span>
+                        </li>
+                        <li>
+                            <svg class="feature-check-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span>Быстрая загрузка файлов</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Карточка 2 -->
+                <div class="advantage-card">
+                    <div class="advantage-icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-width="2"/>
+                            <path d="M8 12L11 15L16 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="advantage-title">Стабильный интернет для работы из дома</h3>
+                    <p class="advantage-description">
+                        Обеспечьте надежное подключение для видеозвонков, онлайн-презентаций и удаленной работы. Стабильное соединение без перебоев гарантирует продуктивность и комфорт во время важных встреч и развлечений.
+                    </p>
+                    <ul class="advantage-features">
+                        <li>
+                            <svg class="feature-check-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span>Качественные видеозвонки</span>
+                        </li>
+                        <li>
+                            <svg class="feature-check-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span>Онлайн-презентации без сбоев</span>
+                        </li>
+                        <li>
+                            <svg class="feature-check-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span>Стабильное соединение 24/7</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Блок Контакты -->
+    <section id="contacts" class="contacts-section">
+        <div class="container">
+            <h2 class="contacts-title">Свяжитесь с нами</h2>
+            <p class="contacts-subtitle">Ответим на любые вопросы о подключении</p>
+            <div class="contacts-wrapper">
+                <div class="contacts-grid">
+                    <!-- Карточка Телефон -->
+                    <div class="contact-card contact-card-phone">
+                        <svg class="contact-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M3 5C3 3.89543 3.89543 3 5 3H8.27924C8.70967 3 9.09181 3.27543 9.22792 3.68377L10.7257 8.17721C10.8831 8.64932 10.6694 9.16531 10.2243 9.38787L7.96701 10.5165C9.06925 12.9612 11.0388 14.9308 13.4835 16.033L14.6121 13.7757C14.8347 13.3306 15.3507 13.1169 15.8228 13.2743L20.3162 14.7721C20.7246 14.9082 21 15.2903 21 15.7208V19C21 20.1046 20.1046 21 19 21H18C9.71573 21 3 14.2843 3 6V5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <div class="contact-label">Бесплатный звонок</div>
+                        <a href="tel:+78002225519" class="contact-value contact-phone">8 800 222 55 19</a>
+                    </div>
+
+                    <!-- Карточка Telegram -->
+                    <div class="contact-card">
+                        <svg class="contact-icon contact-icon-telegram" width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M2.01 21L23 12L2.01 3L2 10L17 12L2 14L2.01 21Z" fill="currentColor"/>
+                        </svg>
+                        <div class="contact-label">Telegram</div>
+                        <a href="https://t.me/PG19CONNECTBOT" class="contact-value" target="_blank">@PG19CONNECTBOT</a>
+                    </div>
+                    
+                    <!-- Карточка Email -->
+                    <div class="contact-card">
+                        <svg class="contact-icon contact-icon-email" width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="2"/>
+                            <path d="M3 7L12 13L21 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <div class="contact-label">Email</div>
+                        <a href="mailto:a@pg19.ru" class="contact-value">a@pg19.ru</a>
+                    </div>
+                    
+                    <!-- Карточка Офис продаж -->
+                    <div class="contact-card">
+                        <svg class="contact-icon contact-icon-location" width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M21 10C21 17 12 23 12 23C12 23 3 17 3 10C3 7.61305 3.94821 5.32387 5.63604 3.63604C7.32387 1.94821 9.61305 1 12 1C14.3869 1 16.6761 1.94821 18.364 3.63604C20.0518 5.32387 21 7.61305 21 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <circle cx="12" cy="10" r="3" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                        <div class="contact-label">Офис продаж</div>
+                        <div class="contact-value">г. Таганрог, ул. Большая Бульварная, 11</div>
+                        <div class="contact-hours">Пн-Пт 8:00 - 20:00</div>
+                    </div>
+                </div>
+
+                <!-- Карточка Призыва к действию -->
+                <div class="contact-cta-card">
+                    <div class="cta-icon-wrapper">
+                        <svg class="cta-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="cta-title">Подключите интернет сегодня</h3>
+                    <p class="cta-description">Оставьте заявку - перезвоним в течение 15 минут и согласуем удобное время для подключения.</p>
+                    <ul class="cta-features">
+                        <li>
+                            <svg class="cta-check-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span>Бесплатное подключение</span>
+                        </li>
+                        <li>
+                            <svg class="cta-check-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span>Подключение за 1 день</span>
+                        </li>
+                        <li>
+                            <svg class="cta-check-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span>Без скрытых платежей</span>
+                        </li>
+                    </ul>
+                    <button class="cta-button">Оставить заявку</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Блок Города -->
+    <section class="cities-section">
+        <div class="container">
+            <div class="cities-wrapper">
+                <span class="cities-label">Работаем в:</span>
+                <div class="cities-tags">
+                    <span class="city-tag">Таганрог</span>
+                    <span class="city-tag">Ростов-на-Дону</span>
+                    <span class="city-tag">Батайск</span>
+                    <span class="city-tag">Неклиновский район</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Модальное окно с картой -->
+    <div class="map-modal" id="mapModal">
+        <div class="map-modal-content">
+            <div class="map-modal-header">
+                <h3 class="map-modal-title">Адрес подключения</h3>
+                <button class="map-modal-close" id="mapModalClose">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                    </div>
+            <div class="map-modal-body">
+                <div class="map-modal-form-row">
+                        <input 
+                            type="text" 
+                        id="mapModalInput" 
+                        class="map-modal-input" 
+                        placeholder="Введите город, улицу, дом"
+                        autocomplete="off"
+                    >
+                    <button type="button" class="btn-check-modal" id="checkModalBtn">
+                        ПРОВЕРИТЬ
+                        </button>
+                    </div>
+                <div class="map-modal-map" id="mapModalMap">
+                    <!-- Карта будет здесь -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Блок Часто задаваемые вопросы -->
+    <section id="faq" class="faq-section">
+        <div class="container">
+            <h2 class="faq-title">Часто задаваемые вопросы</h2>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Как быстро происходит подключение интернета?</span>
+                        <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Подключение интернета происходит в течение 1 дня после оформления заявки. Наш специалист свяжется с вами в течение 15 минут для согласования удобного времени подключения.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Сколько стоит подключение?</span>
+                        <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Подключение интернета абсолютно бесплатно! Мы также предоставляем роутер в подарок. Никаких скрытых платежей или дополнительных сборов.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Какую скорость интернета вы гарантируете?</span>
+                        <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Мы гарантируем стабильную скорость интернета до 1 Гбит/с в зависимости от выбранного тарифа. Скорость соответствует заявленным параметрам и остается стабильной 24/7.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Что входит в тариф?</span>
+                        <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Все наши тарифы включают: высокоскоростной интернет, цифровое ТВ с множеством каналов, безлимитный трафик, роутер в подарок, техническую поддержку 24/7 и бесплатное подключение.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Как можно оформить заявку?</span>
+                        <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Вы можете оставить заявку несколькими способами: заполнить форму на сайте, позвонить по бесплатному номеру 8 800 222 55 19, написать нам на email a@pg19.ru или связаться через Telegram @PG19CONNECTBOT.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Футер -->
+    <footer class="footer">
+            <div class="container">
+            <div class="footer-content">
+                <!-- Левая колонка: Информация о компании -->
+                <div class="footer-column footer-about">
+                    <div class="footer-logo">
+                        <span class="logo-letter logo-p">П</span>
+                        <span class="logo-letter logo-zh">Ж</span>
+                        <span class="logo-number">19</span>
+                    </div>
+                    <p class="footer-description">
+                        Интернет-провайдер в Таганроге, Ростове-на-Дону и Батайске. Гигабитный интернет + ТВ по честной цене.
+                    </p>
+                    <a href="https://t.me/PG19CONNECTBOT" class="footer-social" target="_blank" aria-label="Telegram">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M2.01 21L23 12L2.01 3L2 10L17 12L2 14L2.01 21Z" fill="currentColor"/>
+                        </svg>
+                    </a>
+                </div>
+
+                <!-- Средняя колонка: Навигация -->
+                <div class="footer-column footer-nav">
+                    <h4 class="footer-column-title">Навигация</h4>
+                    <ul class="footer-nav-list">
+                        <li><a href="#advantages" class="footer-nav-link">Преимущества</a></li>
+                        <li><a href="#tariffs" class="footer-nav-link">Тариф</a></li>
+                        <li><a href="#contacts" class="footer-nav-link">Контакты</a></li>
+                    </ul>
+                </div>
+
+                <!-- Правая колонка: Контакты -->
+                <div class="footer-column footer-contacts">
+                    <h4 class="footer-column-title">Контакты</h4>
+                    <div class="footer-contact-item">
+                        <a href="tel:+78002225519" class="footer-phone">8 800 222 55 19</a>
+                        <span class="footer-phone-label">бесплатно</span>
+                    </div>
+                    <div class="footer-contact-item">
+                        <a href="mailto:a@pg19.ru" class="footer-link">a@pg19.ru</a>
+                    </div>
+                    <div class="footer-contact-item">
+                        <span class="footer-text">г. Таганрог, ул. Большая Бульварная, 11</span>
+                    </div>
+                    <div class="footer-contact-item">
+                        <span class="footer-text">Пн-Пт 8:00 - 20:00</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Нижняя часть футера -->
+            <div class="footer-bottom">
+                <div class="footer-copyright">© 2025 ПЖ19. Все права защищены.</div>
+                <div class="footer-url">taganrog.pg19.ru</div>
+            </div>
+        </div>
+
+        <!-- Кнопка Telegram -->
+        <a href="https://t.me/PG19CONNECTBOT" class="footer-telegram-btn" target="_blank" aria-label="Открыть Telegram">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M2.01 21L23 12L2.01 3L2 10L17 12L2 14L2.01 21Z" fill="currentColor"/>
+            </svg>
+        </a>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
