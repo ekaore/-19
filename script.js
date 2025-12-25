@@ -60,6 +60,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Инициализация анимации статистики поддержки
     initSupportStatsAnimation();
+    
+    // Инициализация форм заявки
+    initOrderForms();
 });
 
 // Функции для проверки адреса
@@ -826,5 +829,213 @@ function animateSupportNumber(element, target) {
             element.textContent = Math.floor(current);
         }
     }, 16);
+}
+
+// Инициализация форм заявки
+function initOrderForms() {
+    // Модальное окно заявки
+    const orderModal = document.getElementById('orderModal');
+    const orderModalClose = document.getElementById('orderModalClose');
+    const orderForm = document.getElementById('orderForm');
+    const tariffTotalBtn = document.getElementById('tariffTotalBtn');
+    const ctaButton = document.querySelector('.cta-button');
+    
+    // Открытие модального окна при нажатии на кнопку "Подключить" в тарифе
+    if (tariffTotalBtn) {
+        tariffTotalBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            openOrderModal();
+        });
+    }
+    
+    // Открытие модального окна при нажатии на кнопку "Оставить заявку" в контактах (если форма не найдена)
+    if (ctaButton) {
+        const existingForm = ctaButton.closest('.contact-cta-card')?.querySelector('form');
+        if (!existingForm) {
+            ctaButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                openOrderModal();
+            });
+        }
+    }
+    
+    // Закрытие модального окна
+    if (orderModalClose) {
+        orderModalClose.addEventListener('click', function() {
+            closeOrderModal();
+        });
+    }
+    
+    // Закрытие при клике вне модального окна
+    if (orderModal) {
+        orderModal.addEventListener('click', function(e) {
+            if (e.target === orderModal) {
+                closeOrderModal();
+            }
+        });
+    }
+    
+    // Закрытие по Escape
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && orderModal && orderModal.classList.contains('active')) {
+            closeOrderModal();
+        }
+    });
+    
+    // Обработка отправки формы в модальном окне
+    if (orderForm) {
+        orderForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            submitOrderForm(this);
+        });
+    }
+    
+    // Обработка отправки формы звонка
+    const contactFormCall = document.getElementById('contactFormCall');
+    if (contactFormCall) {
+        contactFormCall.addEventListener('submit', function(e) {
+            e.preventDefault();
+            submitContactForm(this, 'call');
+        });
+    }
+    
+    // Обработка отправки формы письма
+    const contactFormEmail = document.getElementById('contactFormEmail');
+    if (contactFormEmail) {
+        contactFormEmail.addEventListener('submit', function(e) {
+            e.preventDefault();
+            submitContactForm(this, 'email');
+        });
+    }
+}
+
+// Открыть модальное окно заявки
+function openOrderModal() {
+    const orderModal = document.getElementById('orderModal');
+    const orderAddress = document.getElementById('orderAddress');
+    const orderTariffTotal = document.getElementById('orderTariffTotal');
+    const addressInput = document.getElementById('addressInput');
+    const tariffTotalAmount = document.getElementById('tariffTotalAmount');
+    
+    if (!orderModal) return;
+    
+    // Копируем адрес из поля проверки, если он заполнен
+    if (orderAddress && addressInput && addressInput.value.trim()) {
+        orderAddress.value = addressInput.value.trim();
+    }
+    
+    // Копируем итоговую сумму тарифа
+    if (orderTariffTotal && tariffTotalAmount) {
+        const total = tariffTotalAmount.textContent || '699';
+        orderTariffTotal.textContent = total + ' ₽';
+    }
+    
+    orderModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+// Закрыть модальное окно заявки
+function closeOrderModal() {
+    const orderModal = document.getElementById('orderModal');
+    if (orderModal) {
+        orderModal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+}
+
+// Отправить форму заявки из модального окна
+function submitOrderForm(form) {
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const originalText = submitBtn.textContent;
+    
+    // Показываем состояние загрузки
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Отправка...';
+    
+    // Имитация отправки формы
+    setTimeout(() => {
+        // Очищаем форму
+        form.reset();
+        
+        // Восстанавливаем кнопку
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+        
+        // Закрываем модальное окно заявки
+        closeOrderModal();
+        
+        // Показываем модальное окно успешной отправки
+        showOrderSuccessModal();
+    }, 1500);
+}
+
+// Отправить форму заявки из раздела контактов
+function submitContactForm(form, type) {
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const originalText = submitBtn.textContent;
+    
+    // Показываем состояние загрузки
+    submitBtn.disabled = true;
+    submitBtn.textContent = type === 'call' ? 'Отправка...' : 'Отправка...';
+    
+    // Имитация отправки формы
+    setTimeout(() => {
+        // Очищаем форму
+        form.reset();
+        
+        // Восстанавливаем кнопку
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+        
+        // Показываем модальное окно успешной отправки
+        showOrderSuccessModal();
+    }, 1500);
+}
+
+// Показать модальное окно успешной отправки заявки
+function showOrderSuccessModal() {
+    const modal = document.getElementById('orderSuccessModal');
+    const closeBtn = document.getElementById('orderSuccessModalClose');
+    const closeBtnSecondary = document.getElementById('orderSuccessCloseBtn');
+    
+    if (!modal) return;
+    
+    // Показываем модальное окно
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    
+    // Обработчики закрытия
+    if (closeBtn) {
+        closeBtn.onclick = () => closeOrderSuccessModal();
+    }
+    
+    if (closeBtnSecondary) {
+        closeBtnSecondary.onclick = () => closeOrderSuccessModal();
+    }
+    
+    // Закрытие при клике вне модального окна
+    modal.onclick = (e) => {
+        if (e.target === modal) {
+            closeOrderSuccessModal();
+        }
+    };
+    
+    // Закрытие по Escape
+    const escapeHandler = (e) => {
+        if (e.key === 'Escape') {
+            closeOrderSuccessModal();
+            document.removeEventListener('keydown', escapeHandler);
+        }
+    };
+    document.addEventListener('keydown', escapeHandler);
+}
+
+// Закрыть модальное окно успешной отправки
+function closeOrderSuccessModal() {
+    const modal = document.getElementById('orderSuccessModal');
+    if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
 }
 
