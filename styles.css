@@ -1616,6 +1616,12 @@ svg {
     }
 }
 
+/* Блок Города */
+.cities-section {
+    padding: clamp(30px, 5vw, 0px);
+    background-color: var(--white);
+}
+
 .cities-wrapper {
     display: flex;
     align-items: center;
@@ -1658,7 +1664,7 @@ svg {
 
 @media (max-width: 768px) {
     .cities-section {
-        padding: 24px 0;
+        padding: clamp(32px, 4vw, 40px) 0 clamp(24px, 3vw, 32px) 0;
     }
 
     .cities-wrapper {
