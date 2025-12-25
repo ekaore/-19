@@ -69,6 +69,8 @@ document.addEventListener('DOMContentLoaded', function() {
 let selectedAddress = null;
 let yandexMapModal = null;
 let mapMarkerModal = null;
+let yandexMapCheck = null;
+let mapMarkerCheck = null;
 
 // Статические данные для автодополнения (демо)
 const addressSuggestions = [
@@ -85,7 +87,6 @@ let autocompleteItems = [];
 function initAddressCheck() {
     const addressInput = document.getElementById('addressInput');
     const checkAddressBtn = document.getElementById('checkAddressBtn');
-    const openMapLink = document.getElementById('openMapLink');
     const autocomplete = document.getElementById('addressAutocomplete');
 
     if (!addressInput) return;
@@ -168,13 +169,131 @@ function initAddressCheck() {
         }
     });
 
-    // Обработчик ссылки "Указать адрес на карте"
-    if (openMapLink) {
-        openMapLink.addEventListener('click', function(e) {
-            e.preventDefault();
-            openMapModal();
+    // Инициализация карты в блоке
+    initAddressCheckMap();
+}
+
+// Инициализация карты в блоке проверки адреса
+function initAddressCheckMap() {
+    const mapContainer = document.getElementById('addressCheckMap');
+    if (!mapContainer) return;
+
+    // Проверяем, загружена ли библиотека Yandex Maps
+    if (typeof ymaps !== 'undefined') {
+        // Ждем полной загрузки API
+        ymaps.ready(function() {
+            yandexMapCheck = new ymaps.Map('addressCheckMap', {
+                center: [55.7558, 37.6173], // Москва по умолчанию
+                zoom: 12,
+                controls: ['zoomControl', 'fullscreenControl', 'geolocationControl']
+            });
+
+            // Обработчик клика на карту для выбора адреса
+            yandexMapCheck.events.add('click', function(e) {
+                const coords = e.get('coords');
+                
+                // Получаем адрес по координатам (обратное геокодирование)
+                ymaps.geocode(coords).then(function(res) {
+                    const firstGeoObject = res.geoObjects.get(0);
+                    if (firstGeoObject) {
+                        const address = firstGeoObject.getAddressLine();
+                        
+                        // Обновляем поле ввода
+                        const addressInput = document.getElementById('addressInput');
+                        if (addressInput) {
+                            addressInput.value = address;
+                        }
+                        
+                        // Обновляем карту с меткой и проверяем адрес
+                        updateAddressCheckMap(address, true);
+                        checkAddress(address);
+                    }
+                });
+            });
+
+            // Добавляем зоны покрытия
+            addCoverageZonesCheck();
         });
+    } else {
+        // Заглушка для карты, если API не загружен
+        mapContainer.innerHTML = `
+            <div style="display: flex; align-items: center; justify-content: center; height: 100%; background: linear-gradient(135deg, #E6F2FF 0%, #FFFFFF 100%); border-radius: 12px;">
+                <div style="text-align: center; color: #666;">
+                    <div style="font-size: 48px; margin-bottom: 16px;">🗺️</div>
+                    <div>Карта будет отображена здесь</div>
+                    <div style="font-size: 12px; margin-top: 8px; opacity: 0.7;">
+                        Для работы карты необходим API ключ Yandex Maps
+                    </div>
+                </div>
+            </div>
+        `;
     }
+}
+
+// Обновление карты в блоке проверки адреса
+function updateAddressCheckMap(address, isAvailable) {
+    if (!yandexMapCheck) return;
+
+    // Удаляем предыдущую метку
+    if (mapMarkerCheck) {
+        yandexMapCheck.geoObjects.remove(mapMarkerCheck);
+    }
+
+    // Получаем координаты адреса
+    ymaps.geocode(address).then(function(res) {
+        const firstGeoObject = res.geoObjects.get(0);
+        if (firstGeoObject) {
+            const coords = firstGeoObject.geometry.getCoordinates();
+            
+            // Создаем метку
+            const iconColor = isAvailable ? '#4CAF50' : '#FF9800';
+            const iconGlyph = isAvailable ? 'check' : 'warning';
+            
+            mapMarkerCheck = new ymaps.Placemark(coords, {
+                balloonContent: `<strong>${address}</strong><br>${isAvailable ? 'Подключение доступно' : 'Требуется уточнение'}`
+            }, {
+                iconColor: iconColor,
+                iconGlyph: iconGlyph,
+                preset: 'islands#circleIcon'
+            });
+
+            yandexMapCheck.geoObjects.add(mapMarkerCheck);
+            yandexMapCheck.setCenter(coords, 15);
+            
+            // Открываем балун
+            mapMarkerCheck.balloon.open();
+        }
+    });
+}
+
+// Добавление зон покрытия на карту в блоке
+function addCoverageZonesCheck() {
+    if (!yandexMapCheck) return;
+
+    // Пример зон покрытия (Москва)
+    const coverageZones = [
+        {
+            coords: [[55.7, 37.5], [55.8, 37.5], [55.8, 37.7], [55.7, 37.7]],
+            color: 'rgba(76, 175, 80, 0.3)',
+            strokeColor: '#4CAF50'
+        },
+        {
+            coords: [[55.6, 37.4], [55.7, 37.4], [55.7, 37.6], [55.6, 37.6]],
+            color: 'rgba(76, 175, 80, 0.3)',
+            strokeColor: '#4CAF50'
+        }
+    ];
+
+    coverageZones.forEach(zone => {
+        const polygon = new ymaps.Polygon([zone.coords], {}, {
+            fillColor: zone.color,
+            strokeColor: zone.strokeColor,
+            strokeWidth: 2,
+            opacity: 0.6
+        });
+
+        yandexMapCheck.geoObjects.add(polygon);
+    });
 }
 
 // Показать автодополнение
@@ -281,6 +400,11 @@ function checkAddress(address) {
 
         // Показываем модальное окно с результатом
         showAddressResultModal(address, isAvailable);
+        
+        // Обновляем карту с результатом
+        if (yandexMapCheck) {
+            updateAddressCheckMap(address, isAvailable);
+        }
     }, 1500);
 }
 

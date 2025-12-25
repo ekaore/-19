@@ -306,7 +306,7 @@ svg {
 .intro-section {
     position: relative;
     background: linear-gradient(135deg, rgba(230, 242, 255, 0.4) 0%, rgba(255, 255, 255, 0.8) 50%, rgba(230, 242, 255, 0.2) 100%);
-    padding: clamp(50px, 8vw, 50px) 0;
+    padding: 30px 0;
     overflow: hidden;
 }
 
@@ -379,6 +379,7 @@ svg {
 /* Блок Тарифы */
 .tariffs-section {
     background-color: var(--white);
+    padding: 30px 0;
 }
 
 .tariffs-title {
@@ -940,7 +941,7 @@ svg {
 
 @media (max-width: 768px) {
     .tariffs-section {
-        padding: 60px 0;
+        padding: 30px 0;
     }
 
     .tariffs-title {
@@ -963,7 +964,7 @@ svg {
 
 @media (max-width: 480px) {
     .tariffs-section {
-        padding: 40px 0;
+        padding: 30px 0;
     }
 
     .tariffs-title {
@@ -1024,8 +1025,7 @@ svg {
 
 /* Блок Преимущества */
 .advantages-section {
-    padding: clamp(30px, 8vw, 0px) 0;
-    background-color: var(--white);
+    padding: 30px 0;
 }
 
 .advantages-title {
@@ -1170,7 +1170,7 @@ svg {
 
 @media (max-width: 768px) {
     .advantages-section {
-        padding: 60px 0;
+        padding: 30px 0;
     }
 
     .advantages-title {
@@ -1209,7 +1209,7 @@ svg {
 
 @media (max-width: 480px) {
     .advantages-section {
-        padding: 40px 0;
+        padding: 30px 0;
     }
 
     .advantages-title {
@@ -1249,7 +1249,7 @@ svg {
 
 /* Блок "Как мы работаем" */
 .how-it-works-section {
-    padding: clamp(30px, 8vw, 0px) 0;
+    padding: 30px 0;
 }
 
 .how-it-works-title {
@@ -1378,7 +1378,7 @@ svg {
 
 @media (max-width: 768px) {
     .how-it-works-section {
-        padding: clamp(40px, 5vw, 60px) 0;
+        padding: 30px 0;
     }
 
     .how-it-works-title {
@@ -1389,7 +1389,7 @@ svg {
 
 /* Блок Контакты */
 .contacts-section {
-    padding: clamp(40px, 5vw, 60px) 0;
+    padding: 30px 0;
     background-color: var(--white);
 }
 
@@ -1511,10 +1511,6 @@ svg {
     transform: translateY(-2px);
 }
 
-.contact-form-card.active {
-    border-color: var(--primary-blue);
-    box-shadow: 0 4px 12px rgba(0, 102, 204, 0.15);
-}
 
 .contact-form-card-header {
     display: flex;
@@ -2016,7 +2012,7 @@ svg {
 
 @media (max-width: 768px) {
     .contacts-section {
-        padding: clamp(32px, 4vw, 40px) 0;
+        padding: 30px 0;
     }
 
     .contacts-title {
@@ -2044,7 +2040,7 @@ svg {
 
 @media (max-width: 480px) {
     .contacts-section {
-        padding: clamp(24px, 3vw, 32px) 0;
+        padding: 30px 0;
     }
 
     .contacts-title {
@@ -2062,7 +2058,7 @@ svg {
 
 /* Блок Города */
 .cities-section {
-    padding: clamp(30px, 5vw, 0px);
+    padding: 30px 0;
     background-color: var(--white);
 }
 
@@ -2108,7 +2104,7 @@ svg {
 
 @media (max-width: 768px) {
     .cities-section {
-        padding: clamp(32px, 4vw, 40px) 0 clamp(24px, 3vw, 32px) 0;
+        padding: 30px 0;
     }
 
     .cities-wrapper {
@@ -2127,7 +2123,7 @@ svg {
 
 @media (max-width: 480px) {
     .cities-section {
-        padding: 20px 0;
+        padding: 30px 0;
     }
 
     .cities-wrapper {
@@ -2148,7 +2144,7 @@ svg {
 
 /* Блок Часто задаваемые вопросы */
 .faq-section {
-    padding: clamp(30px, 8vw, 0px) 0;
+    padding: 30px 0;
     background-color: var(--white);
 }
 
@@ -2236,7 +2232,7 @@ svg {
 
 @media (max-width: 768px) {
     .faq-section {
-        padding: 60px 0;
+        padding: 30px 0;
     }
 
     .faq-title {
@@ -2260,7 +2256,7 @@ svg {
 
 @media (max-width: 480px) {
     .faq-section {
-        padding: 40px 0;
+        padding: 30px 0;
     }
 
     .faq-title {
@@ -2567,27 +2563,27 @@ svg {
     }
 }
 
-.address-check-wrapper {
-    display: flex;
-    align-items: flex-start;
-    position: relative;
+.address-check-section {
+    padding: 30px 0;
 }
 
 .address-check-card {
     background-color: var(--white);
     border-radius: var(--radius-lg);
     padding: clamp(32px, 4vw, 48px);
-    box-shadow: var(--shadow-md);
+    box-shadow: var(--shadow-lg);
     width: 100%;
     max-width: 100%;
-    border: 1px solid rgba(0, 102, 204, 0.05);
+    border: 1px solid rgba(0, 102, 204, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: clamp(15px, 3vw, 5px);
 }
 
 .address-check-title {
     font-size: clamp(24px, 3vw, 32px);
     font-weight: 700;
     color: var(--text-dark);
-    margin-bottom: clamp(24px, 3vw, 36px);
     margin-top: 0;
     letter-spacing: -0.02em;
 }
@@ -2701,29 +2697,17 @@ svg {
     width: auto;
 }
 
-.address-map-link {
-    color: var(--primary-blue);
-    text-decoration: none;
-    font-size: 15px;
-    font-weight: 500;
-    text-align: center;
-    transition: color 0.3s ease;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
+.address-check-map-container {
+    width: 100%;
+    margin-top: clamp(16px, 2vw, 24px);
 }
 
-.address-map-link-icon {
-    flex-shrink: 0;
-    width: 20px;
-    height: 20px;
-}
-
-.address-map-link:hover {
-    color: var(--primary-blue-dark);
-    text-decoration: underline;
+.address-check-map {
+    width: 100%;
+    height: clamp(400px, 50vw, 600px);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
 }
 
 .form-row {
@@ -3104,7 +3088,7 @@ svg {
 
 @media (max-width: 768px) {
     .address-check-section {
-        padding: 60px 0;
+        padding: 30px 0;
     }
 
     .address-check-card {
@@ -3122,6 +3106,10 @@ svg {
 
     .address-check-form-row .btn-check {
         width: 100%;
+    }
+
+    .address-check-map {
+        height: 350px;
     }
 
     .map-modal-content {
@@ -3158,7 +3146,7 @@ svg {
 
 @media (max-width: 480px) {
     .address-check-section {
-        padding: 40px 0;
+        padding: 30px 0;
     }
 
     .address-check-card {
@@ -3173,6 +3161,10 @@ svg {
     .address-input {
         font-size: 16px;
         padding: 12px 16px;
+    }
+
+    .address-check-map {
+        height: 300px;
     }
 
     .map-modal {
