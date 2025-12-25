@@ -1683,9 +1683,15 @@ body {
     margin-top: 0;
 }
 
+.address-check-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
 .address-check-form-row {
     display: flex;
-    gap: 20px;
+    gap: 16px;
     align-items: stretch;
 }
 
@@ -1707,39 +1713,35 @@ body {
     background-color: var(--white);
 }
 
-.address-map-preview {
-    width: 300px;
-    min-width: 300px;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    background-color: #E0E0E0;
+.address-check-form-row .btn-check {
+    flex-shrink: 0;
+    min-width: 140px;
+    width: auto;
+}
+
+.address-map-link {
+    color: var(--primary-blue);
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    text-align: center;
+    transition: color 0.3s ease;
     cursor: pointer;
-    transition: all 0.3s ease;
-    position: relative;
-    background-image: 
-        linear-gradient(135deg, rgba(0, 0, 0, 0.05) 0%, transparent 50%),
-        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect fill="%23f0f0f0" width="100" height="100"/><path d="M20 20 L80 20 L80 80 L20 80 Z" fill="%23e0e0e0" stroke="%23d0d0d0" stroke-width="0.5"/><circle cx="30" cy="30" r="2" fill="%23c0c0c0"/><circle cx="70" cy="50" r="2" fill="%23c0c0c0"/><circle cx="50" cy="70" r="2" fill="%23c0c0c0"/></svg>');
-    background-size: cover;
-    background-position: center;
-    height: 56px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
 }
 
-.address-map-preview:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    transform: translateY(-2px);
+.address-map-link-icon {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
 }
 
-.address-map-preview::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.1) 0%, transparent 100%);
-    pointer-events: none;
-    border-radius: 8px;
+.address-map-link:hover {
+    color: var(--primary-blue-dark);
+    text-decoration: underline;
 }
 
 .form-row {
@@ -2056,7 +2058,7 @@ body {
 
 .btn-check-modal {
     padding: 14px 32px;
-    background-color: #E30611;
+    background-color: rgb(0, 102, 204);
     color: var(--white);
     border: none;
     border-radius: 8px;
@@ -2069,9 +2071,7 @@ body {
 }
 
 .btn-check-modal:hover {
-    background-color: #C1050E;
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(227, 6, 17, 0.3);
 }
 
 .map-modal-map {
@@ -2085,16 +2085,7 @@ body {
 }
 
 @media (max-width: 968px) {
-    .address-check-form-row {
-        flex-direction: column;
-        gap: 16px;
-    }
-
-    .address-map-preview {
-        width: 100%;
-        min-width: 100%;
-        height: 200px;
-    }
+    /* Стили для адаптивности формы уже включены в основной класс */
 }
 
 @media (max-width: 768px) {
@@ -2113,13 +2104,10 @@ body {
 
     .address-check-form-row {
         flex-direction: column;
-        gap: 16px;
     }
 
-    .address-map-preview {
+    .address-check-form-row .btn-check {
         width: 100%;
-        min-width: 100%;
-        height: 200px;
     }
 
     .map-modal-content {
@@ -2171,11 +2159,6 @@ body {
     .address-input {
         font-size: 16px;
         padding: 12px 16px;
-    }
-
-    .btn-select-map {
-        padding: 12px 20px;
-        font-size: 13px;
     }
 
     .map-modal {

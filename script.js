@@ -58,59 +58,73 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Функции для проверки адреса
 let selectedAddress = null;
-let yandexMapPreview = null;
 let yandexMapModal = null;
-let mapMarkerPreview = null;
 let mapMarkerModal = null;
 
 function initAddressCheck() {
     const addressInput = document.getElementById('addressInput');
-    const addressMapPreview = document.getElementById('addressMapPreview');
+    const checkAddressBtn = document.getElementById('checkAddressBtn');
+    const openMapLink = document.getElementById('openMapLink');
 
-    if (!addressInput || !addressMapPreview) return;
+    if (!addressInput) return;
 
-    // Инициализация превью карты
-    if (typeof ymaps !== 'undefined') {
-        ymaps.ready(function() {
-            initMapPreview();
+    // Обработчик кнопки "Проверить"
+    if (checkAddressBtn) {
+        checkAddressBtn.addEventListener('click', function() {
+            const address = addressInput.value.trim();
+            if (address) {
+                checkAddress(address);
+            } else {
+                alert('Пожалуйста, введите адрес');
+            }
         });
-    } else {
-        initMapPreviewPlaceholder();
     }
 
-    // Обработчик клика на превью карты
-    if (addressMapPreview) {
-        addressMapPreview.addEventListener('click', function() {
+    // Обработчик Enter в поле ввода
+    addressInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            const address = this.value.trim();
+            if (address) {
+                checkAddress(address);
+            }
+        }
+    });
+
+    // Обработчик ссылки "Указать адрес на карте"
+    if (openMapLink) {
+        openMapLink.addEventListener('click', function(e) {
+            e.preventDefault();
             openMapModal();
         });
     }
 }
 
-// Инициализация превью карты
-function initMapPreview() {
-    const mapContainer = document.getElementById('addressMapPreview');
-    if (!mapContainer) return;
+// Проверка адреса
+function checkAddress(address) {
+    const checkAddressBtn = document.getElementById('checkAddressBtn');
+    
+    if (!checkAddressBtn) return;
 
-    yandexMapPreview = new ymaps.Map('addressMapPreview', {
-        center: [55.7558, 37.6173], // Москва по умолчанию
-        zoom: 13,
-        controls: []
-    });
-}
+    // Показываем состояние загрузки
+    const originalText = checkAddressBtn.textContent;
+    checkAddressBtn.disabled = true;
+    checkAddressBtn.textContent = 'Проверка...';
 
-// Заглушка для превью карты
-function initMapPreviewPlaceholder() {
-    const mapContainer = document.getElementById('addressMapPreview');
-    if (!mapContainer) return;
+    // Имитация запроса к API
+    setTimeout(() => {
+        // Случайный результат для демонстрации
+        const isAvailable = Math.random() > 0.3; // 70% вероятность доступности
+        
+        // Восстанавливаем кнопку
+        checkAddressBtn.disabled = false;
+        checkAddressBtn.textContent = originalText;
 
-    mapContainer.innerHTML = `
-        <div style="display: flex; align-items: center; justify-content: center; height: 100%; background: linear-gradient(135deg, #E6F2FF 0%, #F0F0F0 100%); border-radius: 12px;">
-            <div style="text-align: center; color: #666;">
-                <div style="font-size: 32px; margin-bottom: 8px;">🗺️</div>
-                <div style="font-size: 12px;">Нажмите для выбора на карте</div>
-            </div>
-        </div>
-    `;
+        // Показываем результат
+        alert(isAvailable ? 
+            `✓ Подключение доступно по адресу: ${address}` : 
+            `Пока не подключены к адресу: ${address}`
+        );
+    }, 1500);
 }
 
 // Инициализация модального окна с картой
@@ -210,6 +224,34 @@ function initModalMap() {
         center: [55.7558, 37.6173], // Москва по умолчанию
         zoom: 12,
         controls: ['zoomControl', 'fullscreenControl', 'geolocationControl']
+    });
+
+    // Обработчик клика на карту для выбора адреса
+    yandexMapModal.events.add('click', function(e) {
+        const coords = e.get('coords');
+        
+        // Получаем адрес по координатам (обратное геокодирование)
+        ymaps.geocode(coords).then(function(res) {
+            const firstGeoObject = res.geoObjects.get(0);
+            if (firstGeoObject) {
+                const address = firstGeoObject.getAddressLine();
+                
+                // Обновляем поле ввода в модальном окне
+                const mapModalInput = document.getElementById('mapModalInput');
+                if (mapModalInput) {
+                    mapModalInput.value = address;
+                }
+                
+                // Обновляем основное поле ввода
+                const addressInput = document.getElementById('addressInput');
+                if (addressInput) {
+                    addressInput.value = address;
+                }
+                
+                // Обновляем карту с меткой
+                updateModalMap(address, true);
+            }
+        });
     });
 }
 
