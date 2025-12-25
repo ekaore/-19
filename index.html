@@ -528,6 +528,25 @@
         </div>
     </section>
 
+    <!-- Модальное окно результата проверки адреса -->
+    <div class="address-result-modal" id="addressResultModal">
+        <div class="address-result-modal-content">
+            <button class="address-result-modal-close" id="addressResultModalClose" aria-label="Закрыть">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <div class="address-result-icon" id="addressResultIcon"></div>
+            <h3 class="address-result-title" id="addressResultTitle"></h3>
+            <p class="address-result-address" id="addressResultAddress"></p>
+            <p class="address-result-description" id="addressResultDescription"></p>
+            <div class="address-result-actions">
+                <button class="address-result-btn address-result-btn-primary" id="addressResultConnectBtn">Оставить заявку</button>
+                <button class="address-result-btn address-result-btn-secondary" id="addressResultCloseBtn">Закрыть</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Модальное окно с картой -->
     <div class="map-modal" id="mapModal">
         <div class="map-modal-content">

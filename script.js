@@ -276,12 +276,101 @@ function checkAddress(address) {
         checkAddressBtn.disabled = false;
         checkAddressBtn.textContent = originalText;
 
-        // Показываем результат
-        alert(isAvailable ? 
-            `✓ Подключение доступно по адресу: ${address}` : 
-            `Пока не подключены к адресу: ${address}`
-        );
+        // Показываем модальное окно с результатом
+        showAddressResultModal(address, isAvailable);
     }, 1500);
+}
+
+// Показать модальное окно с результатом проверки
+function showAddressResultModal(address, isAvailable) {
+    const modal = document.getElementById('addressResultModal');
+    const icon = document.getElementById('addressResultIcon');
+    const title = document.getElementById('addressResultTitle');
+    const addressEl = document.getElementById('addressResultAddress');
+    const description = document.getElementById('addressResultDescription');
+    const connectBtn = document.getElementById('addressResultConnectBtn');
+    
+    if (!modal) return;
+
+    // Заполняем данные в зависимости от результата
+    if (isAvailable) {
+        icon.innerHTML = `
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none"/>
+                <path d="M8 12L11 15L16 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        `;
+        icon.className = 'address-result-icon address-result-icon-success';
+        title.textContent = 'Подключение доступно!';
+        addressEl.textContent = address;
+        description.textContent = 'Отлично! Мы можем подключить интернет по вашему адресу. Оставьте заявку, и мы свяжемся с вами в ближайшее время.';
+        connectBtn.style.display = 'block';
+    } else {
+        icon.innerHTML = `
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none"/>
+                <path d="M12 8V12M12 16H12.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+        `;
+        icon.className = 'address-result-icon address-result-icon-warning';
+        title.textContent = 'Пока не подключены';
+        addressEl.textContent = address;
+        description.textContent = 'К сожалению, мы пока не подключены к вашему адресу. Оставьте заявку, и мы сообщим вам, когда появится возможность подключения.';
+        connectBtn.style.display = 'block';
+    }
+
+    // Показываем модальное окно
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+
+    // Обработчики закрытия
+    const closeBtn = document.getElementById('addressResultModalClose');
+    const closeBtnSecondary = document.getElementById('addressResultCloseBtn');
+    
+    if (closeBtn) {
+        closeBtn.onclick = () => closeAddressResultModal();
+    }
+    
+    if (closeBtnSecondary) {
+        closeBtnSecondary.onclick = () => closeAddressResultModal();
+    }
+
+    // Закрытие при клике вне модального окна
+    modal.onclick = (e) => {
+        if (e.target === modal) {
+            closeAddressResultModal();
+        }
+    };
+
+    // Закрытие по Escape
+    const escapeHandler = (e) => {
+        if (e.key === 'Escape') {
+            closeAddressResultModal();
+            document.removeEventListener('keydown', escapeHandler);
+        }
+    };
+    document.addEventListener('keydown', escapeHandler);
+
+    // Обработчик кнопки "Оставить заявку"
+    if (connectBtn) {
+        connectBtn.onclick = () => {
+            closeAddressResultModal();
+            // Прокрутка к форме контактов или открытие формы заявки
+            const contactsSection = document.getElementById('contacts');
+            if (contactsSection) {
+                contactsSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        };
+    }
+}
+
+// Закрыть модальное окно результата
+function closeAddressResultModal() {
+    const modal = document.getElementById('addressResultModal');
+    if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
 }
 
 // Инициализация модального окна с картой
