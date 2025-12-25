@@ -2593,8 +2593,14 @@ svg {
     align-items: center;
 }
 
-.map-modal-input {
+.map-modal-input-wrapper {
     flex: 1;
+    position: relative;
+    min-width: 0;
+}
+
+.map-modal-input {
+    width: 100%;
     padding: 14px 20px;
     font-size: 16px;
     border: 1px solid #E0E0E0;
@@ -2608,6 +2614,16 @@ svg {
     outline: none;
     border-color: var(--primary-blue);
     background-color: var(--white);
+}
+
+/* Автодополнение в модальном окне карты */
+.map-modal-input-wrapper .address-autocomplete {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 10002;
+    margin-top: 4px;
 }
 
 .btn-check-modal {

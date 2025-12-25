@@ -560,17 +560,20 @@
                     </div>
             <div class="map-modal-body">
                 <div class="map-modal-form-row">
+                    <div class="map-modal-input-wrapper">
                         <input 
                             type="text" 
-                        id="mapModalInput" 
-                        class="map-modal-input" 
-                        placeholder="Введите город, улицу, дом"
-                        autocomplete="off"
-                    >
+                            id="mapModalInput" 
+                            class="map-modal-input" 
+                            placeholder="Введите город, улицу, дом"
+                            autocomplete="off"
+                        >
+                        <div class="address-autocomplete" id="mapModalAutocomplete"></div>
+                    </div>
                     <button type="button" class="btn-check-modal" id="checkModalBtn">
                         ПРОВЕРИТЬ
-                        </button>
-                    </div>
+                    </button>
+                </div>
                 <div class="map-modal-map" id="mapModalMap">
                     <!-- Карта будет здесь -->
                 </div>

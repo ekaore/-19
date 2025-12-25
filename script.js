@@ -355,6 +355,8 @@ function showAddressResultModal(address, isAvailable) {
     if (connectBtn) {
         connectBtn.onclick = () => {
             closeAddressResultModal();
+            // Закрываем также модальное окно карты, если оно открыто
+            closeMapModal();
             // Прокрутка к форме контактов или открытие формы заявки
             const contactsSection = document.getElementById('contacts');
             if (contactsSection) {
@@ -379,6 +381,7 @@ function initMapModal() {
     const mapModalClose = document.getElementById('mapModalClose');
     const checkModalBtn = document.getElementById('checkModalBtn');
     const mapModalInput = document.getElementById('mapModalInput');
+    const mapModalAutocomplete = document.getElementById('mapModalAutocomplete');
 
     if (!mapModal) return;
 
@@ -403,12 +406,77 @@ function initMapModal() {
         }
     });
 
+    // Инициализация автодополнения для поля ввода в модальном окне
+    let selectedAutocompleteIndexModal = -1;
+    let autocompleteItemsModal = [];
+
+    if (mapModalInput && mapModalAutocomplete) {
+        // Обработчик ввода текста для автодополнения
+        mapModalInput.addEventListener('input', function() {
+            const value = this.value.trim();
+            selectedAutocompleteIndexModal = -1;
+            
+            if (value.length > 0 && value.toLowerCase().includes('москва')) {
+                showModalAutocomplete(value, mapModalAutocomplete, mapModalInput, autocompleteItemsModal);
+            } else {
+                hideModalAutocomplete(mapModalAutocomplete);
+            }
+        });
+
+        // Обработчик фокуса
+        mapModalInput.addEventListener('focus', function() {
+            const value = this.value.trim();
+            if (value.length > 0 && value.toLowerCase().includes('москва')) {
+                showModalAutocomplete(value, mapModalAutocomplete, mapModalInput, autocompleteItemsModal);
+            }
+        });
+
+        // Обработчик потери фокуса
+        mapModalInput.addEventListener('blur', function() {
+            setTimeout(() => {
+                hideModalAutocomplete(mapModalAutocomplete);
+            }, 200);
+        });
+
+        // Обработчик клавиатуры для навигации по автодополнению
+        mapModalInput.addEventListener('keydown', function(e) {
+            if (!mapModalAutocomplete || !mapModalAutocomplete.classList.contains('active')) return;
+
+            const items = mapModalAutocomplete.querySelectorAll('.autocomplete-item');
+            
+            if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                selectedAutocompleteIndexModal = Math.min(selectedAutocompleteIndexModal + 1, items.length - 1);
+                updateSelectedItemModal(items, selectedAutocompleteIndexModal);
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                selectedAutocompleteIndexModal = Math.max(selectedAutocompleteIndexModal - 1, -1);
+                updateSelectedItemModal(items, selectedAutocompleteIndexModal);
+            } else if (e.key === 'Enter' && selectedAutocompleteIndexModal >= 0) {
+                e.preventDefault();
+                const selectedItem = items[selectedAutocompleteIndexModal];
+                if (selectedItem) {
+                    mapModalInput.value = selectedItem.dataset.value;
+                    hideModalAutocomplete(mapModalAutocomplete);
+                    checkAddressFromModal(mapModalInput.value.trim());
+                }
+            } else if (e.key === 'Escape') {
+                hideModalAutocomplete(mapModalAutocomplete);
+            }
+        });
+    }
+
     // Обработчик кнопки "ПРОВЕРИТЬ" в модальном окне
     if (checkModalBtn) {
         checkModalBtn.addEventListener('click', function() {
             const address = mapModalInput ? mapModalInput.value.trim() : '';
             if (address) {
                 checkAddressFromModal(address);
+                if (mapModalAutocomplete) {
+                    hideModalAutocomplete(mapModalAutocomplete);
+                }
+            } else {
+                alert('Пожалуйста, введите адрес');
             }
         });
     }
@@ -416,14 +484,78 @@ function initMapModal() {
     // Enter в поле ввода модального окна
     if (mapModalInput) {
         mapModalInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
+            if (e.key === 'Enter' && selectedAutocompleteIndexModal < 0) {
                 const address = this.value.trim();
                 if (address) {
                     checkAddressFromModal(address);
+                    if (mapModalAutocomplete) {
+                        hideModalAutocomplete(mapModalAutocomplete);
+                    }
                 }
             }
         });
     }
+}
+
+// Показать автодополнение в модальном окне
+function showModalAutocomplete(query, autocomplete, input, itemsArray) {
+    if (!autocomplete) return;
+
+    const queryLower = query.toLowerCase();
+    const filtered = addressSuggestions.filter(addr => 
+        addr.toLowerCase().includes(queryLower)
+    );
+
+    if (filtered.length === 0) {
+        hideModalAutocomplete(autocomplete);
+        return;
+    }
+
+    autocomplete.innerHTML = '';
+    itemsArray.length = 0;
+
+    filtered.forEach((address, index) => {
+        const item = document.createElement('div');
+        item.className = 'autocomplete-item';
+        item.dataset.value = address;
+        item.dataset.index = index;
+        
+        // Подсветка совпадающего фрагмента
+        const highlightedText = highlightMatch(address, query);
+        item.innerHTML = `<div class="autocomplete-item-text">${highlightedText}</div>`;
+        
+        item.addEventListener('click', function() {
+            if (input) {
+                input.value = address;
+                hideModalAutocomplete(autocomplete);
+                checkAddressFromModal(address);
+            }
+        });
+
+        autocomplete.appendChild(item);
+        itemsArray.push(item);
+    });
+
+    autocomplete.classList.add('active');
+}
+
+// Скрыть автодополнение в модальном окне
+function hideModalAutocomplete(autocomplete) {
+    if (autocomplete) {
+        autocomplete.classList.remove('active');
+    }
+}
+
+// Обновить выбранный элемент в модальном окне
+function updateSelectedItemModal(items, selectedIndex) {
+    items.forEach((item, index) => {
+        if (index === selectedIndex) {
+            item.classList.add('selected');
+            item.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+        } else {
+            item.classList.remove('selected');
+        }
+    });
 }
 
 // Открытие модального окна
@@ -590,11 +722,8 @@ function checkAddressFromModal(address) {
         checkModalBtn.disabled = false;
         checkModalBtn.textContent = originalText;
 
-        // Показываем результат
-        alert(isAvailable ? 
-            `✓ Подключение доступно по адресу: ${address}` : 
-            `Пока не подключены к адресу: ${address}`
-        );
+        // Показываем модальное окно с результатом
+        showAddressResultModal(address, isAvailable);
     }, 1500);
 }
 
