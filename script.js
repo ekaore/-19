@@ -61,12 +61,79 @@ let selectedAddress = null;
 let yandexMapModal = null;
 let mapMarkerModal = null;
 
+// Статические данные для автодополнения (демо)
+const addressSuggestions = [
+    'Москва, Тверская ул., 1',
+    'Москва, Ленинский просп., 10',
+    'Москва, Кутузовский просп., 25',
+    'Москва, Новокузнецкая ул., 5',
+    'Москва, Арбат ул., 15'
+];
+
+let selectedAutocompleteIndex = -1;
+let autocompleteItems = [];
+
 function initAddressCheck() {
     const addressInput = document.getElementById('addressInput');
     const checkAddressBtn = document.getElementById('checkAddressBtn');
     const openMapLink = document.getElementById('openMapLink');
+    const autocomplete = document.getElementById('addressAutocomplete');
 
     if (!addressInput) return;
+
+    // Обработчик ввода текста для автодополнения
+    addressInput.addEventListener('input', function() {
+        const value = this.value.trim();
+        selectedAutocompleteIndex = -1;
+        
+        if (value.length > 0 && value.toLowerCase().includes('москва')) {
+            showAutocomplete(value);
+        } else {
+            hideAutocomplete();
+        }
+    });
+
+    // Обработчик фокуса
+    addressInput.addEventListener('focus', function() {
+        const value = this.value.trim();
+        if (value.length > 0 && value.toLowerCase().includes('москва')) {
+            showAutocomplete(value);
+        }
+    });
+
+    // Обработчик потери фокуса (с задержкой для клика по элементу)
+    addressInput.addEventListener('blur', function() {
+        setTimeout(() => {
+            hideAutocomplete();
+        }, 200);
+    });
+
+    // Обработчик клавиатуры для навигации по автодополнению
+    addressInput.addEventListener('keydown', function(e) {
+        if (!autocomplete || !autocomplete.classList.contains('active')) return;
+
+        const items = autocomplete.querySelectorAll('.autocomplete-item');
+        
+        if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            selectedAutocompleteIndex = Math.min(selectedAutocompleteIndex + 1, items.length - 1);
+            updateSelectedItem(items);
+        } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            selectedAutocompleteIndex = Math.max(selectedAutocompleteIndex - 1, -1);
+            updateSelectedItem(items);
+        } else if (e.key === 'Enter' && selectedAutocompleteIndex >= 0) {
+            e.preventDefault();
+            const selectedItem = items[selectedAutocompleteIndex];
+            if (selectedItem) {
+                addressInput.value = selectedItem.dataset.value;
+                hideAutocomplete();
+                checkAddress(addressInput.value.trim());
+            }
+        } else if (e.key === 'Escape') {
+            hideAutocomplete();
+        }
+    });
 
     // Обработчик кнопки "Проверить"
     if (checkAddressBtn) {
@@ -74,6 +141,7 @@ function initAddressCheck() {
             const address = addressInput.value.trim();
             if (address) {
                 checkAddress(address);
+                hideAutocomplete();
             } else {
                 alert('Пожалуйста, введите адрес');
             }
@@ -82,10 +150,11 @@ function initAddressCheck() {
 
     // Обработчик Enter в поле ввода
     addressInput.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
+        if (e.key === 'Enter' && selectedAutocompleteIndex < 0) {
             const address = this.value.trim();
             if (address) {
                 checkAddress(address);
+                hideAutocomplete();
             }
         }
     });
@@ -97,6 +166,88 @@ function initAddressCheck() {
             openMapModal();
         });
     }
+}
+
+// Показать автодополнение
+function showAutocomplete(query) {
+    const autocomplete = document.getElementById('addressAutocomplete');
+    if (!autocomplete) return;
+
+    const queryLower = query.toLowerCase();
+    const filtered = addressSuggestions.filter(addr => 
+        addr.toLowerCase().includes(queryLower)
+    );
+
+    if (filtered.length === 0) {
+        hideAutocomplete();
+        return;
+    }
+
+    autocomplete.innerHTML = '';
+    autocompleteItems = [];
+
+    filtered.forEach((address, index) => {
+        const item = document.createElement('div');
+        item.className = 'autocomplete-item';
+        item.dataset.value = address;
+        item.dataset.index = index;
+        
+        // Подсветка совпадающего фрагмента
+        const highlightedText = highlightMatch(address, query);
+        item.innerHTML = `<div class="autocomplete-item-text">${highlightedText}</div>`;
+        
+        item.addEventListener('click', function() {
+            const addressInput = document.getElementById('addressInput');
+            if (addressInput) {
+                addressInput.value = address;
+                hideAutocomplete();
+                checkAddress(address);
+            }
+        });
+
+        autocomplete.appendChild(item);
+        autocompleteItems.push(item);
+    });
+
+    autocomplete.classList.add('active');
+}
+
+// Скрыть автодополнение
+function hideAutocomplete() {
+    const autocomplete = document.getElementById('addressAutocomplete');
+    if (autocomplete) {
+        autocomplete.classList.remove('active');
+        selectedAutocompleteIndex = -1;
+    }
+}
+
+// Подсветка совпадающего фрагмента
+function highlightMatch(text, query) {
+    if (!query || query.trim() === '') return text;
+    
+    const queryLower = query.toLowerCase();
+    const textLower = text.toLowerCase();
+    const index = textLower.indexOf(queryLower);
+    
+    if (index === -1) return text;
+    
+    const before = text.substring(0, index);
+    const match = text.substring(index, index + query.length);
+    const after = text.substring(index + query.length);
+    
+    return `${before}<span class="autocomplete-highlight">${match}</span>${after}`;
+}
+
+// Обновить выбранный элемент
+function updateSelectedItem(items) {
+    items.forEach((item, index) => {
+        if (index === selectedAutocompleteIndex) {
+            item.classList.add('selected');
+            item.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+        } else {
+            item.classList.remove('selected');
+        }
+    });
 }
 
 // Проверка адреса

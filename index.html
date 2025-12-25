@@ -258,13 +258,16 @@
                     <h3 class="address-check-title">Проверьте возможность подключения по вашему адресу</h3>
                     <div class="address-check-form">
                         <div class="address-check-form-row">
-                            <input 
-                                type="text" 
-                                id="addressInput" 
-                                class="address-input" 
-                                placeholder="Введите город, улицу, дом"
-                                autocomplete="off"
-                            >
+                            <div class="address-input-wrapper">
+                                <input 
+                                    type="text" 
+                                    id="addressInput" 
+                                    class="address-input" 
+                                    placeholder="Введите город, улицу, дом"
+                                    autocomplete="off"
+                                >
+                                <div class="address-autocomplete" id="addressAutocomplete"></div>
+                            </div>
                             <button type="button" class="btn-check" id="checkAddressBtn">Проверить</button>
                         </div>
                         <a href="#" class="address-map-link" id="openMapLink">
