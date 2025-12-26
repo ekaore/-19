@@ -176,14 +176,14 @@ function initAddressCheckMap() {
     function initMap() {
         // Проверяем, что ymaps загружен и доступен
         if (typeof ymaps === 'undefined' || !ymaps || !ymaps.ready) {
-            // Если ymaps еще не загружен, пробуем снова (максимум 10 раз)
+            // Если ymaps еще не загружен, пробуем снова (максимум 20 раз, увеличиваем время ожидания)
             if (initMap.attempts === undefined) initMap.attempts = 0;
-            if (initMap.attempts < 10) {
+            if (initMap.attempts < 20) {
                 initMap.attempts++;
-                setTimeout(initMap, 500);
+                setTimeout(initMap, 300);
             } else {
-                // Если не удалось загрузить после 10 попыток, показываем сообщение
-                showMapError(mapContainer, 'Yandex Maps API не загружен. Проверьте подключение к интернету и API ключ.');
+                // Если не удалось загрузить после 20 попыток, показываем сообщение
+                showMapError(mapContainer, 'Yandex Maps API не загружен. Проверьте подключение к интернету.');
             }
             return;
         }
@@ -191,12 +191,12 @@ function initAddressCheckMap() {
         // Ждем полной загрузки API
         try {
             ymaps.ready(function() {
-            try {
-                yandexMapCheck = new ymaps.Map('addressCheckMap', {
-                    center: [55.7558, 37.6173], // Москва по умолчанию
-                    zoom: 12,
-                    controls: ['zoomControl', 'fullscreenControl', 'geolocationControl']
-                });
+                try {
+                    yandexMapCheck = new ymaps.Map('addressCheckMap', {
+                        center: [55.7558, 37.6173], // Москва по умолчанию
+                        zoom: 12,
+                        controls: ['zoomControl', 'fullscreenControl', 'geolocationControl']
+                    });
 
                 // Создаем draggable-маркер в центре карты после полной загрузки
                 yandexMapCheck.events.add('boundschange', function() {
@@ -438,6 +438,12 @@ function clearAllMarkers() {
 // Создание draggable-маркера в центре карты
 function createDraggableMarker() {
     if (!yandexMapCheck || draggableMarker) return;
+    
+    // Проверяем, что ymaps доступен
+    if (typeof ymaps === 'undefined' || !ymaps || !ymaps.Placemark) {
+        console.warn('Yandex Maps API не доступен для создания draggable маркера');
+        return;
+    }
 
     const center = yandexMapCheck.getCenter();
     const initialAddress = `Координаты: ${center[0].toFixed(6)}, ${center[1].toFixed(6)}`;
