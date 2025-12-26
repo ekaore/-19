@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Лендинг</title>
+    <title>ПЖ-19</title>
     <link rel="stylesheet" href="styles.css">
     <!-- Для работы карты раскомментируйте и укажите ваш API ключ Yandex Maps -->
     <script src="https://api-maps.yandex.ru/2.1/?apikey=YOUR_API_KEY&lang=ru_RU" defer></script>
@@ -23,10 +23,16 @@
                 <nav class="nav">
                     <ul class="nav-list">
                         <li class="nav-item">
-                            <a href="#tariffs" class="nav-link">Услуги</a>
+                            <a href="#tariffs" class="nav-link">Тариф</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#additional-services" class="nav-link">Услуги</a>
                         </li>
                         <li class="nav-item">
                             <a href="#address-check" class="nav-link">Подключение</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#cooperative" class="nav-link">О кооперативе</a>
                         </li>
                     </ul>
                 </nav>
@@ -52,19 +58,17 @@
             </div>
         </div>
     </header>
-
-    <!-- Блок с заголовком и подзаголовком   -->
-    <section class="intro-section">
-        <div class="container">
-            <h4 class="intro-title">Быстрый и стабильный интернет для дома и бизнеса — подключим уже сегодня!</h4>
-            <p class="intro-subtitle">Высокоскоростной интернет с гарантией стабильности. Выберите подходящий тариф и начните пользоваться качественным соединением прямо сейчас</p>
-        </div>
-    </section>
-
     <!-- Блок Тарифы -->
     <section id="tariffs" class="tariffs-section">
         <div class="container">
-            <h2 class="tariffs-title">Полный набор услуг</h2>
+            <div class="tariffs-header-wrapper">
+                <div class="tariffs-title-wrapper">
+                    <h2 class="tariffs-title">
+                        <span class="title-highlight">Быстрый и стабильный</span> интернет для дома и бизнеса — <span class="title-accent">подключим уже сегодня!</span>
+                    </h2>
+
+                </div>
+            </div>
             <div class="tariffs-grid">
                 <!-- Тариф -->
                 <div class="tariff-card-new">
@@ -82,7 +86,7 @@
                                 </svg>
                                 <div class="feature-content">
                                     <div class="feature-title">До 1000 Мбит/с</div>
-                                    <div class="feature-subtitle">Гигабитная скорость</div>
+                                    <div class="feature-subtitle"><span class="gigabit-highlight">Гигабитная скорость</span></div>
                                 </div>
                             </div>
                             <div class="tariff-feature-item">
@@ -124,7 +128,7 @@
                                 <svg class="check-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 </svg>
-                                <span>Скачивание 1 ГБ за 20 секунд</span>
+                                <span class="download-speed">Скачивание 1 ГБ за <span class="speed-time">20 секунд</span></span>
                             </li>
                             <li>
                                 <svg class="check-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -136,32 +140,6 @@
                         <div class="tariff-description">
                             <p class="tariff-description-main">Стабильное подключение для всей семьи: одновременно работают до 10 устройств — ПК, ноутбуки, смартфоны, планшеты и ТВ-приставки. Файл размером 1 ГБ скачивается примерно за 20 секунд*.</p>
                             <p class="tariff-description-note">* Реальная скорость зависит от вашего оборудования и условий линии.</p>
-                        </div>
-                        <div class="tariff-additional">
-                            <div class="tariff-additional-title">ДОПОЛНИТЕЛЬНО</div>
-                            <div class="tariff-addon-item">
-                                <svg class="addon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M5 12.55a11 11 0 0 1 14.08 0M1.42 9a16 16 0 0 1 21.16 0M8.53 16.11a6 6 0 0 1 6.95 0M12 20h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                                <span class="addon-name">Wi-Fi роутер SNR-CPE-ME2</span>
-                                <span class="addon-price">+99 ₽</span>
-                                <label class="addon-switch">
-                                    <input type="checkbox" class="addon-switch-input" data-addon="router" data-price="99">
-                                    <span class="addon-switch-slider"></span>
-                                </label>
-                            </div>
-                            <div class="tariff-addon-item">
-                                <svg class="addon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <rect x="2" y="4" width="20" height="14" rx="2" stroke="currentColor" stroke-width="2"/>
-                                    <path d="M7 8H17M7 12H17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                                </svg>
-                                <span class="addon-name">ТВ приставка Imaqliq G-Box</span>
-                                <span class="addon-price">+99 ₽</span>
-                                <label class="addon-switch">
-                                    <input type="checkbox" class="addon-switch-input" data-addon="tv-box" data-price="99">
-                                    <span class="addon-switch-slider"></span>
-                                </label>
-                            </div>
                         </div>
                         <div class="tariff-total">
                             <div class="tariff-total-info">
@@ -175,8 +153,10 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Дополнительные услуги -->
+            </div>
+            <!-- Дополнительные услуги -->
+            <section id="additional-services" class="additional-services-section">
+                <h3 class="additional-services-title">Добавьте к интернету больше возможностей</h3>
                 <div class="additional-services">
                     <!-- Цифровое телевидение -->
                     <div class="service-card">
@@ -261,6 +241,38 @@
                         </ul>
                         <button class="service-btn">Подробнее</button>
                     </div>
+
+                    <!-- Мобильная связь -->
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="5" y="2" width="14" height="20" rx="2" stroke="currentColor" stroke-width="2"/>
+                                <path d="M12 18H12.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <h4 class="service-title">Мобильная связь</h4>
+                        <ul class="service-features">
+                            <li>
+                                <svg class="service-check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <span>Безлимитный интернет на смартфоне</span>
+                            </li>
+                            <li>
+                                <svg class="service-check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <span>Звонки и SMS без ограничений</span>
+                            </li>
+                            <li>
+                                <svg class="service-check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <span>Роуминг по РФ включён</span>
+                            </li>
+                        </ul>
+                        <button class="service-btn">Подробнее</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -292,6 +304,258 @@
             </div>
         </div>
     </section>
+
+    <!-- Блок Кооперативная модель -->
+    <section id="cooperative" class="cooperative-section">
+        <div class="container">
+            <div class="cooperative-content">
+                <h2 class="cooperative-title">Кооперативная модель связи в формате «ПЖ-19»</h2>
+                <p class="cooperative-description">Сообщество равных пайщиков, объединившихся для получения доступа к свободному и быстрому интернету</p>
+            </div>
+            
+            <!-- Блоки Миссия и Цели -->
+            <div class="cooperative-mission-goals-wrapper">
+                <!-- Блок Миссия кооператива -->
+                <div class="cooperative-mission">
+                    <div class="cooperative-mission-header">
+                        <h3 class="cooperative-mission-title">Миссия кооператива</h3>
+                    </div>
+                    <div class="cooperative-mission-content">
+                        <div class="cooperative-mission-item">
+                            <p class="cooperative-mission-text">
+                                <strong class="mission-highlight">«ПЖ-19»</strong> — это потребительский интернет кооператив, иными словами, сообщество людей, которые объединились для совместного пользования интернетом на базе некоммерческого участия. Мы не продаём услуги — мы развиваем инфраструктуру связи вместе и для себя.
+                            </p>
+                        </div>
+                        <div class="cooperative-mission-item">
+                            <p class="cooperative-mission-text">
+                                В условиях, когда коммерческие провайдеры ориентированы исключительно на прибыль, мы предлагаем иной подход — основанный на <strong>доверии</strong>, <strong>прозрачности</strong> и <strong>равноправии</strong>. Каждый участник не клиент, а полноправный пайщик, который может влиять на принятие решений и развитие кооператива.
+                            </p>
+                        </div>
+                        <div class="cooperative-mission-item">
+                            <p class="cooperative-mission-text">
+                                Пайщики не оплачивают услуги, а осуществляют регулярные паевые взносы, используемые для удовлетворения потребностей по доступу к быстрому и свободному интернету, формирования паевого фонда, созданного исключительно для развития и поддержания интернет-инфраструктуры, а также иных целевых потребностей кооператива.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Блок Наши цели -->
+                <div class="cooperative-goals">
+                    <div class="cooperative-goals-header">
+                        <h3 class="cooperative-goals-title">Наши цели</h3>
+                    </div>
+                    <ul class="cooperative-goals-list">
+                        <li class="cooperative-goals-item">
+                            <div class="goals-item-icon">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                                    <path d="M2 12H22M12 2C15 6 15 18 12 22C9 18 9 6 12 2Z" stroke="currentColor" stroke-width="1.5"/>
+                                    <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.5"/>
+                                </svg>
+                            </div>
+                            <span>Организовать коллективный доступ к свободному и быстрому интернету</span>
+                        </li>
+                        <li class="cooperative-goals-item">
+                            <div class="goals-item-icon">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 2L15 8L22 9L17 14L18 21L12 18L6 21L7 14L2 9L9 8L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <circle cx="12" cy="12" r="2" fill="currentColor"/>
+                                </svg>
+                            </div>
+                            <span>Укреплять кооперативные принципы — равенство, открытость, совместное участие</span>
+                        </li>
+                        <li class="cooperative-goals-item">
+                            <div class="goals-item-icon">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <span>Обеспечить справедливую альтернативу классическим провайдерам</span>
+                        </li>
+                        <li class="cooperative-goals-item">
+                            <div class="goals-item-icon">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M4 19.5C4 18.837 4.263 18.201 4.732 17.732C5.201 17.263 5.837 17 6.5 17H17.5C18.163 17 18.799 17.263 19.268 17.732C19.737 18.201 20 18.837 20 19.5V21H4V19.5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M12 11C14.2091 11 16 9.20914 16 7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7C8 9.20914 9.79086 11 12 11Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M12 11V21M8 15H16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <span>Развивать инфраструктуру связи в интересах всех пайщиков</span>
+                        </li>
+                        <li class="cooperative-goals-item">
+                            <div class="goals-item-icon">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M4 19.5C4 18.837 4.263 18.201 4.732 17.732C5.201 17.263 5.837 17 6.5 17H17.5C18.163 17 18.799 17.263 19.268 17.732C19.737 18.201 20 18.837 20 19.5V21H4V19.5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M12 3V7M12 11V15M12 19V21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                    <path d="M3 12H7M11 12H15M19 12H21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                    <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
+                                </svg>
+                            </div>
+                            <span>Обеспечить прозрачность деятельности, отчетности и открытое управление</span>
+                        </li>
+                        <li class="cooperative-goals-item">
+                            <div class="goals-item-icon">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M21 10C21 17 12 23 12 23C12 23 3 17 3 10C3 7.61305 3.94821 5.32387 5.63604 3.63604C7.32387 1.94821 9.61305 1 12 1C14.3869 1 16.6761 1.94821 18.364 3.63604C20.0518 5.32387 21 7.61305 21 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M12 13C13.6569 13 15 11.6569 15 10C15 8.34315 13.6569 7 12 7C10.3431 7 9 8.34315 9 10C9 11.6569 10.3431 13 12 13Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M8 18L10 20L16 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <span>Расширять доступ к цифровым технологиям даже в удалённых или малонаселённых районах</span>
+                        </li>
+                        <li class="cooperative-goals-item">
+                            <div class="goals-item-icon">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M17 21V19C17 17.9391 16.5786 16.9217 15.8284 16.1716C15.0783 15.4214 14.0609 15 13 15H5C3.93913 15 2.92172 15.4214 2.17157 16.1716C1.42143 16.9217 1 17.9391 1 19V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <circle cx="9" cy="7" r="4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M23 21V19C22.9993 18.1137 22.7044 17.2528 22.1614 16.5523C21.6184 15.8519 20.8581 15.3516 20 15.13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M16 3.13C16.8604 3.35031 17.623 3.85071 18.1676 4.55232C18.7122 5.25392 19.0078 6.11683 19.0078 7.005C19.0078 7.89318 18.7122 8.75608 18.1676 9.45769C17.623 10.1593 16.8604 10.6597 16 10.88" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <span>Повышать цифровую грамотность членов кооператива через внутренние семинары и поддержку</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Блок Чем мы отличаемся -->
+            <div class="cooperative-differences">
+                <div class="cooperative-differences-header">
+                    <h3 class="cooperative-differences-title">Чем мы отличаемся от обычного провайдера?</h3>
+                </div>
+                <div class="cooperative-differences-comparison">
+                    <div class="comparison-column comparison-column-provider">
+                        <div class="comparison-column-header">
+                            <h4 class="comparison-title">Обычный провайдер</h4>
+                        </div>
+                        <ul class="comparison-list">
+                            <li class="comparison-item">
+                                <span class="comparison-text">Продаёт услуги за прибыль</span>
+                            </li>
+                            <li class="comparison-item">
+                                <span class="comparison-text">Ориентирован на инвесторов</span>
+                            </li>
+                            <li class="comparison-item">
+                                <span class="comparison-text">Навязывает дополнительные услуги</span>
+                            </li>
+                            <li class="comparison-item">
+                                <span class="comparison-text">Клиент не влияет на решения</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="comparison-column comparison-column-cooperative">
+                        <div class="comparison-column-header">
+                            <h4 class="comparison-title">Наш кооператив</h4>
+                        </div>
+                        <ul class="comparison-list">
+                            <li class="comparison-item">
+                                <div class="comparison-check">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                                <span class="comparison-text">Распределяем расходы между участниками</span>
+                            </li>
+                            <li class="comparison-item">
+                                <div class="comparison-check">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                                <span class="comparison-text">Ответственность перед пайщиками</span>
+                            </li>
+                            <li class="comparison-item">
+                                <div class="comparison-check">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                                <span class="comparison-text">Не навязываем дополнительные услуги</span>
+                            </li>
+                            <li class="comparison-item">
+                                <div class="comparison-check">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                                <span class="comparison-text">Один пайщик — один голос</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Блок Присоединяйтесь к нам -->
+            <div class="cooperative-join">
+                <div class="cooperative-join-bg-elements">
+                    <div class="join-blob blob-1"></div>
+                    <div class="join-blob blob-2"></div>
+                    <div class="join-network"></div>
+                </div>
+                <div class="cooperative-join-content-wrapper">
+                    <div class="cooperative-join-header">
+                        <h3 class="cooperative-join-title">Присоединяйтесь к нам</h3>
+                    </div>
+                    <div class="cooperative-join-content">
+                        <p class="cooperative-join-text">
+                            Каждый может стать пайщиком и участвовать в жизни кооператива. Мы верим в силу горизонтального управления, равенство участников и безопасный скоростной интернет. Ваша инициатива и участие помогают строить стабильную, доступную и честную цифровую среду.
+                        </p>
+                        <button class="cooperative-join-btn">Стать пайщиком</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Подвал -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section footer-about">
+                    <h3 class="footer-title">О кооперативе</h3>
+                    <p class="footer-text">
+                        Потребительский интернет кооператив «ПЖ-19» — сообщество равных пайщиков, объединившихся для получения доступа к свободному и быстрому интернету.
+                    </p>
+                </div>
+                
+                <div class="footer-section footer-links">
+                    <h3 class="footer-title">Навигация</h3>
+                    <ul class="footer-nav">
+                        <li><a href="#tariffs" class="footer-link">Тарифы</a></li>
+                        <li><a href="#additional-services" class="footer-link">Услуги</a></li>
+                        <li><a href="#address-check" class="footer-link">Проверка адреса</a></li>
+                        <li><a href="#cooperative" class="footer-link">Кооператив</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section footer-contact">
+                    <h3 class="footer-title">Контакты</h3>
+                    <ul class="footer-contact-list">
+                        <li class="footer-contact-item">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M3 8L10.89 13.26C11.2187 13.4793 11.6049 13.5963 12 13.5963C12.3951 13.5963 12.7813 13.4793 13.11 13.26L21 8M5 19H19C19.5304 19 20.0391 18.7893 20.4142 18.4142C20.7893 18.0391 21 17.5304 21 17V7C21 6.46957 20.7893 5.96086 20.4142 5.58579C20.0391 5.21071 19.5304 5 19 5H5C4.46957 5 3.96086 5.21071 3.58579 5.58579C3.21071 5.96086 3 6.46957 3 7V17C3 17.5304 3.21071 18.0391 3.58579 18.4142C3.96086 18.7893 4.46957 19 5 19Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span>info@pj19.ru</span>
+                        </li>
+                        <li class="footer-contact-item">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M3 5C3 3.89543 3.89543 3 5 3H8.27924C8.70967 3 9.09181 3.27543 9.22792 3.68377L10.7257 8.17721C10.8831 8.64932 10.6694 9.16531 10.2243 9.38787L7.96701 10.5165C9.06925 12.9612 11.0388 14.9308 13.4835 16.033L14.6121 13.7757C14.8347 13.3306 15.3507 13.1169 15.8228 13.2743L20.3162 14.7721C20.7246 14.9082 21 15.2903 21 15.7208V19C21 20.1046 20.1046 21 19 21H18C9.71573 21 3 14.2843 3 6V5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span>+7 (495) 123-45-67</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p class="footer-copyright">
+                    © 2024 Потребительский интернет кооператив «ПЖ-19». Все права защищены.
+                </p>
+            </div>
+        </div>
+    </footer>
 
     <script src="script.js"></script>
 </body>
