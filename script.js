@@ -50,25 +50,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Проверка подключения по адресу
     initAddressCheck();
-    initMapModal();
-    
-    // Инициализация FAQ
-    initFAQ();
     
     // Инициализация переключателей дополнительных опций
     initTariffAddons();
-    
-    // Инициализация анимации статистики поддержки
-    initSupportStatsAnimation();
-    
-    // Инициализация форм заявки
-    initOrderForms();
 });
 
 // Функции для проверки адреса
 let selectedAddress = null;
-let yandexMapModal = null;
-let mapMarkerModal = null;
 let yandexMapCheck = null;
 let mapMarkerCheck = null;
 
@@ -178,56 +166,86 @@ function initAddressCheckMap() {
     const mapContainer = document.getElementById('addressCheckMap');
     if (!mapContainer) return;
 
-    // Проверяем, загружена ли библиотека Yandex Maps
-    if (typeof ymaps !== 'undefined') {
+    // Функция инициализации карты
+    function initMap() {
+        if (typeof ymaps === 'undefined') {
+            // Если ymaps еще не загружен, ждем и пробуем снова
+            setTimeout(initMap, 100);
+            return;
+        }
+
         // Ждем полной загрузки API
         ymaps.ready(function() {
-            yandexMapCheck = new ymaps.Map('addressCheckMap', {
-                center: [55.7558, 37.6173], // Москва по умолчанию
-                zoom: 12,
-                controls: ['zoomControl', 'fullscreenControl', 'geolocationControl']
-            });
-
-            // Обработчик клика на карту для выбора адреса
-            yandexMapCheck.events.add('click', function(e) {
-                const coords = e.get('coords');
-                
-                // Получаем адрес по координатам (обратное геокодирование)
-                ymaps.geocode(coords).then(function(res) {
-                    const firstGeoObject = res.geoObjects.get(0);
-                    if (firstGeoObject) {
-                        const address = firstGeoObject.getAddressLine();
-                        
-                        // Обновляем поле ввода
-                        const addressInput = document.getElementById('addressInput');
-                        if (addressInput) {
-                            addressInput.value = address;
-                        }
-                        
-                        // Обновляем карту с меткой и проверяем адрес
-                        updateAddressCheckMap(address, true);
-                        checkAddress(address);
-                    }
+            try {
+                yandexMapCheck = new ymaps.Map('addressCheckMap', {
+                    center: [55.7558, 37.6173], // Москва по умолчанию
+                    zoom: 12,
+                    controls: ['zoomControl', 'fullscreenControl', 'geolocationControl']
                 });
-            });
 
-            // Добавляем зоны покрытия
-            addCoverageZonesCheck();
+                // Обработчик клика на карту для выбора адреса
+                yandexMapCheck.events.add('click', function(e) {
+                    const coords = e.get('coords');
+                    
+                    // Получаем адрес по координатам (обратное геокодирование)
+                    ymaps.geocode(coords).then(function(res) {
+                        const firstGeoObject = res.geoObjects.get(0);
+                        if (firstGeoObject) {
+                            const address = firstGeoObject.getAddressLine();
+                            
+                            // Обновляем поле ввода
+                            const addressInput = document.getElementById('addressInput');
+                            if (addressInput) {
+                                addressInput.value = address;
+                            }
+                            
+                            // Обновляем карту с меткой и проверяем адрес
+                            updateAddressCheckMap(address, true);
+                            checkAddress(address);
+                        }
+                    });
+                });
+
+                // Добавляем зоны покрытия
+                addCoverageZonesCheck();
+            } catch (error) {
+                console.error('Ошибка инициализации карты:', error);
+                // Заглушка при ошибке
+                mapContainer.innerHTML = `
+                    <div style="display: flex; align-items: center; justify-content: center; height: 100%; background: linear-gradient(135deg, #E6F2FF 0%, #FFFFFF 100%); border-radius: 12px;">
+                        <div style="text-align: center; color: #666;">
+                            <div style="font-size: 48px; margin-bottom: 16px;">🗺️</div>
+                            <div>Ошибка загрузки карты</div>
+                            <div style="font-size: 12px; margin-top: 8px; opacity: 0.7;">
+                                Проверьте API ключ Yandex Maps
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
         });
-    } else {
-        // Заглушка для карты, если API не загружен
-        mapContainer.innerHTML = `
-            <div style="display: flex; align-items: center; justify-content: center; height: 100%; background: linear-gradient(135deg, #E6F2FF 0%, #FFFFFF 100%); border-radius: 12px;">
-                <div style="text-align: center; color: #666;">
-                    <div style="font-size: 48px; margin-bottom: 16px;">🗺️</div>
-                    <div>Карта будет отображена здесь</div>
-                    <div style="font-size: 12px; margin-top: 8px; opacity: 0.7;">
-                        Для работы карты необходим API ключ Yandex Maps
+    }
+
+    // Пробуем инициализировать карту
+    initMap();
+
+    // Если через 5 секунд карта не загрузилась, показываем заглушку
+    setTimeout(function() {
+        if (!yandexMapCheck && mapContainer) {
+            mapContainer.innerHTML = `
+                <div style="display: flex; align-items: center; justify-content: center; height: 100%; background: linear-gradient(135deg, #E6F2FF 0%, #FFFFFF 100%); border-radius: 12px;">
+                    <div style="text-align: center; color: #666;">
+                        <div style="font-size: 48px; margin-bottom: 16px;">🗺️</div>
+                        <div>Карта будет отображена здесь</div>
+                        <div style="font-size: 12px; margin-top: 8px; opacity: 0.7;">
+                            Для работы карты необходим API ключ Yandex Maps<br>
+                            Укажите его в строке 9 файла index.html
+                        </div>
                     </div>
                 </div>
-            </div>
-        `;
-    }
+            `;
+        }
+    }, 5000);
 }
 
 // Обновление карты в блоке проверки адреса
@@ -408,376 +426,6 @@ function checkAddress(address) {
     }, 1500);
 }
 
-// Показать модальное окно с результатом проверки
-function showAddressResultModal(address, isAvailable) {
-    const modal = document.getElementById('addressResultModal');
-    const icon = document.getElementById('addressResultIcon');
-    const title = document.getElementById('addressResultTitle');
-    const addressEl = document.getElementById('addressResultAddress');
-    const description = document.getElementById('addressResultDescription');
-    const connectBtn = document.getElementById('addressResultConnectBtn');
-    
-    if (!modal) return;
-
-    // Заполняем данные в зависимости от результата
-    if (isAvailable) {
-        icon.innerHTML = `
-            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none"/>
-                <path d="M8 12L11 15L16 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-        `;
-        icon.className = 'address-result-icon address-result-icon-success';
-        title.textContent = 'Подключение доступно!';
-        addressEl.textContent = address;
-        description.textContent = 'Отлично! Мы можем подключить интернет по вашему адресу. Оставьте заявку, и мы свяжемся с вами в ближайшее время.';
-        connectBtn.style.display = 'block';
-    } else {
-        icon.innerHTML = `
-            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none"/>
-                <path d="M12 8V12M12 16H12.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-        `;
-        icon.className = 'address-result-icon address-result-icon-warning';
-        title.textContent = 'Пока не подключены';
-        addressEl.textContent = address;
-        description.textContent = 'К сожалению, мы пока не подключены к вашему адресу. Оставьте заявку, и мы сообщим вам, когда появится возможность подключения.';
-        connectBtn.style.display = 'block';
-    }
-
-    // Показываем модальное окно
-    modal.classList.add('active');
-    document.body.style.overflow = 'hidden';
-
-    // Обработчики закрытия
-    const closeBtn = document.getElementById('addressResultModalClose');
-    const closeBtnSecondary = document.getElementById('addressResultCloseBtn');
-    
-    if (closeBtn) {
-        closeBtn.onclick = () => closeAddressResultModal();
-    }
-    
-    if (closeBtnSecondary) {
-        closeBtnSecondary.onclick = () => closeAddressResultModal();
-    }
-
-    // Закрытие при клике вне модального окна
-    modal.onclick = (e) => {
-        if (e.target === modal) {
-            closeAddressResultModal();
-        }
-    };
-
-    // Закрытие по Escape
-    const escapeHandler = (e) => {
-        if (e.key === 'Escape') {
-            closeAddressResultModal();
-            document.removeEventListener('keydown', escapeHandler);
-        }
-    };
-    document.addEventListener('keydown', escapeHandler);
-
-    // Обработчик кнопки "Оставить заявку"
-    if (connectBtn) {
-        connectBtn.onclick = () => {
-            closeAddressResultModal();
-            // Закрываем также модальное окно карты, если оно открыто
-            closeMapModal();
-            // Прокрутка к форме контактов или открытие формы заявки
-            const contactsSection = document.getElementById('contacts');
-            if (contactsSection) {
-                contactsSection.scrollIntoView({ behavior: 'smooth' });
-            }
-        };
-    }
-}
-
-// Закрыть модальное окно результата
-function closeAddressResultModal() {
-    const modal = document.getElementById('addressResultModal');
-    if (modal) {
-        modal.classList.remove('active');
-        document.body.style.overflow = '';
-    }
-}
-
-// Инициализация модального окна с картой
-function initMapModal() {
-    const mapModal = document.getElementById('mapModal');
-    const mapModalClose = document.getElementById('mapModalClose');
-    const checkModalBtn = document.getElementById('checkModalBtn');
-    const mapModalInput = document.getElementById('mapModalInput');
-    const mapModalAutocomplete = document.getElementById('mapModalAutocomplete');
-
-    if (!mapModal) return;
-
-    // Закрытие модального окна
-    if (mapModalClose) {
-        mapModalClose.addEventListener('click', function() {
-            closeMapModal();
-        });
-    }
-
-    // Закрытие при клике вне модального окна
-    mapModal.addEventListener('click', function(e) {
-        if (e.target === mapModal) {
-            closeMapModal();
-        }
-    });
-
-    // Закрытие по Escape
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && mapModal.classList.contains('active')) {
-            closeMapModal();
-        }
-    });
-
-    // Инициализация автодополнения для поля ввода в модальном окне
-    let selectedAutocompleteIndexModal = -1;
-    let autocompleteItemsModal = [];
-
-    if (mapModalInput && mapModalAutocomplete) {
-        // Обработчик ввода текста для автодополнения
-        mapModalInput.addEventListener('input', function() {
-            const value = this.value.trim();
-            selectedAutocompleteIndexModal = -1;
-            
-            if (value.length > 0 && value.toLowerCase().includes('москва')) {
-                showModalAutocomplete(value, mapModalAutocomplete, mapModalInput, autocompleteItemsModal);
-            } else {
-                hideModalAutocomplete(mapModalAutocomplete);
-            }
-        });
-
-        // Обработчик фокуса
-        mapModalInput.addEventListener('focus', function() {
-            const value = this.value.trim();
-            if (value.length > 0 && value.toLowerCase().includes('москва')) {
-                showModalAutocomplete(value, mapModalAutocomplete, mapModalInput, autocompleteItemsModal);
-            }
-        });
-
-        // Обработчик потери фокуса
-        mapModalInput.addEventListener('blur', function() {
-            setTimeout(() => {
-                hideModalAutocomplete(mapModalAutocomplete);
-            }, 200);
-        });
-
-        // Обработчик клавиатуры для навигации по автодополнению
-        mapModalInput.addEventListener('keydown', function(e) {
-            if (!mapModalAutocomplete || !mapModalAutocomplete.classList.contains('active')) return;
-
-            const items = mapModalAutocomplete.querySelectorAll('.autocomplete-item');
-            
-            if (e.key === 'ArrowDown') {
-                e.preventDefault();
-                selectedAutocompleteIndexModal = Math.min(selectedAutocompleteIndexModal + 1, items.length - 1);
-                updateSelectedItemModal(items, selectedAutocompleteIndexModal);
-            } else if (e.key === 'ArrowUp') {
-                e.preventDefault();
-                selectedAutocompleteIndexModal = Math.max(selectedAutocompleteIndexModal - 1, -1);
-                updateSelectedItemModal(items, selectedAutocompleteIndexModal);
-            } else if (e.key === 'Enter' && selectedAutocompleteIndexModal >= 0) {
-                e.preventDefault();
-                const selectedItem = items[selectedAutocompleteIndexModal];
-                if (selectedItem) {
-                    mapModalInput.value = selectedItem.dataset.value;
-                    hideModalAutocomplete(mapModalAutocomplete);
-                    checkAddressFromModal(mapModalInput.value.trim());
-                }
-            } else if (e.key === 'Escape') {
-                hideModalAutocomplete(mapModalAutocomplete);
-            }
-        });
-    }
-
-    // Обработчик кнопки "ПРОВЕРИТЬ" в модальном окне
-    if (checkModalBtn) {
-        checkModalBtn.addEventListener('click', function() {
-            const address = mapModalInput ? mapModalInput.value.trim() : '';
-            if (address) {
-                checkAddressFromModal(address);
-                if (mapModalAutocomplete) {
-                    hideModalAutocomplete(mapModalAutocomplete);
-                }
-            } else {
-                alert('Пожалуйста, введите адрес');
-            }
-        });
-    }
-
-    // Enter в поле ввода модального окна
-    if (mapModalInput) {
-        mapModalInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter' && selectedAutocompleteIndexModal < 0) {
-                const address = this.value.trim();
-                if (address) {
-                    checkAddressFromModal(address);
-                    if (mapModalAutocomplete) {
-                        hideModalAutocomplete(mapModalAutocomplete);
-                    }
-                }
-            }
-        });
-    }
-}
-
-// Показать автодополнение в модальном окне
-function showModalAutocomplete(query, autocomplete, input, itemsArray) {
-    if (!autocomplete) return;
-
-    const queryLower = query.toLowerCase();
-    const filtered = addressSuggestions.filter(addr => 
-        addr.toLowerCase().includes(queryLower)
-    );
-
-    if (filtered.length === 0) {
-        hideModalAutocomplete(autocomplete);
-        return;
-    }
-
-    autocomplete.innerHTML = '';
-    itemsArray.length = 0;
-
-    filtered.forEach((address, index) => {
-        const item = document.createElement('div');
-        item.className = 'autocomplete-item';
-        item.dataset.value = address;
-        item.dataset.index = index;
-        
-        // Подсветка совпадающего фрагмента
-        const highlightedText = highlightMatch(address, query);
-        item.innerHTML = `<div class="autocomplete-item-text">${highlightedText}</div>`;
-        
-        item.addEventListener('click', function() {
-            if (input) {
-                input.value = address;
-                hideModalAutocomplete(autocomplete);
-                checkAddressFromModal(address);
-            }
-        });
-
-        autocomplete.appendChild(item);
-        itemsArray.push(item);
-    });
-
-    autocomplete.classList.add('active');
-}
-
-// Скрыть автодополнение в модальном окне
-function hideModalAutocomplete(autocomplete) {
-    if (autocomplete) {
-        autocomplete.classList.remove('active');
-    }
-}
-
-// Обновить выбранный элемент в модальном окне
-function updateSelectedItemModal(items, selectedIndex) {
-    items.forEach((item, index) => {
-        if (index === selectedIndex) {
-            item.classList.add('selected');
-            item.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
-        } else {
-            item.classList.remove('selected');
-        }
-    });
-}
-
-// Открытие модального окна
-function openMapModal() {
-    const mapModal = document.getElementById('mapModal');
-    const mapModalInput = document.getElementById('mapModalInput');
-    const addressInput = document.getElementById('addressInput');
-
-    if (!mapModal) return;
-
-    // Копируем значение из основного поля ввода
-    if (mapModalInput && addressInput) {
-        mapModalInput.value = addressInput.value;
-    }
-
-    mapModal.classList.add('active');
-    document.body.style.overflow = 'hidden';
-
-    // Инициализация карты в модальном окне, если еще не инициализирована
-    if (!yandexMapModal && typeof ymaps !== 'undefined') {
-        setTimeout(function() {
-            initModalMap();
-        }, 100);
-    } else if (!yandexMapModal) {
-        initModalMapPlaceholder();
-    }
-}
-
-// Закрытие модального окна
-function closeMapModal() {
-    const mapModal = document.getElementById('mapModal');
-    if (!mapModal) return;
-
-    mapModal.classList.remove('active');
-    document.body.style.overflow = '';
-}
-
-// Инициализация карты в модальном окне
-function initModalMap() {
-    const mapContainer = document.getElementById('mapModalMap');
-    if (!mapContainer) return;
-
-    yandexMapModal = new ymaps.Map('mapModalMap', {
-        center: [55.7558, 37.6173], // Москва по умолчанию
-        zoom: 12,
-        controls: ['zoomControl', 'fullscreenControl', 'geolocationControl']
-    });
-
-    // Обработчик клика на карту для выбора адреса
-    yandexMapModal.events.add('click', function(e) {
-        const coords = e.get('coords');
-        
-        // Получаем адрес по координатам (обратное геокодирование)
-        ymaps.geocode(coords).then(function(res) {
-            const firstGeoObject = res.geoObjects.get(0);
-            if (firstGeoObject) {
-                const address = firstGeoObject.getAddressLine();
-                
-                // Обновляем поле ввода в модальном окне
-                const mapModalInput = document.getElementById('mapModalInput');
-                if (mapModalInput) {
-                    mapModalInput.value = address;
-                }
-                
-                // Обновляем основное поле ввода
-                const addressInput = document.getElementById('addressInput');
-                if (addressInput) {
-                    addressInput.value = address;
-                }
-                
-                // Обновляем карту с меткой
-                updateModalMap(address, true);
-            }
-        });
-    });
-}
-
-// Заглушка для карты в модальном окне
-function initModalMapPlaceholder() {
-    const mapContainer = document.getElementById('mapModalMap');
-    if (!mapContainer) return;
-
-    mapContainer.innerHTML = `
-        <div style="display: flex; align-items: center; justify-content: center; height: 100%; background: linear-gradient(135deg, #E6F2FF 0%, #FFFFFF 100%);">
-            <div style="text-align: center; color: #666;">
-                <div style="font-size: 48px; margin-bottom: 16px;">🗺️</div>
-                <div>Карта будет отображена здесь</div>
-                <div style="font-size: 12px; margin-top: 8px; opacity: 0.7;">
-                    Для работы карты необходим API ключ Yandex Maps
-                </div>
-            </div>
-        </div>
-    `;
-}
-
 // Инициализация переключателей дополнительных опций
 const baseTariffPrice = 699;
 
@@ -825,341 +473,3 @@ function initTariffAddons() {
     // Инициализируем начальную сумму
     updateTotalPrice();
 }
-
-// Проверка адреса из модального окна
-function checkAddressFromModal(address) {
-    const checkModalBtn = document.getElementById('checkModalBtn');
-    
-    if (!checkModalBtn) return;
-
-    // Показываем состояние загрузки
-    const originalText = checkModalBtn.textContent;
-    checkModalBtn.disabled = true;
-    checkModalBtn.textContent = 'ПРОВЕРКА...';
-
-    // Имитация запроса к API
-    setTimeout(() => {
-        // Случайный результат для демонстрации
-        const isAvailable = Math.random() > 0.3; // 70% вероятность доступности
-        
-        // Обновляем карту в модальном окне
-        updateModalMap(address, isAvailable);
-        
-        // Восстанавливаем кнопку
-        checkModalBtn.disabled = false;
-        checkModalBtn.textContent = originalText;
-
-        // Показываем модальное окно с результатом
-        showAddressResultModal(address, isAvailable);
-    }, 1500);
-}
-
-// Обновление карты в модальном окне
-function updateModalMap(address, isAvailable) {
-    if (yandexMapModal) {
-            // Используем геокодирование для получения координат
-            ymaps.geocode(address).then(function(res) {
-                const firstGeoObject = res.geoObjects.get(0);
-                if (firstGeoObject) {
-                    const coords = firstGeoObject.geometry.getCoordinates();
-                    
-                yandexMapModal.setCenter(coords, 16);
-                    
-                    // Удаляем предыдущую метку
-                if (mapMarkerModal) {
-                    yandexMapModal.geoObjects.remove(mapMarkerModal);
-                    }
-                    
-                    // Добавляем новую метку
-                mapMarkerModal = new ymaps.Placemark(coords, {
-                        balloonContent: address,
-                        iconCaption: isAvailable ? '✓ Доступно' : 'Недоступно'
-                    }, {
-                        preset: isAvailable ? 'islands#greenDotIcon' : 'islands#redDotIcon'
-                    });
-                    
-                yandexMapModal.geoObjects.add(mapMarkerModal);
-                }
-            }).catch(function(error) {
-                console.error('Ошибка геокодирования:', error);
-            });
-    }
-}
-
-// Инициализация FAQ аккордеона
-function initFAQ() {
-    const faqQuestions = document.querySelectorAll('.faq-question');
-    
-    faqQuestions.forEach(question => {
-        question.addEventListener('click', function() {
-            const faqItem = this.closest('.faq-item');
-            const isActive = faqItem.classList.contains('active');
-            
-            // Закрываем все остальные вопросы
-            document.querySelectorAll('.faq-item').forEach(item => {
-                if (item !== faqItem) {
-                    item.classList.remove('active');
-                }
-            });
-            
-            // Переключаем текущий вопрос
-            if (isActive) {
-                faqItem.classList.remove('active');
-            } else {
-                faqItem.classList.add('active');
-            }
-        });
-    });
-}
-
-// Анимация статистики поддержки
-function initSupportStatsAnimation() {
-    const statNumbers = document.querySelectorAll('.advantage-features .support-stat-number');
-    
-    if (statNumbers.length === 0) return;
-    
-    const observerOptions = {
-        threshold: 0.5,
-        rootMargin: '0px'
-    };
-    
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const target = parseInt(entry.target.dataset.target);
-                animateSupportNumber(entry.target, target);
-                observer.unobserve(entry.target);
-            }
-        });
-    }, observerOptions);
-    
-    statNumbers.forEach(stat => {
-        observer.observe(stat);
-    });
-}
-
-function animateSupportNumber(element, target) {
-    const duration = 1500;
-    const start = 0;
-    const increment = target / (duration / 16);
-    let current = start;
-    
-    const timer = setInterval(() => {
-        current += increment;
-        if (current >= target) {
-            element.textContent = target;
-            clearInterval(timer);
-        } else {
-            element.textContent = Math.floor(current);
-        }
-    }, 16);
-}
-
-// Инициализация форм заявки
-function initOrderForms() {
-    // Модальное окно заявки
-    const orderModal = document.getElementById('orderModal');
-    const orderModalClose = document.getElementById('orderModalClose');
-    const orderForm = document.getElementById('orderForm');
-    const tariffTotalBtn = document.getElementById('tariffTotalBtn');
-    const ctaButton = document.querySelector('.cta-button');
-    
-    // Открытие модального окна при нажатии на кнопку "Подключить" в тарифе
-    if (tariffTotalBtn) {
-        tariffTotalBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            openOrderModal();
-        });
-    }
-    
-    // Открытие модального окна при нажатии на кнопку "Оставить заявку" в контактах (если форма не найдена)
-    if (ctaButton) {
-        const existingForm = ctaButton.closest('.contact-cta-card')?.querySelector('form');
-        if (!existingForm) {
-            ctaButton.addEventListener('click', function(e) {
-                e.preventDefault();
-                openOrderModal();
-            });
-        }
-    }
-    
-    // Закрытие модального окна
-    if (orderModalClose) {
-        orderModalClose.addEventListener('click', function() {
-            closeOrderModal();
-        });
-    }
-    
-    // Закрытие при клике вне модального окна
-    if (orderModal) {
-        orderModal.addEventListener('click', function(e) {
-            if (e.target === orderModal) {
-                closeOrderModal();
-            }
-        });
-    }
-    
-    // Закрытие по Escape
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && orderModal && orderModal.classList.contains('active')) {
-            closeOrderModal();
-        }
-    });
-    
-    // Обработка отправки формы в модальном окне
-    if (orderForm) {
-        orderForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            submitOrderForm(this);
-        });
-    }
-    
-    // Обработка отправки формы звонка
-    const contactFormCall = document.getElementById('contactFormCall');
-    if (contactFormCall) {
-        contactFormCall.addEventListener('submit', function(e) {
-            e.preventDefault();
-            submitContactForm(this, 'call');
-        });
-    }
-    
-    // Обработка отправки формы письма
-    const contactFormEmail = document.getElementById('contactFormEmail');
-    if (contactFormEmail) {
-        contactFormEmail.addEventListener('submit', function(e) {
-            e.preventDefault();
-            submitContactForm(this, 'email');
-        });
-    }
-}
-
-// Открыть модальное окно заявки
-function openOrderModal() {
-    const orderModal = document.getElementById('orderModal');
-    const orderAddress = document.getElementById('orderAddress');
-    const orderTariffTotal = document.getElementById('orderTariffTotal');
-    const addressInput = document.getElementById('addressInput');
-    const tariffTotalAmount = document.getElementById('tariffTotalAmount');
-    
-    if (!orderModal) return;
-    
-    // Копируем адрес из поля проверки, если он заполнен
-    if (orderAddress && addressInput && addressInput.value.trim()) {
-        orderAddress.value = addressInput.value.trim();
-    }
-    
-    // Копируем итоговую сумму тарифа
-    if (orderTariffTotal && tariffTotalAmount) {
-        const total = tariffTotalAmount.textContent || '699';
-        orderTariffTotal.textContent = total + ' ₽';
-    }
-    
-    orderModal.classList.add('active');
-    document.body.style.overflow = 'hidden';
-}
-
-// Закрыть модальное окно заявки
-function closeOrderModal() {
-    const orderModal = document.getElementById('orderModal');
-    if (orderModal) {
-        orderModal.classList.remove('active');
-        document.body.style.overflow = '';
-    }
-}
-
-// Отправить форму заявки из модального окна
-function submitOrderForm(form) {
-    const submitBtn = form.querySelector('button[type="submit"]');
-    const originalText = submitBtn.textContent;
-    
-    // Показываем состояние загрузки
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Отправка...';
-    
-    // Имитация отправки формы
-    setTimeout(() => {
-        // Очищаем форму
-        form.reset();
-        
-        // Восстанавливаем кнопку
-        submitBtn.disabled = false;
-        submitBtn.textContent = originalText;
-        
-        // Закрываем модальное окно заявки
-        closeOrderModal();
-        
-        // Показываем модальное окно успешной отправки
-        showOrderSuccessModal();
-    }, 1500);
-}
-
-// Отправить форму заявки из раздела контактов
-function submitContactForm(form, type) {
-    const submitBtn = form.querySelector('button[type="submit"]');
-    const originalText = submitBtn.textContent;
-    
-    // Показываем состояние загрузки
-    submitBtn.disabled = true;
-    submitBtn.textContent = type === 'call' ? 'Отправка...' : 'Отправка...';
-    
-    // Имитация отправки формы
-    setTimeout(() => {
-        // Очищаем форму
-        form.reset();
-        
-        // Восстанавливаем кнопку
-        submitBtn.disabled = false;
-        submitBtn.textContent = originalText;
-        
-        // Показываем модальное окно успешной отправки
-        showOrderSuccessModal();
-    }, 1500);
-}
-
-// Показать модальное окно успешной отправки заявки
-function showOrderSuccessModal() {
-    const modal = document.getElementById('orderSuccessModal');
-    const closeBtn = document.getElementById('orderSuccessModalClose');
-    const closeBtnSecondary = document.getElementById('orderSuccessCloseBtn');
-    
-    if (!modal) return;
-    
-    // Показываем модальное окно
-    modal.classList.add('active');
-    document.body.style.overflow = 'hidden';
-    
-    // Обработчики закрытия
-    if (closeBtn) {
-        closeBtn.onclick = () => closeOrderSuccessModal();
-    }
-    
-    if (closeBtnSecondary) {
-        closeBtnSecondary.onclick = () => closeOrderSuccessModal();
-    }
-    
-    // Закрытие при клике вне модального окна
-    modal.onclick = (e) => {
-        if (e.target === modal) {
-            closeOrderSuccessModal();
-        }
-    };
-    
-    // Закрытие по Escape
-    const escapeHandler = (e) => {
-        if (e.key === 'Escape') {
-            closeOrderSuccessModal();
-            document.removeEventListener('keydown', escapeHandler);
-        }
-    };
-    document.addEventListener('keydown', escapeHandler);
-}
-
-// Закрыть модальное окно успешной отправки
-function closeOrderSuccessModal() {
-    const modal = document.getElementById('orderSuccessModal');
-    if (modal) {
-        modal.classList.remove('active');
-        document.body.style.overflow = '';
-    }
-}
-
