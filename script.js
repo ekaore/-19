@@ -174,14 +174,23 @@ function initAddressCheckMap() {
 
     // Функция инициализации карты
     function initMap() {
-        if (typeof ymaps === 'undefined') {
-            // Если ymaps еще не загружен, ждем и пробуем снова
-            setTimeout(initMap, 100);
+        // Проверяем, что ymaps загружен и доступен
+        if (typeof ymaps === 'undefined' || !ymaps || !ymaps.ready) {
+            // Если ymaps еще не загружен, пробуем снова (максимум 10 раз)
+            if (initMap.attempts === undefined) initMap.attempts = 0;
+            if (initMap.attempts < 10) {
+                initMap.attempts++;
+                setTimeout(initMap, 500);
+            } else {
+                // Если не удалось загрузить после 10 попыток, показываем сообщение
+                showMapError(mapContainer, 'Yandex Maps API не загружен. Проверьте подключение к интернету и API ключ.');
+            }
             return;
         }
 
         // Ждем полной загрузки API
-        ymaps.ready(function() {
+        try {
+            ymaps.ready(function() {
             try {
                 yandexMapCheck = new ymaps.Map('addressCheckMap', {
                     center: [55.7558, 37.6173], // Москва по умолчанию
@@ -203,22 +212,29 @@ function initAddressCheckMap() {
                     }
                 }, 500);
 
-            } catch (error) {
-                console.error('Ошибка инициализации карты:', error);
-                // Заглушка при ошибке
-                mapContainer.innerHTML = `
-                    <div style="display: flex; align-items: center; justify-content: center; height: 100%; background: linear-gradient(135deg, #E6F2FF 0%, #FFFFFF 100%); border-radius: 12px;">
-                        <div style="text-align: center; color: #666;">
-                            <div style="font-size: 48px; margin-bottom: 16px;">🗺️</div>
-                            <div>Ошибка загрузки карты</div>
-                            <div style="font-size: 12px; margin-top: 8px; opacity: 0.7;">
-                                Проверьте API ключ Yandex Maps
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }
-        });
+                } catch (error) {
+                    console.error('Ошибка инициализации карты:', error);
+                    showMapError(mapContainer, 'Ошибка инициализации карты. Проверьте API ключ Yandex Maps.');
+                }
+            });
+        } catch (error) {
+            console.error('Ошибка при вызове ymaps.ready:', error);
+            showMapError(mapContainer, 'Ошибка загрузки Yandex Maps API.');
+        }
+    }
+    
+    // Функция для отображения ошибки карты
+    function showMapError(container, message) {
+        if (!container) return;
+        container.innerHTML = `
+            <div style="display: flex; align-items: center; justify-content: center; height: 100%; background: linear-gradient(135deg, #E6F2FF 0%, #FFFFFF 100%); border-radius: 12px;">
+                <div style="text-align: center; color: #666; padding: 20px;">
+                    <div style="font-size: 48px; margin-bottom: 16px;">🗺️</div>
+                    <div style="font-size: 18px; font-weight: 600; margin-bottom: 8px; color: #0066CC;">Карта недоступна</div>
+                    <div style="font-size: 14px; line-height: 1.5;">${message}</div>
+                </div>
+            </div>
+        `;
     }
 
     // Пробуем инициализировать карту
@@ -227,18 +243,7 @@ function initAddressCheckMap() {
     // Если через 5 секунд карта не загрузилась, показываем заглушку
     setTimeout(function() {
         if (!yandexMapCheck && mapContainer) {
-            mapContainer.innerHTML = `
-                <div style="display: flex; align-items: center; justify-content: center; height: 100%; background: linear-gradient(135deg, #E6F2FF 0%, #FFFFFF 100%); border-radius: 12px;">
-                    <div style="text-align: center; color: #666;">
-                        <div style="font-size: 48px; margin-bottom: 16px;">🗺️</div>
-                        <div>Карта будет отображена здесь</div>
-                        <div style="font-size: 12px; margin-top: 8px; opacity: 0.7;">
-                            Для работы карты необходим API ключ Yandex Maps<br>
-                            Укажите его в строке 9 файла index.html
-                        </div>
-                    </div>
-                </div>
-            `;
+            showMapError(mapContainer, 'Карта не загружена. Для работы карты необходим API ключ Yandex Maps. Укажите его в файле index.html');
         }
     }, 5000);
 }
@@ -270,6 +275,11 @@ function addMarkerToMap(coords, address, options = {}) {
     if (draggable) {
         marker.events.add('dragend', function() {
             const newCoords = marker.geometry.getCoordinates();
+            // Проверяем доступность API перед геокодированием
+            if (typeof ymaps === 'undefined' || !ymaps || !ymaps.geocode) {
+                console.warn('Yandex Maps API не доступен для геокодирования');
+                return;
+            }
             // Обновляем адрес при перетаскивании
             ymaps.geocode(newCoords).then(function(res) {
                 const firstGeoObject = res.geoObjects.get(0);
@@ -333,8 +343,8 @@ function addMarkerByAddress(address, options = {}) {
     }
 
     // Проверяем, что ymaps доступен
-    if (typeof ymaps === 'undefined') {
-        return Promise.reject(new Error('Yandex Maps API не загружен.'));
+    if (typeof ymaps === 'undefined' || !ymaps || !ymaps.geocode) {
+        return Promise.reject(new Error('Yandex Maps API не загружен или недоступен.'));
     }
 
     // Нормализуем адрес: добавляем город, если его нет
@@ -454,6 +464,12 @@ function createDraggableMarker() {
     draggableMarker.events.add('dragend', function() {
         const newCoords = draggableMarker.geometry.getCoordinates();
         
+        // Проверяем доступность API перед геокодированием
+        if (typeof ymaps === 'undefined' || !ymaps || !ymaps.geocode) {
+            console.warn('Yandex Maps API не доступен для геокодирования');
+            return;
+        }
+        
         // Обновляем адрес при перетаскивании
         ymaps.geocode(newCoords).then(function(res) {
             const firstGeoObject = res.geoObjects.get(0);
@@ -523,6 +539,27 @@ function createDraggableMarker() {
             }
         }
         
+        // Проверяем доступность API перед геокодированием
+        if (typeof ymaps === 'undefined' || !ymaps || !ymaps.geocode) {
+            console.warn('Yandex Maps API не доступен для геокодирования');
+            // Показываем модальное окно с координатами без геокодирования
+            const address = `Координаты: ${coords[0].toFixed(6)}, ${coords[1].toFixed(6)}`;
+            processAddressAndShowModal(address);
+            return;
+        }
+        
+        // Проверяем доступность API перед геокодированием
+        if (typeof ymaps === 'undefined' || !ymaps || !ymaps.geocode) {
+            console.warn('Yandex Maps API не доступен для геокодирования');
+            // Показываем модальное окно с координатами без геокодирования
+            const address = `Координаты: ${coords[0].toFixed(6)}, ${coords[1].toFixed(6)}`;
+            const isAvailable = Math.random() > 0.3;
+            if (typeof showAddressResultModal === 'function') {
+                showAddressResultModal(address, isAvailable);
+            }
+            return;
+        }
+        
         // Получаем адрес по координатам
         ymaps.geocode(coords, {
             results: 1
@@ -541,7 +578,7 @@ function createDraggableMarker() {
             
             processAddressAndShowModal(address);
         }).catch(function(error) {
-            console.error('Ошибка геокодирования при клике на маркер:', error);
+            console.warn('Ошибка геокодирования при клике на маркер:', error);
             // Даже при ошибке показываем модальное окно с координатами
             const address = `Координаты: ${coords[0].toFixed(6)}, ${coords[1].toFixed(6)}`;
             processAddressAndShowModal(address);
@@ -593,6 +630,17 @@ function createDraggableMarker() {
         }
         
         // Получаем адрес по координатам
+        if (typeof ymaps === 'undefined' || !ymaps || !ymaps.geocode) {
+            console.warn('Yandex Maps API не доступен для геокодирования');
+            // Показываем модальное окно с координатами без геокодирования
+            const address = `Координаты: ${coords[0].toFixed(6)}, ${coords[1].toFixed(6)}`;
+            const isAvailable = Math.random() > 0.3;
+            if (typeof showAddressResultModal === 'function') {
+                showAddressResultModal(address, isAvailable);
+            }
+            return;
+        }
+        
         ymaps.geocode(coords, {
             results: 1
         }).then(function(res) {
@@ -632,7 +680,7 @@ function createDraggableMarker() {
                 updateAddressCheckMap(address, isAvailable);
             }
         }).catch(function(error) {
-            console.error('Ошибка геокодирования при клике на маркер:', error);
+            console.warn('Ошибка геокодирования при клике на маркер:', error);
             // Даже при ошибке показываем модальное окно с координатами
             const address = `Координаты: ${coords[0].toFixed(6)}, ${coords[1].toFixed(6)}`;
             const isAvailable = Math.random() > 0.3;
@@ -659,21 +707,30 @@ function createDraggableMarker() {
     });
     
     // Получаем адрес по координатам центра (асинхронно)
-    ymaps.geocode(center).then(function(res) {
-        const firstGeoObject = res.geoObjects.get(0);
-        if (firstGeoObject && draggableMarker) {
-            const address = firstGeoObject.getAddressLine();
-            draggableMarker.properties.set('balloonContent', `<strong>${address}</strong><br>Координаты: ${center[0].toFixed(6)}, ${center[1].toFixed(6)}<br><br>Перетащите маркер для выбора адреса`);
-            draggableMarker.properties.set('hintContent', address);
-        }
-    }).catch(function(error) {
-        console.warn('Ошибка геокодирования для draggable маркера:', error);
-    });
+    if (typeof ymaps !== 'undefined' && ymaps && ymaps.geocode) {
+        ymaps.geocode(center).then(function(res) {
+            const firstGeoObject = res.geoObjects.get(0);
+            if (firstGeoObject && draggableMarker) {
+                const address = firstGeoObject.getAddressLine();
+                draggableMarker.properties.set('balloonContent', `<strong>${address}</strong><br>Координаты: ${center[0].toFixed(6)}, ${center[1].toFixed(6)}<br><br>Перетащите маркер для выбора адреса`);
+                draggableMarker.properties.set('hintContent', address);
+            }
+        }).catch(function(error) {
+            console.warn('Ошибка геокодирования для draggable маркера:', error);
+            // Не критично, просто не обновляем адрес
+        });
+    }
 }
 
 // Обновление карты в блоке проверки адреса
 function updateAddressCheckMap(address, isAvailable) {
     if (!yandexMapCheck) return;
+    
+    // Проверяем, что ymaps доступен
+    if (typeof ymaps === 'undefined' || !ymaps || !ymaps.geocode) {
+        console.warn('Yandex Maps API не доступен для геокодирования');
+        return;
+    }
 
     // Удаляем предыдущую метку проверки
     if (mapMarkerCheck) {

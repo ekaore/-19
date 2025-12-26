@@ -1,0 +1,13 @@
+{
+  "name": "pj19",
+  "version": "1.0.0",
+  "description": "Потребительский интернет кооператив ПЖ-19",
+  "scripts": {
+    "build": "echo 'No build step required for static site'",
+    "start": "echo 'Static site - no server needed'"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
+
