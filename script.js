@@ -175,51 +175,69 @@ function initAddressCheckMap() {
     // Функция инициализации карты
     function initMap() {
         // Проверяем, что ymaps загружен и доступен
-        if (typeof ymaps === 'undefined' || !ymaps || !ymaps.ready) {
-            // Если ymaps еще не загружен, пробуем снова (максимум 20 раз, увеличиваем время ожидания)
+        if (typeof ymaps === 'undefined') {
+            // Если ymaps еще не загружен, пробуем снова (максимум 30 раз)
             if (initMap.attempts === undefined) initMap.attempts = 0;
-            if (initMap.attempts < 20) {
+            if (initMap.attempts < 30) {
                 initMap.attempts++;
-                setTimeout(initMap, 300);
+                setTimeout(initMap, 200);
             } else {
-                // Если не удалось загрузить после 20 попыток, показываем сообщение
+                // Если не удалось загрузить после 30 попыток, показываем сообщение
                 showMapError(mapContainer, 'Yandex Maps API не загружен. Проверьте подключение к интернету.');
             }
             return;
         }
 
         // Ждем полной загрузки API
-        try {
-            ymaps.ready(function() {
-                try {
-                    yandexMapCheck = new ymaps.Map('addressCheckMap', {
-                        center: [55.7558, 37.6173], // Москва по умолчанию
-                        zoom: 12,
-                        controls: ['zoomControl', 'fullscreenControl', 'geolocationControl']
-                    });
+        if (typeof ymaps.ready === 'function') {
+            try {
+                ymaps.ready(function() {
+                    try {
+                        // Проверяем, что контейнер все еще существует
+                        const container = document.getElementById('addressCheckMap');
+                        if (!container) {
+                            console.error('Контейнер карты не найден');
+                            return;
+                        }
 
-                // Создаем draggable-маркер в центре карты после полной загрузки
-                yandexMapCheck.events.add('boundschange', function() {
-                    if (!draggableMarker) {
-                        createDraggableMarker();
+                        yandexMapCheck = new ymaps.Map('addressCheckMap', {
+                            center: [55.7558, 37.6173], // Москва по умолчанию
+                            zoom: 12,
+                            controls: ['zoomControl', 'fullscreenControl', 'geolocationControl']
+                        });
+
+                        // Создаем draggable-маркер в центре карты после полной загрузки
+                        yandexMapCheck.events.add('boundschange', function() {
+                            if (!draggableMarker) {
+                                createDraggableMarker();
+                            }
+                        });
+                        
+                        // Также создаем сразу на случай, если событие не сработает
+                        setTimeout(function() {
+                            if (!draggableMarker && yandexMapCheck) {
+                                createDraggableMarker();
+                            }
+                        }, 500);
+
+                    } catch (error) {
+                        console.error('Ошибка инициализации карты:', error);
+                        showMapError(mapContainer, 'Ошибка инициализации карты: ' + error.message);
                     }
                 });
-                
-                // Также создаем сразу на случай, если событие не сработает
-                setTimeout(function() {
-                    if (!draggableMarker) {
-                        createDraggableMarker();
-                    }
-                }, 500);
-
-                } catch (error) {
-                    console.error('Ошибка инициализации карты:', error);
-                    showMapError(mapContainer, 'Ошибка инициализации карты. Проверьте API ключ Yandex Maps.');
-                }
-            });
-        } catch (error) {
-            console.error('Ошибка при вызове ymaps.ready:', error);
-            showMapError(mapContainer, 'Ошибка загрузки Yandex Maps API.');
+            } catch (error) {
+                console.error('Ошибка при вызове ymaps.ready:', error);
+                showMapError(mapContainer, 'Ошибка загрузки Yandex Maps API.');
+            }
+        } else {
+            // Если ready недоступен, пробуем еще раз
+            if (initMap.attempts === undefined) initMap.attempts = 0;
+            if (initMap.attempts < 30) {
+                initMap.attempts++;
+                setTimeout(initMap, 200);
+            } else {
+                showMapError(mapContainer, 'Yandex Maps API не готов. Проверьте подключение к интернету.');
+            }
         }
     }
     
@@ -238,14 +256,20 @@ function initAddressCheckMap() {
     }
 
     // Пробуем инициализировать карту
-    initMap();
+    // Ждем немного, чтобы убедиться, что DOM полностью загружен
+    setTimeout(function() {
+        initMap();
+    }, 100);
 
-    // Если через 5 секунд карта не загрузилась, показываем заглушку
+    // Если через 8 секунд карта не загрузилась, показываем заглушку
     setTimeout(function() {
         if (!yandexMapCheck && mapContainer) {
-            showMapError(mapContainer, 'Карта не загружена. Для работы карты необходим API ключ Yandex Maps. Укажите его в файле index.html');
+            const errorDiv = mapContainer.querySelector('.map-error-message');
+            if (!errorDiv) {
+                showMapError(mapContainer, 'Карта не загружена. Проверьте подключение к интернету.');
+            }
         }
-    }, 5000);
+    }, 8000);
 }
 
 // Добавление маркера на карту по координатам
@@ -966,7 +990,22 @@ function showAddressResultModal(address, isAvailable) {
         
         if (closeBtn) closeBtn.addEventListener('click', closeModal);
         if (overlay) overlay.addEventListener('click', closeModal);
-        if (okBtn) okBtn.addEventListener('click', closeModal);
+        
+        // Обработчик кнопки "Оставить заявку" - переход на страницу заявки
+        if (okBtn) {
+            okBtn.addEventListener('click', function() {
+                // Получаем адрес из модального окна
+                const addressElement = modal.querySelector('.address-result-address');
+                const address = addressElement ? addressElement.textContent.trim() : '';
+                
+                // Переход на страницу заявки с передачей адреса
+                let url = 'application.html';
+                if (address) {
+                    url += '?address=' + encodeURIComponent(address);
+                }
+                window.location.href = url;
+            });
+        }
         
         // Закрытие по Escape
         document.addEventListener('keydown', function(e) {

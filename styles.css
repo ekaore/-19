@@ -964,6 +964,9 @@ svg {
     box-shadow: var(--shadow-sm);
     white-space: nowrap;
     flex-shrink: 0;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
 }
 
 .tariff-total-btn:hover {
@@ -2114,7 +2117,7 @@ svg {
 /* Блок Присоединяйтесь к нам */
 .cooperative-join {
     max-width: 1400px;
-    margin: clamp(20px, 2.5vw, 28px) auto 0;
+    margin: clamp(20px, 2.5vw, 28px) auto clamp(40px, 5vw, 60px);
     padding: clamp(24px, 3vw, 32px);
     background: linear-gradient(135deg, rgba(0, 102, 204, 0.08) 0%, rgba(230, 242, 255, 0.6) 100%);
     border-radius: var(--radius-lg);
@@ -3088,7 +3091,6 @@ svg {
     background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
     color: var(--white);
     padding: clamp(40px, 5vw, 60px) 0 clamp(20px, 2.5vw, 30px);
-    margin-top: clamp(60px, 8vw, 80px);
     position: relative;
     overflow: hidden;
 }
