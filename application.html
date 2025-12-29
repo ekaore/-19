@@ -547,6 +547,14 @@
         if (addressParam && document.getElementById('address')) {
             document.getElementById('address').value = decodeURIComponent(addressParam);
         }
+        
+        // Обработчик кнопки "Личный кабинет"
+        const cabinetBtn = document.querySelector('.btn-cabinet');
+        if (cabinetBtn) {
+            cabinetBtn.addEventListener('click', function() {
+                window.location.href = 'login.html';
+            });
+        }
     </script>
 </body>
 </html>

@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход в личный кабинет - ПЖ-19</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .login-page {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #E6F2FF 0%, #FFFFFF 50%, #F0F8FF 100%);
+            padding: 120px 0 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .login-container {
+            max-width: 500px;
+            width: 100%;
+            padding: 0 20px;
+        }
+        
+        .login-card {
+            background: #FFFFFF;
+            border-radius: 24px;
+            padding: 50px 40px;
+            box-shadow: 0 10px 40px rgba(0, 102, 204, 0.15);
+        }
+        
+        .login-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .login-logo {
+            margin-bottom: 24px;
+        }
+        
+        .login-logo img {
+            height: 50px;
+            width: auto;
+        }
+        
+        .login-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1A1A1A;
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+        
+        .login-subtitle {
+            font-size: 16px;
+            color: #666666;
+            line-height: 1.5;
+        }
+        
+        .login-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 32px;
+            border-bottom: 2px solid #E0E0E0;
+            padding-bottom: 0;
+        }
+        
+        .login-tab {
+            flex: 1;
+            padding: 12px 16px;
+            background: none;
+            border: none;
+            font-size: 15px;
+            font-weight: 500;
+            color: #666666;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -2px;
+        }
+        
+        .login-tab:hover {
+            color: #0066CC;
+            background: rgba(0, 102, 204, 0.05);
+        }
+        
+        .login-tab.active {
+            color: #0066CC;
+            font-weight: 600;
+            border-bottom-color: #0066CC;
+        }
+        
+        .login-content {
+            min-height: 300px;
+        }
+        
+        .login-method {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .login-method.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .login-icon-wrapper {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        
+        .login-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #E6F2FF 0%, #CCE5FF 100%);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+        }
+        
+        .login-icon svg {
+            width: 40px;
+            height: 40px;
+            color: #0066CC;
+        }
+        
+        .login-method-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: #1A1A1A;
+            text-align: center;
+            margin-bottom: 12px;
+        }
+        
+        .login-method-description {
+            font-size: 15px;
+            color: #666666;
+            text-align: center;
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+        
+        .login-form-group {
+            margin-bottom: 24px;
+        }
+        
+        .login-form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        
+        .login-form-input {
+            width: 100%;
+            padding: 14px 18px;
+            font-size: 16px;
+            border: 2px solid #E0E0E0;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            background: #FAFAFA;
+        }
+        
+        .login-form-input:focus {
+            outline: none;
+            border-color: #0066CC;
+            background: #FFFFFF;
+            box-shadow: 0 0 0 4px rgba(0, 102, 204, 0.1);
+        }
+        
+        .login-btn {
+            width: 100%;
+            padding: 16px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #FFFFFF;
+            background: linear-gradient(135deg, #0066CC 0%, #0052A3 100%);
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 8px;
+        }
+        
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 102, 204, 0.3);
+        }
+        
+        .login-btn:active {
+            transform: translateY(0);
+        }
+        
+        .login-btn svg {
+            width: 20px;
+            height: 20px;
+        }
+        
+        .login-info {
+            margin-top: 24px;
+            padding: 16px;
+            background: #F5F5F5;
+            border-radius: 12px;
+            font-size: 14px;
+            color: #666666;
+            line-height: 1.6;
+        }
+        
+        .login-info-item {
+            margin-bottom: 8px;
+        }
+        
+        .login-info-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .login-link {
+            color: #0066CC;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .login-link:hover {
+            text-decoration: underline;
+        }
+        
+        .login-back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #0066CC;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            margin-bottom: 24px;
+            transition: all 0.3s ease;
+        }
+        
+        .login-back-link:hover {
+            color: #0052A3;
+            gap: 12px;
+        }
+        
+        .login-divider {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin: 32px 0;
+            color: #999999;
+            font-size: 14px;
+        }
+        
+        .login-divider::before,
+        .login-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #E0E0E0;
+        }
+        
+        @media (max-width: 768px) {
+            .login-page {
+                padding: 100px 0 40px;
+            }
+            
+            .login-card {
+                padding: 40px 24px;
+            }
+            
+            .login-title {
+                font-size: 28px;
+            }
+            
+            .login-tabs {
+                flex-wrap: wrap;
+            }
+            
+            .login-tab {
+                font-size: 14px;
+                padding: 10px 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <!-- Логотип -->
+                <div class="logo">
+                    <a href="index.html">
+                        <img src="logo.png" alt="Логотип компании" class="logo-img">
+                    </a>
+                </div>
+
+                <!-- Навигация -->
+                <nav class="nav">
+                    <ul class="nav-list">
+                        <li class="nav-item">
+                            <a href="index.html#tariffs" class="nav-link">Тариф</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="index.html#additional-services" class="nav-link">Услуги</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="index.html#address-check" class="nav-link">Подключение</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="index.html#cooperative" class="nav-link">О кооперативе</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="index.html#contact" class="nav-link">Контакты</a>
+                        </li>
+                    </ul>
+                </nav>
+
+                <!-- Контакты и кнопка -->
+                <div class="header-right">
+                    <a href="tel:+79991234567" class="phone-link">8 800 222 55 19</a>
+                    <button class="btn-cabinet">
+                        <svg class="btn-cabinet-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 12C14.7614 12 17 9.76142 17 7C17 4.23858 14.7614 2 12 2C9.23858 2 7 4.23858 7 7C7 9.76142 9.23858 12 12 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M20.59 22C20.59 18.13 16.74 15 12 15C7.26 15 3.41 18.13 3.41 22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span>Личный кабинет</span>
+                    </button>
+                </div>
+
+                <!-- Мобильное меню -->
+                <button class="mobile-menu-toggle" aria-label="Открыть меню">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <section class="login-page">
+        <div class="login-container">
+            <a href="index.html" class="login-back-link">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Вернуться на главную
+            </a>
+            
+            <div class="login-card">
+                <div class="login-header">
+                    <div class="login-logo">
+                        <img src="logo.png" alt="ПЖ-19">
+                    </div>
+                    <h1 class="login-title">Вход в личный кабинет</h1>
+                    <p class="login-subtitle">Выберите способ входа для управления услугами</p>
+                </div>
+                
+                <div class="login-tabs">
+                    <button class="login-tab active" data-method="telegram">Telegram</button>
+                    <button class="login-tab" data-method="contract">Договор</button>
+                    <button class="login-tab" data-method="phone">Телефон</button>
+                    <button class="login-tab" data-method="email">Email</button>
+                </div>
+                
+                <div class="login-content">
+                    <!-- Telegram метод -->
+                    <div class="login-method active" id="telegram-method">
+                        <div class="login-icon-wrapper">
+                            <div class="login-icon">
+                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM16.64 8.8C16.49 10.38 15.84 14.22 15.51 15.99C15.37 16.74 15.09 16.99 14.83 17.02C14.25 17.07 13.81 16.64 13.25 16.27C12.37 15.69 11.87 15.33 11.02 14.77C10.03 14.12 10.67 13.76 11.24 13.18C11.39 13.03 14.95 9.7 15.02 9.37C15.03 9.3 15.03 9.15 14.93 9.08C14.84 9 14.7 9.03 14.59 9.05C14.43 9.08 12.39 10.24 8.46 12.52C7.8 12.89 7.19 13.07 6.64 13.05C6.02 13.02 4.84 12.74 4.01 12.5C2.99 12.19 2.2 12.01 2.26 11.38C2.29 11.06 2.75 10.72 3.73 10.38C7.27 9.18 9.98 8.35 11.85 7.89C15.35 6.98 16.11 6.78 16.55 6.78C16.64 6.78 16.85 6.8 17 6.92C17.12 7.02 17.15 7.14 17.17 7.22C17.19 7.3 17.21 7.5 17.19 7.68L16.64 8.8Z" fill="currentColor"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <h2 class="login-method-title">Войти через Telegram</h2>
+                        <p class="login-method-description">Нажмите кнопку для авторизации через Telegram бота</p>
+                        <button class="login-btn" onclick="handleTelegramLogin()">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM16.64 8.8C16.49 10.38 15.84 14.22 15.51 15.99C15.37 16.74 15.09 16.99 14.83 17.02C14.25 17.07 13.81 16.64 13.25 16.27C12.37 15.69 11.87 15.33 11.02 14.77C10.03 14.12 10.67 13.76 11.24 13.18C11.39 13.03 14.95 9.7 15.02 9.37C15.03 9.3 15.03 9.15 14.93 9.08C14.84 9 14.7 9.03 14.59 9.05C14.43 9.08 12.39 10.24 8.46 12.52C7.8 12.89 7.19 13.07 6.64 13.05C6.02 13.02 4.84 12.74 4.01 12.5C2.99 12.19 2.2 12.01 2.26 11.38C2.29 11.06 2.75 10.72 3.73 10.38C7.27 9.18 9.98 8.35 11.85 7.89C15.35 6.98 16.11 6.78 16.55 6.78C16.64 6.78 16.85 6.8 17 6.92C17.12 7.02 17.15 7.14 17.17 7.22C17.19 7.3 17.21 7.5 17.19 7.68L16.64 8.8Z" fill="currentColor"/>
+                            </svg>
+                            Войти через Telegram
+                        </button>
+                        <div class="login-info">
+                            <div class="login-info-item">Ваш Telegram должен быть привязан к аккаунту.</div>
+                            <div class="login-info-item">Для привязки обратитесь в <a href="index.html#contact" class="login-link">поддержку</a>.</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Договор метод -->
+                    <div class="login-method" id="contract-method">
+                        <div class="login-icon-wrapper">
+                            <div class="login-icon">
+                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M14 2V8H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M8 13H16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M8 17H16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <h2 class="login-method-title">Вход по номеру договора</h2>
+                        <p class="login-method-description">Введите номер договора и пароль для входа</p>
+                        <form id="contract-form" onsubmit="handleContractLogin(event)">
+                            <div class="login-form-group">
+                                <label class="login-form-label" for="contract-number">Номер договора</label>
+                                <input type="text" id="contract-number" class="login-form-input" placeholder="Введите номер договора" required>
+                            </div>
+                            <div class="login-form-group">
+                                <label class="login-form-label" for="contract-password">Пароль</label>
+                                <input type="password" id="contract-password" class="login-form-input" placeholder="Введите пароль" required>
+                            </div>
+                            <button type="submit" class="login-btn">Войти</button>
+                        </form>
+                        <div class="login-info">
+                            <div class="login-info-item">Номер договора указан в договоре на оказание услуг.</div>
+                            <div class="login-info-item">Забыли пароль? <a href="index.html#contact" class="login-link">Восстановить доступ</a></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Телефон метод -->
+                    <div class="login-method" id="phone-method">
+                        <div class="login-icon-wrapper">
+                            <div class="login-icon">
+                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M3 5C3 3.89543 3.89543 3 5 3H8.27924C8.70967 3 9.09181 3.27543 9.22792 3.68377L10.7257 8.17721C10.8831 8.64932 10.6694 9.16531 10.2243 9.38787L7.96701 10.5165C9.06925 12.9612 11.0388 14.9308 13.4835 16.033L14.6121 13.7757C14.8347 13.3306 15.3507 13.1169 15.8228 13.2743L20.3162 14.7721C20.7246 14.9082 21 15.2903 21 15.7208V19C21 20.1046 20.1046 21 19 21H18C9.71573 21 3 14.2843 3 6V5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <h2 class="login-method-title">Вход по телефону</h2>
+                        <p class="login-method-description">Введите номер телефона для получения кода подтверждения</p>
+                        <form id="phone-form" onsubmit="handlePhoneLogin(event)">
+                            <div class="login-form-group">
+                                <label class="login-form-label" for="phone-number">Номер телефона</label>
+                                <input type="tel" id="phone-number" class="login-form-input" placeholder="+7 (___) ___-__-__" required>
+                            </div>
+                            <button type="submit" class="login-btn">Получить код</button>
+                        </form>
+                        <div class="login-info">
+                            <div class="login-info-item">На указанный номер будет отправлен SMS-код для входа.</div>
+                            <div class="login-info-item">Код действителен в течение 5 минут.</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Email метод -->
+                    <div class="login-method" id="email-method">
+                        <div class="login-icon-wrapper">
+                            <div class="login-icon">
+                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M3 8L10.89 13.26C11.2187 13.4793 11.6049 13.5963 12 13.5963C12.3951 13.5963 12.7813 13.4793 13.11 13.26L21 8M5 19H19C19.5304 19 20.0391 18.7893 20.4142 18.4142C20.7893 18.0391 21 17.5304 21 17V7C21 6.46957 20.7893 5.96086 20.4142 5.58579C20.0391 5.21071 19.5304 5 19 5H5C4.46957 5 3.96086 5.21071 3.58579 5.58579C3.21071 5.96086 3 6.46957 3 7V17C3 17.5304 3.21071 18.0391 3.58579 18.4142C3.96086 18.7893 4.46957 19 5 19Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <h2 class="login-method-title">Вход по email</h2>
+                        <p class="login-method-description">Введите email и пароль для входа в личный кабинет</p>
+                        <form id="email-form" onsubmit="handleEmailLogin(event)">
+                            <div class="login-form-group">
+                                <label class="login-form-label" for="email-address">Email</label>
+                                <input type="email" id="email-address" class="login-form-input" placeholder="example@mail.ru" required>
+                            </div>
+                            <div class="login-form-group">
+                                <label class="login-form-label" for="email-password">Пароль</label>
+                                <input type="password" id="email-password" class="login-form-input" placeholder="Введите пароль" required>
+                            </div>
+                            <button type="submit" class="login-btn">Войти</button>
+                        </form>
+                        <div class="login-info">
+                            <div class="login-info-item">Забыли пароль? <a href="index.html#contact" class="login-link">Восстановить доступ</a></div>
+                            <div class="login-info-item">Нет аккаунта? <a href="application.html" class="login-link">Оставить заявку на подключение</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section footer-about">
+                    <h3 class="footer-title">О кооперативе</h3>
+                    <p class="footer-text">
+                        Потребительский интернет кооператив «ПЖ-19» — сообщество равных пайщиков, объединившихся для получения доступа к свободному и быстрому интернету.
+                    </p>
+                </div>
+                
+                <div class="footer-section footer-links">
+                    <h3 class="footer-title">Навигация</h3>
+                    <ul class="footer-nav">
+                        <li><a href="index.html#tariffs" class="footer-link">Тариф</a></li>
+                        <li><a href="index.html#additional-services" class="footer-link">Услуги</a></li>
+                        <li><a href="index.html#address-check" class="footer-link">Проверка адреса</a></li>
+                        <li><a href="index.html#cooperative" class="footer-link">Кооператив</a></li>
+                        <li><a href="index.html#contact" class="footer-link">Контакты</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section footer-contact">
+                    <h3 class="footer-title">Контакты</h3>
+                    <ul class="footer-contact-list">
+                        <li class="footer-contact-item">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M3 8L10.89 13.26C11.2187 13.4793 11.6049 13.5963 12 13.5963C12.3951 13.5963 12.7813 13.4793 13.11 13.26L21 8M5 19H19C19.5304 19 20.0391 18.7893 20.4142 18.4142C20.7893 18.0391 21 17.5304 21 17V7C21 6.46957 20.7893 5.96086 20.4142 5.58579C20.0391 5.21071 19.5304 5 19 5H5C4.46957 5 3.96086 5.21071 3.58579 5.58579C3.21071 5.96086 3 6.46957 3 7V17C3 17.5304 3.21071 18.0391 3.58579 18.4142C3.96086 18.7893 4.46957 19 5 19Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span>info@pj19.ru</span>
+                        </li>
+                        <li class="footer-contact-item">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M3 5C3 3.89543 3.89543 3 5 3H8.27924C8.70967 3 9.09181 3.27543 9.22792 3.68377L10.7257 8.17721C10.8831 8.64932 10.6694 9.16531 10.2243 9.38787L7.96701 10.5165C9.06925 12.9612 11.0388 14.9308 13.4835 16.033L14.6121 13.7757C14.8347 13.3306 15.3507 13.1169 15.8228 13.2743L20.3162 14.7721C20.7246 14.9082 21 15.2903 21 15.7208V19C21 20.1046 20.1046 21 19 21H18C9.71573 21 3 14.2843 3 6V5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span>+7 (495) 123-45-67</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p class="footer-copyright">
+                    © 2026 Потребительский интернет кооператив «ПЖ-19». Все права защищены.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Переключение между методами входа
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabs = document.querySelectorAll('.login-tab');
+            const methods = document.querySelectorAll('.login-method');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const method = this.dataset.method;
+                    
+                    // Убираем активный класс у всех вкладок и методов
+                    tabs.forEach(t => t.classList.remove('active'));
+                    methods.forEach(m => m.classList.remove('active'));
+                    
+                    // Добавляем активный класс к выбранной вкладке и методу
+                    this.classList.add('active');
+                    document.getElementById(method + '-method').classList.add('active');
+                });
+            });
+            
+            // Маска для телефона
+            const phoneInput = document.getElementById('phone-number');
+            if (phoneInput) {
+                phoneInput.addEventListener('input', function(e) {
+                    let value = e.target.value.replace(/\D/g, '');
+                    if (value.startsWith('8')) {
+                        value = '7' + value.substring(1);
+                    }
+                    if (value.startsWith('7')) {
+                        value = value.substring(0, 11);
+                        let formatted = '+7';
+                        if (value.length > 1) formatted += ' (' + value.substring(1, 4);
+                        if (value.length > 4) formatted += ') ' + value.substring(4, 7);
+                        if (value.length > 7) formatted += '-' + value.substring(7, 9);
+                        if (value.length > 9) formatted += '-' + value.substring(9, 11);
+                        e.target.value = formatted;
+                    } else if (value.length > 0) {
+                        e.target.value = '+' + value.substring(0, 15);
+                    }
+                });
+            }
+        });
+        
+        // Обработчики форм входа
+        function handleTelegramLogin() {
+            // Здесь должна быть интеграция с Telegram Bot API
+            alert('Интеграция с Telegram ботом будет реализована позже. Для входа используйте другие методы.');
+        }
+        
+        function handleContractLogin(event) {
+            event.preventDefault();
+            const contractNumber = document.getElementById('contract-number').value;
+            const password = document.getElementById('contract-password').value;
+            
+            // Здесь должна быть проверка учетных данных
+            console.log('Вход по договору:', { contractNumber, password });
+            alert('Вход выполнен успешно! (демо)');
+            // window.location.href = 'cabinet.html';
+        }
+        
+        function handlePhoneLogin(event) {
+            event.preventDefault();
+            const phone = document.getElementById('phone-number').value;
+            
+            // Здесь должна быть отправка SMS кода
+            console.log('Отправка SMS на:', phone);
+            alert('Код подтверждения отправлен на ' + phone + ' (демо)');
+        }
+        
+        function handleEmailLogin(event) {
+            event.preventDefault();
+            const email = document.getElementById('email-address').value;
+            const password = document.getElementById('email-password').value;
+            
+            // Здесь должна быть проверка учетных данных
+            console.log('Вход по email:', { email, password });
+            alert('Вход выполнен успешно! (демо)');
+            // window.location.href = 'cabinet.html';
+        }
+        
+        // Обработчик кнопки "Личный кабинет" (на странице логина ничего не делает)
+        const cabinetBtn = document.querySelector('.btn-cabinet');
+        if (cabinetBtn) {
+            cabinetBtn.addEventListener('click', function() {
+                // На странице логина кнопка не выполняет действий
+                // Можно добавить скролл вверх или другие действия
+            });
+        }
+        
+        // Мобильное меню
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+            const nav = document.querySelector('.nav');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            if (mobileMenuToggle) {
+                mobileMenuToggle.addEventListener('click', function() {
+                    nav.classList.toggle('active');
+                    mobileMenuToggle.classList.toggle('active');
+                });
+            }
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    if (window.innerWidth <= 768) {
+                        nav.classList.remove('active');
+                        mobileMenuToggle.classList.remove('active');
+                    }
+                });
+            });
+
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 768) {
+                    nav.classList.remove('active');
+                    mobileMenuToggle.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+

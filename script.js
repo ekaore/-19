@@ -48,6 +48,14 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // Обработчик кнопки "Личный кабинет"
+    const cabinetBtn = document.querySelector('.btn-cabinet');
+    if (cabinetBtn && !cabinetBtn.hasAttribute('onclick')) {
+        cabinetBtn.addEventListener('click', function() {
+            window.location.href = 'login.html';
+        });
+    }
+
     // Проверка подключения по адресу
     initAddressCheck();
     
