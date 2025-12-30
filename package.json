@@ -1,13 +1,22 @@
 {
-  "name": "pj19",
+  "name": "pj19-nextjs",
   "version": "1.0.0",
-  "description": "Потребительский интернет кооператив ПЖ-19",
+  "private": true,
   "scripts": {
-    "build": "echo 'No build step required for static site'",
-    "start": "echo 'Static site - no server needed'"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "dependencies": {
+    "next": "^14.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "typescript": "^5.0.0"
+  }
 }
-
