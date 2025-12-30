@@ -259,11 +259,19 @@
         .profile-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 24px;
+            gap: 32px;
+            max-width: 1600px;
+            margin: 0 auto;
         }
 
         .profile-card {
             margin: 0;
+        }
+
+        /* Увеличенная ширина для вкладки Профиль */
+        #tab-profile {
+            max-width: 1600px;
+            margin: 0 auto;
         }
 
         .profile-edit-link {
@@ -492,6 +500,189 @@
 
             .profile-info-grid {
                 grid-template-columns: 1fr;
+            }
+        }
+
+        /* Стили для вкладки Уведомления */
+        .notifications-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .cabinet-card-subtitle {
+            font-size: 14px;
+            color: #666666;
+            margin-top: 8px;
+            font-weight: 400;
+        }
+
+        .notifications-channels {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .notification-channel-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+            background: #FAFAFA;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .notification-channel-item:hover {
+            background: #F5F5F5;
+        }
+
+        .notification-channel-info {
+            display: flex;
+            align-items: center;
+            flex: 1;
+        }
+
+        .notification-channel-text {
+            flex: 1;
+        }
+
+        .notification-channel-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1A1A1A;
+            margin-bottom: 4px;
+        }
+
+        .notification-channel-desc {
+            font-size: 14px;
+            color: #666666;
+        }
+
+        .notification-toggle {
+            position: relative;
+            display: inline-block;
+            width: 52px;
+            height: 28px;
+            flex-shrink: 0;
+            cursor: pointer;
+        }
+
+        .notification-toggle input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .notification-toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #D1D5DB;
+            transition: all 0.3s ease;
+            border-radius: 28px;
+        }
+
+        .notification-toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 22px;
+            width: 22px;
+            left: 3px;
+            bottom: 3px;
+            background-color: #FFFFFF;
+            transition: all 0.3s ease;
+            border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .notification-toggle input:checked + .notification-toggle-slider {
+            background: linear-gradient(135deg, #0066CC 0%, #0052A3 100%);
+        }
+
+        .notification-toggle input:checked + .notification-toggle-slider:before {
+            transform: translateX(24px);
+        }
+
+        .notification-toggle input:focus + .notification-toggle-slider {
+            box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+        }
+
+        .notifications-types {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        .notification-type-group {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .notification-type-group-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1A1A1A;
+            margin: 0;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #E5E7EB;
+        }
+
+        .notification-type-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .notification-type-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
+            background: #FAFAFA;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .notification-type-item:hover {
+            background: #F5F5F5;
+        }
+
+        .notification-type-info {
+            flex: 1;
+        }
+
+        .notification-type-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1A1A1A;
+            margin-bottom: 4px;
+        }
+
+        .notification-type-desc {
+            font-size: 14px;
+            color: #666666;
+        }
+
+        @media (max-width: 768px) {
+            .notifications-container {
+                gap: 16px;
+            }
+
+            .notification-channel-item,
+            .notification-type-item {
+                padding: 16px;
+            }
+
+
+            .notification-type-group-title {
+                font-size: 16px;
             }
         }
 
@@ -1089,7 +1280,7 @@
         }
 
         .cabinet-btn {
-            width: 100%;
+            width: 35%;
             padding: 14px;
             background: linear-gradient(135deg, #0066CC 0%, #0052A3 100%);
             color: #FFFFFF;
@@ -1099,7 +1290,8 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            margin-top: 16px;
+            margin: 16px auto 0;
+            display: block;
         }
 
         .cabinet-btn:hover {
@@ -1287,33 +1479,6 @@
             transform: translate(-50%, -50%) scale(1);
         }
 
-        .balance-payment-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-
-        .balance-payment-icon.card {
-            background: linear-gradient(135deg, #0066CC 0%, #0052A3 100%);
-        }
-
-        .balance-payment-icon.sbp {
-            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
-        }
-
-        .balance-payment-icon.yukassa {
-            background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%);
-        }
-
-        .balance-payment-icon svg {
-            width: 24px;
-            height: 24px;
-            color: #FFFFFF;
-        }
 
         .balance-payment-info {
             flex: 1;
@@ -1596,9 +1761,6 @@
                     <button class="cabinet-header-tab" data-tab="applications" onclick="switchTab('applications')">
                         Заявки
                     </button>
-                    <button class="cabinet-header-tab" data-tab="security" onclick="switchTab('security')">
-                        Безопасность
-                    </button>
                     <button class="cabinet-header-tab" data-tab="profile" onclick="switchTab('profile')">
                         Профиль
                     </button>
@@ -1640,7 +1802,7 @@
                     </div>
                     <div class="cabinet-info-row">
                         <span class="cabinet-info-label">Адрес подключения</span>
-                        <span class="cabinet-info-value" id="connection-address">Москва, Тверская ул., 1</span>
+                        <span class="cabinet-info-value" id="connection-address">г. Таганрог, ул. Петровская, д. 19, кв. 1</span>
                     </div>
                     <div class="cabinet-info-row">
                         <span class="cabinet-info-label">Дата подключения</span>
@@ -1698,15 +1860,6 @@
                             <label class="balance-payment-method selected" onclick="selectPaymentMethod('card', this)">
                                 <input type="radio" name="payment-method" value="card" checked>
                                 <div class="balance-payment-radio"></div>
-                                <div class="balance-payment-icon card">
-                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <rect x="2" y="6" width="20" height="14" rx="2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M2 10H22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <rect x="4" y="13" width="4" height="3" rx="0.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M10 14H12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M15 14H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                                </div>
                                 <div class="balance-payment-info">
                                     <div class="balance-payment-name">Банковская карта</div>
                                     <div class="balance-payment-desc">Visa, MasterCard, МИР</div>
@@ -1715,13 +1868,6 @@
                             <label class="balance-payment-method" onclick="selectPaymentMethod('sbp', this)">
                                 <input type="radio" name="payment-method" value="sbp">
                                 <div class="balance-payment-radio"></div>
-                                <div class="balance-payment-icon sbp">
-                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <circle cx="7" cy="7" r="1.5" fill="currentColor"/>
-                                        <circle cx="17" cy="17" r="1.5" fill="currentColor"/>
-                                    </svg>
-                                </div>
                                 <div class="balance-payment-info">
                                     <div class="balance-payment-name">СБП</div>
                                     <div class="balance-payment-desc">Система быстрых платежей</div>
@@ -1730,16 +1876,6 @@
                             <label class="balance-payment-method" onclick="selectPaymentMethod('yukassa', this)">
                                 <input type="radio" name="payment-method" value="yukassa">
                                 <div class="balance-payment-radio"></div>
-                                <div class="balance-payment-icon yukassa">
-                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M20 7H4C2.89543 7 2 7.89543 2 9V19C2 20.1046 2.89543 21 4 21H20C21.1046 21 22 20.1046 22 19V9C22 7.89543 21.1046 7 20 7Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M2 10H22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M6 14C6.55228 14 7 13.5523 7 13C7 12.4477 6.55228 12 6 12C5.44772 12 5 12.4477 5 13C5 13.5523 5.44772 14 6 14Z" fill="currentColor"/>
-                                        <path d="M11 14C11.5523 14 12 13.5523 12 13C12 12.4477 11.5523 12 11 12C10.4477 12 10 12.4477 10 13C10 13.5523 10.4477 14 11 14Z" fill="currentColor"/>
-                                        <path d="M16 14C16.5523 14 17 13.5523 17 13C17 12.4477 16.5523 12 16 12C15.4477 12 15 12.4477 15 13C15 13.5523 15.4477 14 16 14Z" fill="currentColor"/>
-                                        <path d="M5 17H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                                </div>
                                 <div class="balance-payment-info">
                                     <div class="balance-payment-name">ЮKassa</div>
                                     <div class="balance-payment-desc">Электронный кошелёк</div>
@@ -1805,102 +1941,6 @@
                 </div>
             </div>
 
-            <!-- Содержимое вкладки: Безопасность -->
-            <div class="cabinet-tab-content" id="tab-security">
-                <div class="security-container">
-                    <!-- Левая секция: Способы входа -->
-                    <div class="cabinet-card security-card">
-                        <div class="cabinet-card-header">
-                            <h2 class="cabinet-card-title">Способы входа</h2>
-                        </div>
-                        <div class="security-methods-list">
-                            <div class="security-method-item">
-                                <div class="security-method-icon telegram">
-                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM16.64 8.8C16.49 10.38 15.84 14.22 15.51 15.99C15.37 16.74 15.09 16.99 14.83 17.02C14.25 17.07 13.81 16.64 13.25 16.27C12.37 15.69 11.87 15.33 11.02 14.77C10.03 14.12 10.67 13.76 11.24 13.18C11.39 13.03 14.95 9.7 15.02 9.37C15.03 9.3 15.03 9.14 14.95 9.07C14.87 9 14.73 9.02 14.63 9.03C14.5 9.04 12.99 10.01 9.78 11.68C9.23 11.95 8.72 12.08 8.26 12.07C7.75 12.05 6.78 11.8 6.05 11.58C5.38 11.38 4.82 11.27 4.87 10.9C4.89 10.75 5.11 10.61 5.5 10.46C9.14 8.9 11.85 7.7 13.61 6.86C17.01 5.24 17.7 5.02 18.12 5.02C18.2 5.02 18.38 5.04 18.5 5.13C18.6 5.21 18.63 5.32 18.65 5.4C18.67 5.48 18.69 5.65 18.67 5.78C18.62 6.17 17.9 8.38 16.64 8.8Z" fill="currentColor"/>
-                                    </svg>
-                                </div>
-                                <div class="security-method-info">
-                                    <div class="security-method-name">Telegram</div>
-                                    <div class="security-method-desc">@ivan_petrov</div>
-                                </div>
-                                <button class="security-unlink-btn" onclick="unlinkTelegram()">Отвязать</button>
-                            </div>
-                            <div class="security-method-item">
-                                <div class="security-method-icon contract">
-                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M14 2V8H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                                </div>
-                                <div class="security-method-info">
-                                    <div class="security-method-name">По номеру договора</div>
-                                    <div class="security-method-desc">Договор + ФИО</div>
-                                </div>
-                                <span class="security-status active">Активен</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Правая секция: История входов -->
-                    <div class="cabinet-card security-card">
-                        <div class="cabinet-card-header">
-                            <h2 class="cabinet-card-title">История входов</h2>
-                        </div>
-                        <div class="security-history-list">
-                            <div class="security-history-item">
-                                <div class="security-history-icon phone">
-                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M22 16.92V19.92C22.0011 20.1985 21.9441 20.4742 21.8325 20.7292C21.7209 20.9841 21.5573 21.2126 21.3523 21.3999C21.1473 21.5872 20.9053 21.7292 20.6419 21.8167C20.3785 21.9042 20.0995 21.9354 19.8233 21.9083C16.4283 21.5731 13.1362 20.5205 10.1373 18.8113C7.30699 17.2568 4.76384 15.0784 2.65333 12.4033C0.975909 10.2831 -0.107238 7.79016 0.00933 5.25333C0.0311774 4.97928 0.106793 4.71214 0.231654 4.47052C0.356515 4.2289 0.527853 4.01807 0.735003 3.85168C0.942153 3.68529 1.18049 3.56698 1.43433 3.50333L4.31333 2.64333C4.76578 2.51678 5.24512 2.55058 5.67748 2.73921C6.10984 2.92784 6.46897 3.26029 6.69333 3.68333L8.48333 7.35333C8.72678 7.80289 8.81622 8.32073 8.73712 8.82523C8.65802 9.32973 8.41528 9.79273 8.05333 10.1433L6.43333 11.7633C7.42789 13.7204 8.91619 15.4011 10.7833 16.6667L12.4033 15.0467C12.7539 14.6847 13.2169 14.442 13.7214 14.3629C14.2259 14.2838 14.7437 14.3732 15.1933 14.6167L18.8633 16.4067C19.2864 16.631 19.6188 16.9902 19.8075 17.4225C19.9961 17.8549 20.0299 18.3342 19.9033 18.7867L19.0433 21.6667H19.0433Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                                </div>
-                                <div class="security-history-info">
-                                    <div class="security-history-name">Telegram</div>
-                                    <div class="security-history-desc">Safari · Москва</div>
-                                </div>
-                                <div class="security-history-date">
-                                    <div>15.01.2025</div>
-                                    <div class="security-history-time">14:32</div>
-                                </div>
-                            </div>
-                            <div class="security-history-item">
-                                <div class="security-history-icon desktop">
-                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <rect x="2" y="4" width="20" height="14" rx="2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M8 22H16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M12 18V22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                                </div>
-                                <div class="security-history-info">
-                                    <div class="security-history-name">По договору</div>
-                                    <div class="security-history-desc">Chrome · Москва</div>
-                                </div>
-                                <div class="security-history-date">
-                                    <div>10.01.2025</div>
-                                    <div class="security-history-time">11:15</div>
-                                </div>
-                            </div>
-                            <div class="security-history-item">
-                                <div class="security-history-icon phone">
-                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M22 16.92V19.92C22.0011 20.1985 21.9441 20.4742 21.8325 20.7292C21.7209 20.9841 21.5573 21.2126 21.3523 21.3999C21.1473 21.5872 20.9053 21.7292 20.6419 21.8167C20.3785 21.9042 20.0995 21.9354 19.8233 21.9083C16.4283 21.5731 13.1362 20.5205 10.1373 18.8113C7.30699 17.2568 4.76384 15.0784 2.65333 12.4033C0.975909 10.2831 -0.107238 7.79016 0.00933 5.25333C0.0311774 4.97928 0.106793 4.71214 0.231654 4.47052C0.356515 4.2289 0.527853 4.01807 0.735003 3.85168C0.942153 3.68529 1.18049 3.56698 1.43433 3.50333L4.31333 2.64333C4.76578 2.51678 5.24512 2.55058 5.67748 2.73921C6.10984 2.92784 6.46897 3.26029 6.69333 3.68333L8.48333 7.35333C8.72678 7.80289 8.81622 8.32073 8.73712 8.82523C8.65802 9.32973 8.41528 9.79273 8.05333 10.1433L6.43333 11.7633C7.42789 13.7204 8.91619 15.4011 10.7833 16.6667L12.4033 15.0467C12.7539 14.6847 13.2169 14.442 13.7214 14.3629C14.2259 14.2838 14.7437 14.3732 15.1933 14.6167L18.8633 16.4067C19.2864 16.631 19.6188 16.9902 19.8075 17.4225C19.9961 17.8549 20.0299 18.3342 19.9033 18.7867L19.0433 21.6667H19.0433Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                                </div>
-                                <div class="security-history-info">
-                                    <div class="security-history-name">Telegram</div>
-                                    <div class="security-history-desc">App · Москва</div>
-                                </div>
-                                <div class="security-history-date">
-                                    <div>05.01.2025</div>
-                                    <div class="security-history-time">09:00</div>
-                                </div>
-                            </div>
-                        </div>
-                        <button class="security-end-all-btn" onclick="endAllSessions()">Завершить все сессии</button>
-                    </div>
-                </div>
-            </div>
-
             <!-- Содержимое вкладки: Профиль -->
             <div class="cabinet-tab-content" id="tab-profile">
                 <!-- Подвкладки профиля -->
@@ -1910,6 +1950,9 @@
                     </button>
                     <button class="profile-tab" data-subtab="notifications" onclick="switchProfileTab('notifications')">
                         Уведомления
+                    </button>
+                    <button class="profile-tab" data-subtab="security" onclick="switchProfileTab('security')">
+                        Безопасность
                     </button>
                 </div>
 
@@ -1951,7 +1994,7 @@
                                             </div>
                                             <div class="profile-info-text">
                                                 <div class="profile-info-label">Telegram</div>
-                                                <div class="profile-info-value" id="profile-telegram">@ivan_petrov</div>
+                                                <div class="profile-info-value" id="profile-telegram">@ivan_ivanov</div>
                                             </div>
                                         </div>
                                     </div>
@@ -2058,12 +2101,292 @@
 
                 <!-- Содержимое подвкладки: Уведомления -->
                 <div class="profile-subtab-content" id="profile-notifications">
-                    <div class="cabinet-card">
-                        <div class="cabinet-card-header">
-                            <h2 class="cabinet-card-title">Уведомления</h2>
+                    <div class="notifications-container">
+                        <!-- Карточка: Каналы уведомлений -->
+                        <div class="cabinet-card profile-card">
+                            <div class="cabinet-card-header">
+                                <h2 class="cabinet-card-title">Каналы уведомлений</h2>
+                                <p class="cabinet-card-subtitle">Выберите способы получения уведомлений</p>
+                            </div>
+                            <div class="notifications-channels">
+                                <div class="notification-channel-item">
+                                    <div class="notification-channel-info">
+                                        <div class="notification-channel-text">
+                                            <div class="notification-channel-name">Email</div>
+                                            <div class="notification-channel-desc" id="notification-email-desc">ivan@test.com</div>
+                                        </div>
+                                    </div>
+                                    <label class="notification-toggle">
+                                        <input type="checkbox" id="channel-email" checked onchange="updateNotificationChannel('email', this.checked)">
+                                        <span class="notification-toggle-slider"></span>
+                                    </label>
+                                </div>
+                                <div class="notification-channel-item">
+                                    <div class="notification-channel-info">
+                                        <div class="notification-channel-text">
+                                            <div class="notification-channel-name">Telegram</div>
+                                            <div class="notification-channel-desc" id="notification-telegram-desc">@ivan_ivanov</div>
+                                        </div>
+                                    </div>
+                                    <label class="notification-toggle">
+                                        <input type="checkbox" id="channel-telegram" checked onchange="updateNotificationChannel('telegram', this.checked)">
+                                        <span class="notification-toggle-slider"></span>
+                                    </label>
+                                </div>
+                                <div class="notification-channel-item">
+                                    <div class="notification-channel-info">
+                                        <div class="notification-channel-text">
+                                            <div class="notification-channel-name">SMS</div>
+                                            <div class="notification-channel-desc" id="notification-sms-desc">+7 (900) 111-11-11</div>
+                                        </div>
+                                    </div>
+                                    <label class="notification-toggle">
+                                        <input type="checkbox" id="channel-sms" onchange="updateNotificationChannel('sms', this.checked)">
+                                        <span class="notification-toggle-slider"></span>
+                                    </label>
+                                </div>
+                            </div>
                         </div>
-                        <div class="profile-notifications-content">
-                            <p style="color: #666; text-align: center; padding: 40px 0;">Настройки уведомлений будут доступны в ближайшее время</p>
+
+                        <!-- Карточка: Типы уведомлений -->
+                        <div class="cabinet-card profile-card">
+                            <div class="cabinet-card-header">
+                                <h2 class="cabinet-card-title">Типы уведомлений</h2>
+                                <p class="cabinet-card-subtitle">Настройте, о чём вы хотите получать уведомления</p>
+                            </div>
+                            <div class="notifications-types">
+                                <div class="notification-type-group">
+                                    <h3 class="notification-type-group-title">Платежи и баланс</h3>
+                                    <div class="notification-type-list">
+                                        <div class="notification-type-item">
+                                            <div class="notification-type-info">
+                                                <div class="notification-type-name">Пополнение баланса</div>
+                                                <div class="notification-type-desc">Уведомления о пополнении счёта</div>
+                                            </div>
+                                            <label class="notification-toggle">
+                                                <input type="checkbox" id="type-balance-topup" checked onchange="updateNotificationType('balance-topup', this.checked)">
+                                                <span class="notification-toggle-slider"></span>
+                                            </label>
+                                        </div>
+                                        <div class="notification-type-item">
+                                            <div class="notification-type-info">
+                                                <div class="notification-type-name">Низкий баланс</div>
+                                                <div class="notification-type-desc">Когда баланс ниже порога</div>
+                                            </div>
+                                            <label class="notification-toggle">
+                                                <input type="checkbox" id="type-balance-low" checked onchange="updateNotificationType('balance-low', this.checked)">
+                                                <span class="notification-toggle-slider"></span>
+                                            </label>
+                                        </div>
+                                        <div class="notification-type-item">
+                                            <div class="notification-type-info">
+                                                <div class="notification-type-name">Успешная оплата</div>
+                                                <div class="notification-type-desc">После пополнения счёта</div>
+                                            </div>
+                                            <label class="notification-toggle">
+                                                <input type="checkbox" id="type-payment-success" checked onchange="updateNotificationType('payment-success', this.checked)">
+                                                <span class="notification-toggle-slider"></span>
+                                            </label>
+                                        </div>
+                                        <div class="notification-type-item">
+                                            <div class="notification-type-info">
+                                                <div class="notification-type-name">Списание абонплаты</div>
+                                                <div class="notification-type-desc">Ежемесячное списание</div>
+                                            </div>
+                                            <label class="notification-toggle">
+                                                <input type="checkbox" id="type-subscription-debit" checked onchange="updateNotificationType('subscription-debit', this.checked)">
+                                                <span class="notification-toggle-slider"></span>
+                                            </label>
+                                        </div>
+                                        <div class="notification-type-item">
+                                            <div class="notification-type-info">
+                                                <div class="notification-type-name">Новый счёт</div>
+                                                <div class="notification-type-desc">Выставление нового счёта</div>
+                                            </div>
+                                            <label class="notification-toggle">
+                                                <input type="checkbox" id="type-new-invoice" checked onchange="updateNotificationType('new-invoice', this.checked)">
+                                                <span class="notification-toggle-slider"></span>
+                                            </label>
+                                        </div>
+                                        <div class="notification-type-item">
+                                            <div class="notification-type-info">
+                                                <div class="notification-type-name">Списание средств</div>
+                                                <div class="notification-type-desc">Уведомления о списании за услуги</div>
+                                            </div>
+                                            <label class="notification-toggle">
+                                                <input type="checkbox" id="type-balance-debit" checked onchange="updateNotificationType('balance-debit', this.checked)">
+                                                <span class="notification-toggle-slider"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="notification-type-group">
+                                    <h3 class="notification-type-group-title">Подключение и услуги</h3>
+                                    <div class="notification-type-list">
+                                        <div class="notification-type-item">
+                                            <div class="notification-type-info">
+                                                <div class="notification-type-name">Статус заявки</div>
+                                                <div class="notification-type-desc">Изменение статуса обращения</div>
+                                            </div>
+                                            <label class="notification-toggle">
+                                                <input type="checkbox" id="type-application-status" checked onchange="updateNotificationType('application-status', this.checked)">
+                                                <span class="notification-toggle-slider"></span>
+                                            </label>
+                                        </div>
+                                        <div class="notification-type-item">
+                                            <div class="notification-type-info">
+                                                <div class="notification-type-name">Плановые работы</div>
+                                                <div class="notification-type-desc">Уведомления о технических работах</div>
+                                            </div>
+                                            <label class="notification-toggle">
+                                                <input type="checkbox" id="type-maintenance" checked onchange="updateNotificationType('maintenance', this.checked)">
+                                                <span class="notification-toggle-slider"></span>
+                                            </label>
+                                        </div>
+                                        <div class="notification-type-item">
+                                            <div class="notification-type-info">
+                                                <div class="notification-type-name">Подключение завершено</div>
+                                                <div class="notification-type-desc">Уведомление об успешном подключении</div>
+                                            </div>
+                                            <label class="notification-toggle">
+                                                <input type="checkbox" id="type-connection-complete" checked onchange="updateNotificationType('connection-complete', this.checked)">
+                                                <span class="notification-toggle-slider"></span>
+                                            </label>
+                                        </div>
+                                        <div class="notification-type-item">
+                                            <div class="notification-type-info">
+                                                <div class="notification-type-name">Изменение тарифа</div>
+                                                <div class="notification-type-desc">Уведомления об изменении тарифного плана</div>
+                                            </div>
+                                            <label class="notification-toggle">
+                                                <input type="checkbox" id="type-tariff-change" checked onchange="updateNotificationType('tariff-change', this.checked)">
+                                                <span class="notification-toggle-slider"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="notification-type-group">
+                                    <h3 class="notification-type-group-title">Безопасность</h3>
+                                    <div class="notification-type-list">
+                                        <div class="notification-type-item">
+                                            <div class="notification-type-info">
+                                                <div class="notification-type-name">Вход в аккаунт</div>
+                                                <div class="notification-type-desc">Уведомления о входе в личный кабинет</div>
+                                            </div>
+                                            <label class="notification-toggle">
+                                                <input type="checkbox" id="type-login" checked onchange="updateNotificationType('login', this.checked)">
+                                                <span class="notification-toggle-slider"></span>
+                                            </label>
+                                        </div>
+                                        <div class="notification-type-item">
+                                            <div class="notification-type-info">
+                                                <div class="notification-type-name">Изменение пароля</div>
+                                                <div class="notification-type-desc">Уведомления об изменении пароля</div>
+                                            </div>
+                                            <label class="notification-toggle">
+                                                <input type="checkbox" id="type-password-change" checked onchange="updateNotificationType('password-change', this.checked)">
+                                                <span class="notification-toggle-slider"></span>
+                                            </label>
+                                        </div>
+                                        <div class="notification-type-item">
+                                            <div class="notification-type-info">
+                                                <div class="notification-type-name">Подозрительная активность</div>
+                                                <div class="notification-type-desc">Предупреждения о подозрительных действиях</div>
+                                            </div>
+                                            <label class="notification-toggle">
+                                                <input type="checkbox" id="type-suspicious-activity" checked onchange="updateNotificationType('suspicious-activity', this.checked)">
+                                                <span class="notification-toggle-slider"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="notification-type-group">
+                                    <h3 class="notification-type-group-title">Новости и предложения</h3>
+                                    <div class="notification-type-list">
+                                        <div class="notification-type-item">
+                                            <div class="notification-type-info">
+                                                <div class="notification-type-name">Новости и обновления</div>
+                                                <div class="notification-type-desc">Новости о сервисе и обновлениях</div>
+                                            </div>
+                                            <label class="notification-toggle">
+                                                <input type="checkbox" id="type-news" onchange="updateNotificationType('news', this.checked)">
+                                                <span class="notification-toggle-slider"></span>
+                                            </label>
+                                        </div>
+                                        <div class="notification-type-item">
+                                            <div class="notification-type-info">
+                                                <div class="notification-type-name">Акции и предложения</div>
+                                                <div class="notification-type-desc">Специальные предложения</div>
+                                            </div>
+                                            <label class="notification-toggle">
+                                                <input type="checkbox" id="type-promotions" onchange="updateNotificationType('promotions', this.checked)">
+                                                <span class="notification-toggle-slider"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Содержимое подвкладки: Безопасность -->
+                <div class="profile-subtab-content" id="profile-security">
+                    <div class="security-container">
+                        <!-- Левая секция: Способы входа -->
+                        <div class="cabinet-card security-card">
+                            <div class="cabinet-card-header">
+                                <h2 class="cabinet-card-title">Способы входа</h2>
+                            </div>
+                            <div class="security-methods-list">
+                                <div class="security-method-item">
+                                    <div class="security-method-info">
+                                        <div class="security-method-name">Telegram</div>
+                                        <div class="security-method-desc">@ivan_ivanov</div>
+                                    </div>
+                                    <button class="security-unlink-btn" onclick="unlinkTelegram()">Отвязать</button>
+                                </div>
+                                <div class="security-method-item">
+                                    <div class="security-method-info">
+                                        <div class="security-method-name">По номеру договора</div>
+                                        <div class="security-method-desc">Договор + ФИО</div>
+                                    </div>
+                                    <span class="security-status active">Активен</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Правая секция: История входов -->
+                        <div class="cabinet-card security-card">
+                            <div class="cabinet-card-header">
+                                <h2 class="cabinet-card-title">История входов</h2>
+                            </div>
+                            <div class="security-history-list">
+                                <div class="security-history-item">
+                                    <div class="security-history-info">
+                                        <div class="security-history-name">Telegram</div>
+                                        <div class="security-history-desc">Safari · Таганрог</div>
+                                    </div>
+                                    <div class="security-history-date">
+                                        <div>15.01.2025</div>
+                                        <div class="security-history-time">14:32</div>
+                                    </div>
+                                </div>
+                                <div class="security-history-item">
+                                    <div class="security-history-info">
+                                        <div class="security-history-name">По договору</div>
+                                        <div class="security-history-desc">Chrome · Таганрог</div>
+                                    </div>
+                                    <div class="security-history-date">
+                                        <div>10.01.2025</div>
+                                        <div class="security-history-time">11:15</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="security-end-all-btn" onclick="endAllSessions()">Завершить все сессии</button>
                         </div>
                     </div>
                 </div>
@@ -2162,6 +2485,7 @@
         // Загрузка данных пользователя из localStorage
         document.addEventListener('DOMContentLoaded', function() {
             loadUserData();
+            loadNotificationSettings();
             
             // Мобильное меню
             const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
@@ -2184,6 +2508,67 @@
                 });
             });
         });
+
+        // Функции для управления уведомлениями
+        function updateNotificationChannel(channel, enabled) {
+            // Сохраняем настройки в localStorage
+            const settings = JSON.parse(localStorage.getItem('notificationSettings') || '{}');
+            settings.channels = settings.channels || {};
+            settings.channels[channel] = enabled;
+            localStorage.setItem('notificationSettings', JSON.stringify(settings));
+            
+            // Обновляем UI
+            updateNotificationChannelsUI();
+        }
+
+        function updateNotificationType(type, enabled) {
+            // Сохраняем настройки в localStorage
+            const settings = JSON.parse(localStorage.getItem('notificationSettings') || '{}');
+            settings.types = settings.types || {};
+            settings.types[type] = enabled;
+            localStorage.setItem('notificationSettings', JSON.stringify(settings));
+        }
+
+        function loadNotificationSettings() {
+            const settings = JSON.parse(localStorage.getItem('notificationSettings') || '{}');
+            
+            // Загружаем настройки каналов
+            if (settings.channels) {
+                Object.keys(settings.channels).forEach(channel => {
+                    const checkbox = document.getElementById(`channel-${channel}`);
+                    if (checkbox) {
+                        checkbox.checked = settings.channels[channel];
+                    }
+                });
+            }
+            
+            // Загружаем настройки типов
+            if (settings.types) {
+                Object.keys(settings.types).forEach(type => {
+                    const checkbox = document.getElementById(`type-${type}`);
+                    if (checkbox) {
+                        checkbox.checked = settings.types[type];
+                    }
+                });
+            }
+            
+            updateNotificationChannelsUI();
+        }
+
+        function updateNotificationChannelsUI() {
+            // Обновляем описание каналов на основе данных пользователя
+            const userEmail = localStorage.getItem('userEmail') || 'ivan@test.com';
+            const userTelegram = localStorage.getItem('userTelegram') || '@ivan_ivanov';
+            const userPhone = localStorage.getItem('userPhone') || '+7 (900) 111-11-11';
+            
+            const emailDesc = document.getElementById('notification-email-desc');
+            const telegramDesc = document.getElementById('notification-telegram-desc');
+            const smsDesc = document.getElementById('notification-sms-desc');
+            
+            if (emailDesc) emailDesc.textContent = userEmail;
+            if (telegramDesc) telegramDesc.textContent = userTelegram;
+            if (smsDesc) smsDesc.textContent = userPhone;
+        }
 
         function loadUserData() {
             // Получаем данные из localStorage (сохраненные при входе)

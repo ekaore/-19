@@ -83,11 +83,11 @@ let draggableMarker = null; // Перетаскиваемый маркер в ц
 
 // Статические данные для автодополнения (демо)
 const addressSuggestions = [
-    'Москва, Тверская ул., 1',
-    'Москва, Ленинский просп., 10',
-    'Москва, Кутузовский просп., 25',
-    'Москва, Новокузнецкая ул., 5',
-    'Москва, Арбат ул., 15'
+    'Таганрог, ул. Петровская, д. 19',
+    'Таганрог, ул. Чехова, д. 22',
+    'Таганрог, ул. Фрунзе, д. 15',
+    'Таганрог, ул. Греческая, д. 10',
+    'Таганрог, ул. Ленина, д. 25'
 ];
 
 let selectedAutocompleteIndex = -1;
@@ -105,7 +105,7 @@ function initAddressCheck() {
         const value = this.value.trim();
         selectedAutocompleteIndex = -1;
         
-        if (value.length > 0 && value.toLowerCase().includes('москва')) {
+        if (value.length > 0) {
             showAutocomplete(value);
         } else {
             hideAutocomplete();
@@ -115,7 +115,7 @@ function initAddressCheck() {
     // Обработчик фокуса
     addressInput.addEventListener('focus', function() {
         const value = this.value.trim();
-        if (value.length > 0 && value.toLowerCase().includes('москва')) {
+        if (value.length > 0) {
             showAutocomplete(value);
         }
     });
@@ -219,11 +219,20 @@ function initAddressCheckMap() {
                             return;
                         }
 
+                        // Удаляем старую карту, если она существует
+                        if (yandexMapCheck) {
+                            yandexMapCheck.destroy();
+                            yandexMapCheck = null;
+                        }
+
                         yandexMapCheck = new ymaps.Map('addressCheckMap', {
-                            center: [55.7558, 37.6173], // Москва по умолчанию
+                            center: [47.2094, 38.9350], // Таганрог по умолчанию
                             zoom: 12,
                             controls: ['zoomControl', 'fullscreenControl', 'geolocationControl']
                         });
+
+                        // Принудительно устанавливаем центр на Таганрог
+                        yandexMapCheck.setCenter([47.2094, 38.9350], 12);
 
                         // Создаем draggable-маркер в центре карты после полной загрузки
                         yandexMapCheck.events.add('boundschange', function() {
@@ -394,14 +403,14 @@ function addMarkerByAddress(address, options = {}) {
     let normalizedAddress = address.trim();
     
     // Проверяем, содержит ли адрес название города
-    const cityPatterns = ['Москва', 'Санкт-Петербург', 'СПб', 'Питер', 'мск', 'мск.', 'спб', 'спб.'];
+    const cityPatterns = ['Таганрог', 'таганрог', 'таг', 'таг.'];
     const hasCity = cityPatterns.some(city => 
         normalizedAddress.toLowerCase().includes(city.toLowerCase())
     );
     
-    // Если города нет, добавляем Москву по умолчанию
+    // Если города нет, добавляем Таганрог по умолчанию
     if (!hasCity) {
-        normalizedAddress = 'Москва, ' + normalizedAddress;
+        normalizedAddress = 'Таганрог, ' + normalizedAddress;
     }
 
     return ymaps.geocode(normalizedAddress).then(function(res) {
@@ -420,7 +429,7 @@ function addMarkerByAddress(address, options = {}) {
                     marker.properties.set('hintContent', foundAddress);
                     return marker;
                 } else {
-                    throw new Error('Адрес не найден. Попробуйте указать более полный адрес, например: "Москва, Моховая улица, 15/1с1"');
+                    throw new Error('Адрес не найден. Попробуйте указать более полный адрес, например: "Таганрог, ул. Петровская, д. 19"');
                 }
             });
         }
@@ -439,7 +448,7 @@ function addMarkerByAddress(address, options = {}) {
     }).catch(function(error) {
         console.error('Ошибка геокодирования:', error);
         // Пробуем альтернативный вариант поиска
-        const alternativeAddress = 'Москва, ' + address;
+        const alternativeAddress = 'Таганрог, ' + address;
         return ymaps.geocode(alternativeAddress).then(function(res) {
             if (res.geoObjects.getLength() > 0) {
                 const firstGeoObject = res.geoObjects.get(0);
@@ -832,15 +841,15 @@ function updateAddressCheckMap(address, isAvailable) {
 function addCoverageZonesCheck() {
     if (!yandexMapCheck) return;
 
-    // Пример зон покрытия (Москва)
+    // Пример зон покрытия (Таганрог)
     const coverageZones = [
         {
-            coords: [[55.7, 37.5], [55.8, 37.5], [55.8, 37.7], [55.7, 37.7]],
+            coords: [[47.19, 38.90], [47.22, 38.90], [47.22, 38.97], [47.19, 38.97]],
             color: 'rgba(76, 175, 80, 0.3)',
             strokeColor: '#4CAF50'
         },
         {
-            coords: [[55.6, 37.4], [55.7, 37.4], [55.7, 37.6], [55.6, 37.6]],
+            coords: [[47.17, 38.88], [47.20, 38.88], [47.20, 38.95], [47.17, 38.95]],
             color: 'rgba(76, 175, 80, 0.3)',
             strokeColor: '#4CAF50'
         }
@@ -863,7 +872,14 @@ function showAutocomplete(query) {
     const autocomplete = document.getElementById('addressAutocomplete');
     if (!autocomplete) return;
 
-    const queryLower = query.toLowerCase();
+    const queryLower = query.toLowerCase().trim();
+    
+    // Если запрос пустой, показываем все адреса
+    if (queryLower.length === 0) {
+        hideAutocomplete();
+        return;
+    }
+
     const filtered = addressSuggestions.filter(addr => 
         addr.toLowerCase().includes(queryLower)
     );
