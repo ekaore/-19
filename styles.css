@@ -2173,6 +2173,18 @@ svg {
     box-shadow: var(--shadow-lg);
 }
 
+/* Стили для ссылки-карточки Telegram */
+a.contact-card {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+
+a.contact-card:hover {
+    text-decoration: none;
+    color: inherit;
+}
+
 .contact-card-icon-wrapper {
     width: 40px;
     height: 40px;

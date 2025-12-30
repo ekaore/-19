@@ -1,0 +1,2457 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Личный кабинет</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .cabinet-page {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #E6F2FF 0%, #FFFFFF 50%, #F0F8FF 100%);
+            padding: 50px 0 40px; /* Учитываем высоту header */
+        }
+
+        .cabinet-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .cabinet-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .cabinet-title {
+            font-size: 36px;
+            font-weight: 700;
+            color: #0066CC;
+            margin: 0;
+        }
+
+        .cabinet-user-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            background: #FFFFFF;
+            padding: 16px 24px;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0, 102, 204, 0.1);
+        }
+
+        .cabinet-user-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #0066CC 0%, #0052A3 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #FFFFFF;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .cabinet-user-details {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .cabinet-user-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1A1A1A;
+        }
+
+        .cabinet-user-contact {
+            font-size: 14px;
+            color: #666666;
+        }
+
+        .cabinet-logout-btn {
+            padding: 10px 20px;
+            background: transparent;
+            border: 2px solid #E0E0E0;
+            border-radius: 12px;
+            color: #666666;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .cabinet-logout-btn:hover {
+            border-color: #FF4444;
+            color: #FF4444;
+            background: rgba(255, 68, 68, 0.05);
+        }
+
+        .cabinet-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 32px;
+            border-bottom: 2px solid #E0E0E0;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .cabinet-tab {
+            padding: 16px 24px;
+            background: transparent;
+            border: none;
+            border-bottom: 3px solid transparent;
+            color: #666666;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .cabinet-tab:hover {
+            color: #0066CC;
+            background: rgba(0, 102, 204, 0.05);
+        }
+
+        .cabinet-tab.active {
+            color: #0066CC;
+            border-bottom-color: #0066CC;
+            background: rgba(0, 102, 204, 0.05);
+        }
+
+        .cabinet-tab-icon {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Вкладки в header */
+        .cabinet-header-tabs {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin: 0 20px;
+        }
+
+        .cabinet-header-tab {
+            padding: 12px 20px;
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid transparent;
+            color: var(--text-dark);
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .cabinet-header-tab:hover {
+            color: #0066CC;
+            background: rgba(0, 102, 204, 0.05);
+        }
+
+        .cabinet-header-tab.active {
+            color: #0066CC;
+            border-bottom-color: #0066CC;
+            background: rgba(0, 102, 204, 0.05);
+        }
+
+        .cabinet-header-tab-icon {
+            width: 18px;
+            height: 18px;
+        }
+
+        .header-user-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .header-user-name {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-dark);
+            white-space: nowrap;
+        }
+
+        .header-logout-btn {
+            padding: 8px 16px;
+            background: transparent;
+            border: 2px solid #E0E0E0;
+            border-radius: 8px;
+            color: #666666;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+        }
+
+        .header-logout-btn:hover {
+            border-color: #FF4444;
+            color: #FF4444;
+            background: rgba(255, 68, 68, 0.05);
+        }
+
+        /* Скрываем старые вкладки */
+        .cabinet-tabs {
+            display: none;
+        }
+
+        /* Стили для вкладки Профиль */
+        .profile-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 32px;
+            border-bottom: 2px solid #E0E0E0;
+        }
+
+        .profile-tab {
+            padding: 16px 24px;
+            background: transparent;
+            border: none;
+            border-bottom: 3px solid transparent;
+            color: #666666;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            margin-bottom: -2px;
+        }
+
+        .profile-tab:hover {
+            color: #0066CC;
+        }
+
+        .profile-tab.active {
+            color: #0066CC;
+            border-bottom-color: #0066CC;
+        }
+
+        .profile-subtab-content {
+            display: none;
+        }
+
+        .profile-subtab-content.active {
+            display: block;
+        }
+
+        .profile-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        .profile-card {
+            margin: 0;
+        }
+
+        .profile-edit-link {
+            color: #0066CC;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .profile-edit-link:hover {
+            color: #0052A3;
+            text-decoration: underline;
+        }
+
+        .profile-personal-content {
+            padding-top: 8px;
+        }
+
+        .profile-avatar-section {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .profile-avatar {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #E6F2FF 0%, #B3D9FF 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #0066CC;
+            font-size: 24px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .profile-name-section {
+            flex: 1;
+        }
+
+        .profile-name {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1A1A1A;
+            margin-bottom: 4px;
+        }
+
+        .profile-subscriber {
+            font-size: 14px;
+            color: #666666;
+        }
+
+        .profile-info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .profile-info-column {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .profile-info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .profile-info-icon {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .profile-info-icon.phone svg,
+        .profile-info-icon.email svg {
+            color: #0066CC;
+        }
+
+        .profile-info-icon.telegram svg {
+            color: #0088CC;
+        }
+
+        .profile-info-icon.status svg {
+            color: #10B981;
+        }
+
+        .profile-info-text {
+            flex: 1;
+        }
+
+        .profile-info-label {
+            font-size: 13px;
+            color: #666666;
+            margin-bottom: 4px;
+        }
+
+        .profile-info-value {
+            font-size: 15px;
+            font-weight: 600;
+            color: #1A1A1A;
+        }
+
+        .profile-status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .profile-status-badge.active {
+            background: rgba(16, 185, 129, 0.1);
+            color: #10B981;
+        }
+
+        .profile-contract-content,
+        .profile-account-content {
+            padding-top: 8px;
+        }
+
+        .profile-contract-row,
+        .profile-account-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 12px 0;
+            border-bottom: 1px solid #F0F0F0;
+        }
+
+        .profile-contract-row:last-child,
+        .profile-account-row:last-child {
+            border-bottom: none;
+        }
+
+        .profile-contract-label,
+        .profile-account-label {
+            font-size: 14px;
+            color: #666666;
+            flex: 1;
+        }
+
+        .profile-contract-value,
+        .profile-account-value {
+            font-size: 15px;
+            font-weight: 600;
+            color: #1A1A1A;
+            text-align: right;
+        }
+
+        .profile-contract-value-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .profile-account-value-row {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .profile-account-balance {
+            font-size: 16px;
+            font-weight: 700;
+            color: #10B981;
+        }
+
+        .profile-download-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #0066CC;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            margin-top: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .profile-download-link:hover {
+            color: #0052A3;
+            text-decoration: underline;
+        }
+
+        .profile-download-link svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .profile-address-content {
+            padding-top: 8px;
+        }
+
+        .profile-address-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .profile-address-icon {
+            width: 20px;
+            height: 20px;
+            color: #0066CC;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .profile-address-item span {
+            font-size: 15px;
+            color: #1A1A1A;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 1024px) {
+            .profile-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .profile-tabs {
+                gap: 4px;
+            }
+
+            .profile-tab {
+                padding: 12px 16px;
+                font-size: 14px;
+            }
+
+            .profile-avatar-section {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .profile-contract-row,
+            .profile-account-row {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .profile-contract-value,
+            .profile-account-value {
+                text-align: left;
+            }
+        }
+
+        /* Стили для вкладки Безопасность */
+        .security-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        .security-card {
+            margin: 0;
+        }
+
+        .security-methods-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .security-method-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px;
+            background: #FAFAFA;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .security-method-item:hover {
+            background: #F5F5F5;
+        }
+
+        .security-method-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .security-method-icon.telegram {
+            background: linear-gradient(135deg, #0088CC 0%, #0066AA 100%);
+        }
+
+        .security-method-icon.contract {
+            background: linear-gradient(135deg, #E5E7EB 0%, #D1D5DB 100%);
+        }
+
+        .security-method-icon svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .security-method-icon.telegram svg {
+            color: #FFFFFF;
+        }
+
+        .security-method-icon.contract svg {
+            color: #6B7280;
+        }
+
+        .security-method-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .security-method-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1A1A1A;
+            margin-bottom: 4px;
+        }
+
+        .security-method-desc {
+            font-size: 14px;
+            color: #666666;
+        }
+
+        .security-unlink-btn {
+            padding: 8px 16px;
+            background: transparent;
+            border: none;
+            color: #EF4444;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .security-unlink-btn:hover {
+            color: #DC2626;
+            background: rgba(239, 68, 68, 0.05);
+            border-radius: 6px;
+        }
+
+        .security-status {
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .security-status.active {
+            background: rgba(16, 185, 129, 0.1);
+            color: #10B981;
+        }
+
+        .security-history-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .security-history-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px;
+            background: #FAFAFA;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .security-history-item:hover {
+            background: #F5F5F5;
+        }
+
+        .security-history-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: #E5E7EB;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .security-history-icon svg {
+            width: 24px;
+            height: 24px;
+            color: #6B7280;
+        }
+
+        .security-history-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .security-history-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1A1A1A;
+            margin-bottom: 4px;
+        }
+
+        .security-history-desc {
+            font-size: 14px;
+            color: #666666;
+        }
+
+        .security-history-date {
+            text-align: right;
+            white-space: nowrap;
+        }
+
+        .security-history-date > div:first-child {
+            font-size: 14px;
+            color: #1A1A1A;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .security-history-time {
+            font-size: 13px;
+            color: #666666;
+        }
+
+        .security-end-all-btn {
+            width: 100%;
+            padding: 12px;
+            background: transparent;
+            border: none;
+            color: #EF4444;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+        }
+
+        .security-end-all-btn:hover {
+            background: rgba(239, 68, 68, 0.05);
+        }
+
+        @media (max-width: 1024px) {
+            .security-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .security-method-item,
+            .security-history-item {
+                padding: 12px;
+                gap: 12px;
+            }
+
+            .security-method-icon,
+            .security-history-icon {
+                width: 40px;
+                height: 40px;
+            }
+
+            .security-method-icon svg,
+            .security-history-icon svg {
+                width: 20px;
+                height: 20px;
+            }
+        }
+
+        /* Модальное окно подтверждения выхода */
+        .logout-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(6px);
+            z-index: 10001;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .logout-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .logout-modal-content {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 1) 0%, rgba(250, 252, 255, 1) 100%);
+            border-radius: 24px;
+            padding: 50px 40px;
+            max-width: 480px;
+            width: 100%;
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.3),
+                0 10px 40px rgba(239, 68, 68, 0.15);
+            position: relative;
+            transform: scale(0.9);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-align: center;
+        }
+
+        .logout-modal.active .logout-modal-content {
+            transform: scale(1);
+        }
+
+        @keyframes gradientShift {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .logout-modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 36px;
+            height: 36px;
+            border: none;
+            background: rgba(239, 68, 68, 0.1);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            color: #EF4444;
+        }
+
+        .logout-modal-close:hover {
+            background: rgba(239, 68, 68, 0.2);
+            transform: rotate(90deg) scale(1.1);
+        }
+
+        .logout-modal-close svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .logout-modal-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 24px;
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(220, 38, 38, 0.08) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .logout-modal-icon::before {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(220, 38, 38, 0.1));
+            z-index: -1;
+        }
+
+        .logout-modal-icon svg {
+            width: 40px;
+            height: 40px;
+            color: #EF4444;
+            position: relative;
+            z-index: 1;
+        }
+
+        .logout-modal-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1A1A1A;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+
+        .logout-modal-message {
+            font-size: 16px;
+            color: #666666;
+            line-height: 1.7;
+            margin-bottom: 32px;
+        }
+
+        .logout-modal-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .logout-modal-btn {
+            flex: 1;
+            padding: 16px;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .logout-modal-btn-cancel {
+            background: #F3F4F6;
+            color: #666666;
+        }
+
+        .logout-modal-btn-cancel:hover {
+            background: #E5E7EB;
+            transform: translateY(-2px);
+        }
+
+        .logout-modal-btn-confirm {
+            background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+            color: #FFFFFF;
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+        }
+
+        .logout-modal-btn-confirm:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(239, 68, 68, 0.4);
+            background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%);
+        }
+
+        @media (max-width: 480px) {
+            .logout-modal-content {
+                padding: 40px 28px;
+                border-radius: 20px;
+            }
+
+            .logout-modal-icon {
+                width: 70px;
+                height: 70px;
+                margin-bottom: 20px;
+            }
+
+            .logout-modal-icon svg {
+                width: 35px;
+                height: 35px;
+            }
+
+            .logout-modal-title {
+                font-size: 24px;
+            }
+
+            .logout-modal-actions {
+                flex-direction: column;
+            }
+        }
+
+        .cabinet-tab-content {
+            display: none;
+        }
+
+        .cabinet-tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .cabinet-tab-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cabinet-card {
+            background: #FFFFFF;
+            border-radius: 20px;
+            padding: 32px;
+            box-shadow: 0 4px 12px rgba(0, 102, 204, 0.1);
+        }
+
+        .cabinet-card:hover {
+            box-shadow: 0 4px 12px rgba(0, 102, 204, 0.1);
+        }
+
+        .cabinet-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+        }
+
+        .cabinet-card-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1A1A1A;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .cabinet-card-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, rgba(0, 102, 204, 0.1) 0%, rgba(0, 102, 204, 0.05) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #0066CC;
+        }
+
+        .cabinet-card-icon svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .cabinet-status {
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .cabinet-status.active {
+            background: rgba(76, 175, 80, 0.1);
+            color: #4CAF50;
+        }
+
+        .cabinet-status.pending {
+            background: rgba(255, 152, 0, 0.1);
+            color: #FF9800;
+        }
+
+        .cabinet-status.inactive {
+            background: rgba(158, 158, 158, 0.1);
+            color: #9E9E9E;
+        }
+
+        .cabinet-info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            border-bottom: 1px solid #F0F0F0;
+        }
+
+        .cabinet-info-row:last-child {
+            border-bottom: none;
+        }
+
+        .cabinet-info-label {
+            font-size: 14px;
+            color: #666666;
+        }
+
+        .cabinet-info-value {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1A1A1A;
+        }
+
+        .cabinet-info-value.highlight {
+            color: #0066CC;
+            font-size: 20px;
+        }
+
+        .cabinet-tariff-card {
+            background: linear-gradient(135deg, rgba(0, 102, 204, 0.05) 0%, rgba(0, 102, 204, 0.02) 100%);
+            border: 2px solid rgba(0, 102, 204, 0.1);
+            border-radius: 16px;
+            padding: 24px;
+            margin-top: 16px;
+        }
+
+        .cabinet-tariff-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: #0066CC;
+            margin-bottom: 12px;
+        }
+
+        .cabinet-tariff-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .cabinet-tariff-speed {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 16px;
+            color: #666666;
+        }
+
+        .cabinet-tariff-price {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1A1A1A;
+        }
+
+        .cabinet-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #0066CC 0%, #0052A3 100%);
+            color: #FFFFFF;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 16px;
+        }
+
+        .cabinet-btn:hover {
+            box-shadow: 0 4px 12px rgba(0, 102, 204, 0.2);
+        }
+
+        .cabinet-btn-secondary {
+            background: transparent;
+            border: 2px solid #0066CC;
+            color: #0066CC;
+        }
+
+        .cabinet-btn-secondary:hover {
+            background: rgba(0, 102, 204, 0.05);
+        }
+
+        /* Стили для новой вкладки баланса */
+        .balance-header {
+            background: linear-gradient(135deg, rgba(0, 102, 204, 0.08) 0%, rgba(0, 102, 204, 0.03) 100%);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .balance-header-item {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .balance-header-label {
+            font-size: 14px;
+            color: #666666;
+            font-weight: 500;
+        }
+
+        .balance-header-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #10B981;
+        }
+
+        .balance-header-value.recommended {
+            color: #4B5563;
+            font-size: 24px;
+        }
+
+        .balance-section {
+            margin-bottom: 32px;
+        }
+
+        .balance-section-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1A1A1A;
+            margin-bottom: 16px;
+        }
+
+        .balance-amount-input-wrapper {
+            position: relative;
+            margin-bottom: 16px;
+        }
+
+        .balance-amount-input {
+            width: 100%;
+            padding: 16px 20px;
+            font-size: 20px;
+            font-weight: 600;
+            border: 2px solid #E5E7EB;
+            border-radius: 12px;
+            background: #FFFFFF;
+            color: #1A1A1A;
+            transition: all 0.3s ease;
+        }
+
+        .balance-amount-input:focus {
+            outline: none;
+            border-color: #0066CC;
+            box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+        }
+
+        .balance-amount-input::placeholder {
+            color: #9CA3AF;
+        }
+
+        .balance-quick-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+
+        .balance-quick-btn {
+            padding: 14px 20px;
+            background: #FFFFFF;
+            border: 2px solid #E5E7EB;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #1A1A1A;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .balance-quick-btn:hover {
+            border-color: #0066CC;
+            background: rgba(0, 102, 204, 0.05);
+        }
+
+        .balance-quick-btn.active {
+            background: #0066CC;
+            border-color: #0066CC;
+            color: #FFFFFF;
+        }
+
+        .balance-payment-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .balance-payment-method {
+            position: relative;
+            padding: 20px;
+            background: #FFFFFF;
+            border: 2px solid #E5E7EB;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .balance-payment-method:hover {
+            border-color: #0066CC;
+            background: rgba(0, 102, 204, 0.02);
+        }
+
+        .balance-payment-method.selected {
+            border-color: #0066CC;
+            background: rgba(0, 102, 204, 0.05);
+        }
+
+        .balance-payment-method input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .balance-payment-radio {
+            width: 24px;
+            height: 24px;
+            border: 2px solid #D1D5DB;
+            border-radius: 50%;
+            position: relative;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+
+        .balance-payment-method.selected .balance-payment-radio {
+            border-color: #0066CC;
+        }
+
+        .balance-payment-radio::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #0066CC;
+            transition: transform 0.2s ease;
+        }
+
+        .balance-payment-method.selected .balance-payment-radio::after {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .balance-payment-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .balance-payment-icon.card {
+            background: linear-gradient(135deg, #0066CC 0%, #0052A3 100%);
+        }
+
+        .balance-payment-icon.sbp {
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+        }
+
+        .balance-payment-icon.yukassa {
+            background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%);
+        }
+
+        .balance-payment-icon svg {
+            width: 24px;
+            height: 24px;
+            color: #FFFFFF;
+        }
+
+        .balance-payment-info {
+            flex: 1;
+        }
+
+        .balance-payment-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1A1A1A;
+            margin-bottom: 4px;
+        }
+
+        .balance-payment-desc {
+            font-size: 14px;
+            color: #666666;
+        }
+
+        .balance-autopay {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 20px;
+            background: #FAFAFA;
+            border-radius: 12px;
+            margin-bottom: 32px;
+        }
+
+        .balance-autopay-checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #D1D5DB;
+            border-radius: 4px;
+            cursor: pointer;
+            position: relative;
+            flex-shrink: 0;
+            margin-top: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .balance-autopay-checkbox input[type="checkbox"] {
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .balance-autopay-checkbox.checked {
+            background: #0066CC;
+            border-color: #0066CC;
+        }
+
+        .balance-autopay-checkbox.checked::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #FFFFFF;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .balance-autopay-label {
+            flex: 1;
+        }
+
+        .balance-autopay-label-text {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1A1A1A;
+            margin-bottom: 4px;
+            cursor: pointer;
+        }
+
+        .balance-autopay-desc {
+            font-size: 14px;
+            color: #666666;
+        }
+
+        .balance-pay-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #0066CC 0%, #0052A3 100%);
+            color: #FFFFFF;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .balance-pay-btn:hover {
+            box-shadow: 0 8px 24px rgba(0, 102, 204, 0.3);
+        }
+
+        .balance-pay-btn svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .balance-security {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 14px;
+            color: #666666;
+        }
+
+        .balance-security svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        @media (max-width: 768px) {
+            .balance-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .balance-quick-buttons {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .balance-payment-method {
+                padding: 16px;
+            }
+        }
+
+        .cabinet-history-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px;
+            background: #FAFAFA;
+            border-radius: 12px;
+            margin-bottom: 12px;
+        }
+
+        .cabinet-history-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .cabinet-history-date {
+            font-size: 14px;
+            color: #666666;
+        }
+
+        .cabinet-history-amount {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1A1A1A;
+        }
+
+        .cabinet-history-amount.positive {
+            color: #4CAF50;
+        }
+
+        .cabinet-history-amount.negative {
+            color: #FF4444;
+        }
+
+        .cabinet-empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666666;
+        }
+
+        .cabinet-empty-state-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 16px;
+            opacity: 0.3;
+        }
+
+        @media (max-width: 768px) {
+            .cabinet-page {
+                padding: 100px 0 40px;
+            }
+
+            .cabinet-header-tabs {
+                margin: 0 10px;
+                gap: 4px;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .cabinet-header-tab {
+                padding: 10px 12px;
+                font-size: 13px;
+            }
+
+
+            .header-user-info {
+                gap: 8px;
+            }
+
+            .header-user-name {
+                font-size: 13px;
+            }
+
+            .header-logout-btn {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+
+            .cabinet-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .cabinet-title {
+                font-size: 28px;
+            }
+
+            .cabinet-tabs {
+                gap: 4px;
+            }
+
+            .cabinet-tab {
+                padding: 12px 16px;
+                font-size: 14px;
+            }
+
+            .cabinet-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .cabinet-card {
+                padding: 24px;
+            }
+        }
+
+        /* Уменьшенные отступы для footer на странице кабинета */
+        .footer {
+            padding: 20px 0 16px !important;
+        }
+
+        .footer .footer-bottom {
+            padding-top: 12px !important;
+            margin-top: 0 !important;
+            border-top: none !important;
+        }
+
+        .footer .container {
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="index.html">
+                        <img src="logo.png" alt="Логотип компании" class="logo-img">
+                    </a>
+                </div>
+
+                <!-- Вкладки в шапке -->
+                <nav class="cabinet-header-tabs">
+                    <button class="cabinet-header-tab active" data-tab="connection" onclick="switchTab('connection')">
+                        Подключение
+                    </button>
+                    <button class="cabinet-header-tab" data-tab="balance" onclick="switchTab('balance')">
+                        Оплата
+                    </button>
+                    <button class="cabinet-header-tab" data-tab="history" onclick="switchTab('history')">
+                        История
+                    </button>
+                    <button class="cabinet-header-tab" data-tab="applications" onclick="switchTab('applications')">
+                        Заявки
+                    </button>
+                    <button class="cabinet-header-tab" data-tab="security" onclick="switchTab('security')">
+                        Безопасность
+                    </button>
+                    <button class="cabinet-header-tab" data-tab="profile" onclick="switchTab('profile')">
+                        Профиль
+                    </button>
+                </nav>
+
+                <div class="header-right">
+                    <div class="header-user-info">
+                        <div class="header-user-name" id="header-user-name">Иван Иванов</div>
+                        <a href="login.html" class="header-logout-btn" onclick="handleLogout(event)">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M16 17L21 12L16 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M21 12H9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            Выйти
+                        </a>
+                    </div>
+                    <button class="mobile-menu-toggle" aria-label="Открыть меню">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="cabinet-page">
+        <div class="cabinet-container">
+
+            <!-- Содержимое вкладки: Подключение -->
+            <div class="cabinet-tab-content active" id="tab-connection">
+                <div class="cabinet-card">
+                    <div class="cabinet-card-header">
+                        <h2 class="cabinet-card-title">
+                            Подключение
+                        </h2>
+                        <span class="cabinet-status active" id="connection-status">Активно</span>
+                    </div>
+                    <div class="cabinet-info-row">
+                        <span class="cabinet-info-label">Адрес подключения</span>
+                        <span class="cabinet-info-value" id="connection-address">Москва, Тверская ул., 1</span>
+                    </div>
+                    <div class="cabinet-info-row">
+                        <span class="cabinet-info-label">Дата подключения</span>
+                        <span class="cabinet-info-value" id="connection-date">15.12.2024</span>
+                    </div>
+                    <div class="cabinet-tariff-card">
+                        <div class="cabinet-tariff-name" id="tariff-name">Базовый тариф</div>
+                        <div class="cabinet-tariff-details">
+                            <div class="cabinet-tariff-speed">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                100 Мбит/с
+                            </div>
+                            <div class="cabinet-tariff-price" id="tariff-price">699 ₽/мес</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Содержимое вкладки: Баланс -->
+            <div class="cabinet-tab-content" id="tab-balance">
+                <!-- Верхний блок с балансом -->
+                <div class="balance-header">
+                    <div class="balance-header-item">
+                        <div class="balance-header-label">Текущий баланс</div>
+                        <div class="balance-header-value" id="current-balance">699,00 ₽</div>
+                    </div>
+                    <div class="balance-header-item">
+                        <div class="balance-header-label">Рекомендуем</div>
+                        <div class="balance-header-value recommended">699,00 ₽</div>
+                    </div>
+                </div>
+
+                <div class="cabinet-card">
+                    <!-- Секция суммы пополнения -->
+                    <div class="balance-section">
+                        <h3 class="balance-section-title">Сумма пополнения</h3>
+                        <div class="balance-amount-input-wrapper">
+                            <input type="text" class="balance-amount-input" id="balance-amount" placeholder="₽ 0" value="0">
+                        </div>
+                        <div class="balance-quick-buttons">
+                            <button class="balance-quick-btn" data-amount="500" onclick="selectQuickAmount(500, this)">500 ₽</button>
+                            <button class="balance-quick-btn" data-amount="700" onclick="selectQuickAmount(700, this)">700 ₽</button>
+                            <button class="balance-quick-btn" data-amount="1000" onclick="selectQuickAmount(1000, this)">1000 ₽</button>
+                            <button class="balance-quick-btn" data-amount="2000" onclick="selectQuickAmount(2000, this)">2000 ₽</button>
+                            <button class="balance-quick-btn" data-amount="other" onclick="selectQuickAmount('other', this)">Другая</button>
+                        </div>
+                    </div>
+
+                    <!-- Секция способа оплаты -->
+                    <div class="balance-section">
+                        <h3 class="balance-section-title">Способ оплаты</h3>
+                        <div class="balance-payment-methods">
+                            <label class="balance-payment-method selected" onclick="selectPaymentMethod('card', this)">
+                                <input type="radio" name="payment-method" value="card" checked>
+                                <div class="balance-payment-radio"></div>
+                                <div class="balance-payment-icon card">
+                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect x="2" y="6" width="20" height="14" rx="2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M2 10H22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <rect x="4" y="13" width="4" height="3" rx="0.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M10 14H12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M15 14H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                                <div class="balance-payment-info">
+                                    <div class="balance-payment-name">Банковская карта</div>
+                                    <div class="balance-payment-desc">Visa, MasterCard, МИР</div>
+                                </div>
+                            </label>
+                            <label class="balance-payment-method" onclick="selectPaymentMethod('sbp', this)">
+                                <input type="radio" name="payment-method" value="sbp">
+                                <div class="balance-payment-radio"></div>
+                                <div class="balance-payment-icon sbp">
+                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <circle cx="7" cy="7" r="1.5" fill="currentColor"/>
+                                        <circle cx="17" cy="17" r="1.5" fill="currentColor"/>
+                                    </svg>
+                                </div>
+                                <div class="balance-payment-info">
+                                    <div class="balance-payment-name">СБП</div>
+                                    <div class="balance-payment-desc">Система быстрых платежей</div>
+                                </div>
+                            </label>
+                            <label class="balance-payment-method" onclick="selectPaymentMethod('yukassa', this)">
+                                <input type="radio" name="payment-method" value="yukassa">
+                                <div class="balance-payment-radio"></div>
+                                <div class="balance-payment-icon yukassa">
+                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M20 7H4C2.89543 7 2 7.89543 2 9V19C2 20.1046 2.89543 21 4 21H20C21.1046 21 22 20.1046 22 19V9C22 7.89543 21.1046 7 20 7Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M2 10H22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M6 14C6.55228 14 7 13.5523 7 13C7 12.4477 6.55228 12 6 12C5.44772 12 5 12.4477 5 13C5 13.5523 5.44772 14 6 14Z" fill="currentColor"/>
+                                        <path d="M11 14C11.5523 14 12 13.5523 12 13C12 12.4477 11.5523 12 11 12C10.4477 12 10 12.4477 10 13C10 13.5523 10.4477 14 11 14Z" fill="currentColor"/>
+                                        <path d="M16 14C16.5523 14 17 13.5523 17 13C17 12.4477 16.5523 12 16 12C15.4477 12 15 12.4477 15 13C15 13.5523 15.4477 14 16 14Z" fill="currentColor"/>
+                                        <path d="M5 17H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                                <div class="balance-payment-info">
+                                    <div class="balance-payment-name">ЮKassa</div>
+                                    <div class="balance-payment-desc">Электронный кошелёк</div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Автоплатёж -->
+                    <div class="balance-autopay">
+                        <div class="balance-autopay-checkbox" onclick="toggleAutopay(this)">
+                            <input type="checkbox" id="autopay-checkbox">
+                        </div>
+                        <div class="balance-autopay-label">
+                            <div class="balance-autopay-label-text" onclick="toggleAutopay(document.querySelector('.balance-autopay-checkbox'))">Подключить автоплатёж</div>
+                            <div class="balance-autopay-desc">Автоматическое пополнение при балансе ниже 100,00 ₽</div>
+                        </div>
+                    </div>
+
+                    <!-- Кнопка оплаты -->
+                    <button class="balance-pay-btn" onclick="processPayment()">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M3 10H21M7 15H8M12 15H13M6 20H18C19.1046 20 20 19.1046 20 18V6C20 4.89543 19.1046 4 18 4H6C4.89543 4 4 4.89543 4 6V18C4 19.1046 4.89543 20 6 20Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span id="pay-button-text">Оплатить 0,00 ₽</span>
+                    </button>
+
+                    <!-- Сообщение о безопасности -->
+                    <div class="balance-security">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 22C12 22 20 18 20 12V5L12 2L4 5V12C4 18 12 22 12 22Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M9 12L11 14L15 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span>Безопасная оплата через защищённое соединение</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Содержимое вкладки: История -->
+            <div class="cabinet-tab-content" id="tab-history">
+                <div class="cabinet-card">
+                    <div class="cabinet-card-header">
+                        <h2 class="cabinet-card-title">
+                            История платежей
+                        </h2>
+                    </div>
+                    <div id="payment-history">
+                        <div class="cabinet-history-item">
+                            <div>
+                                <div class="cabinet-history-date">01.12.2025</div>
+                                <div style="font-size: 14px; color: #666; margin-top: 4px;">Списание за услуги</div>
+                            </div>
+                            <div class="cabinet-history-amount negative">-699 ₽</div>
+                        </div>
+                        <div class="cabinet-history-item">
+                            <div>
+                                <div class="cabinet-history-date">20.11.2025</div>
+                                <div style="font-size: 14px; color: #666; margin-top: 4px;">Пополнение баланса</div>
+                            </div>
+                            <div class="cabinet-history-amount positive">+1 398 ₽</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Содержимое вкладки: Безопасность -->
+            <div class="cabinet-tab-content" id="tab-security">
+                <div class="security-container">
+                    <!-- Левая секция: Способы входа -->
+                    <div class="cabinet-card security-card">
+                        <div class="cabinet-card-header">
+                            <h2 class="cabinet-card-title">Способы входа</h2>
+                        </div>
+                        <div class="security-methods-list">
+                            <div class="security-method-item">
+                                <div class="security-method-icon telegram">
+                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM16.64 8.8C16.49 10.38 15.84 14.22 15.51 15.99C15.37 16.74 15.09 16.99 14.83 17.02C14.25 17.07 13.81 16.64 13.25 16.27C12.37 15.69 11.87 15.33 11.02 14.77C10.03 14.12 10.67 13.76 11.24 13.18C11.39 13.03 14.95 9.7 15.02 9.37C15.03 9.3 15.03 9.14 14.95 9.07C14.87 9 14.73 9.02 14.63 9.03C14.5 9.04 12.99 10.01 9.78 11.68C9.23 11.95 8.72 12.08 8.26 12.07C7.75 12.05 6.78 11.8 6.05 11.58C5.38 11.38 4.82 11.27 4.87 10.9C4.89 10.75 5.11 10.61 5.5 10.46C9.14 8.9 11.85 7.7 13.61 6.86C17.01 5.24 17.7 5.02 18.12 5.02C18.2 5.02 18.38 5.04 18.5 5.13C18.6 5.21 18.63 5.32 18.65 5.4C18.67 5.48 18.69 5.65 18.67 5.78C18.62 6.17 17.9 8.38 16.64 8.8Z" fill="currentColor"/>
+                                    </svg>
+                                </div>
+                                <div class="security-method-info">
+                                    <div class="security-method-name">Telegram</div>
+                                    <div class="security-method-desc">@ivan_petrov</div>
+                                </div>
+                                <button class="security-unlink-btn" onclick="unlinkTelegram()">Отвязать</button>
+                            </div>
+                            <div class="security-method-item">
+                                <div class="security-method-icon contract">
+                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M14 2V8H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                                <div class="security-method-info">
+                                    <div class="security-method-name">По номеру договора</div>
+                                    <div class="security-method-desc">Договор + ФИО</div>
+                                </div>
+                                <span class="security-status active">Активен</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Правая секция: История входов -->
+                    <div class="cabinet-card security-card">
+                        <div class="cabinet-card-header">
+                            <h2 class="cabinet-card-title">История входов</h2>
+                        </div>
+                        <div class="security-history-list">
+                            <div class="security-history-item">
+                                <div class="security-history-icon phone">
+                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M22 16.92V19.92C22.0011 20.1985 21.9441 20.4742 21.8325 20.7292C21.7209 20.9841 21.5573 21.2126 21.3523 21.3999C21.1473 21.5872 20.9053 21.7292 20.6419 21.8167C20.3785 21.9042 20.0995 21.9354 19.8233 21.9083C16.4283 21.5731 13.1362 20.5205 10.1373 18.8113C7.30699 17.2568 4.76384 15.0784 2.65333 12.4033C0.975909 10.2831 -0.107238 7.79016 0.00933 5.25333C0.0311774 4.97928 0.106793 4.71214 0.231654 4.47052C0.356515 4.2289 0.527853 4.01807 0.735003 3.85168C0.942153 3.68529 1.18049 3.56698 1.43433 3.50333L4.31333 2.64333C4.76578 2.51678 5.24512 2.55058 5.67748 2.73921C6.10984 2.92784 6.46897 3.26029 6.69333 3.68333L8.48333 7.35333C8.72678 7.80289 8.81622 8.32073 8.73712 8.82523C8.65802 9.32973 8.41528 9.79273 8.05333 10.1433L6.43333 11.7633C7.42789 13.7204 8.91619 15.4011 10.7833 16.6667L12.4033 15.0467C12.7539 14.6847 13.2169 14.442 13.7214 14.3629C14.2259 14.2838 14.7437 14.3732 15.1933 14.6167L18.8633 16.4067C19.2864 16.631 19.6188 16.9902 19.8075 17.4225C19.9961 17.8549 20.0299 18.3342 19.9033 18.7867L19.0433 21.6667H19.0433Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                                <div class="security-history-info">
+                                    <div class="security-history-name">Telegram</div>
+                                    <div class="security-history-desc">Safari · Москва</div>
+                                </div>
+                                <div class="security-history-date">
+                                    <div>15.01.2025</div>
+                                    <div class="security-history-time">14:32</div>
+                                </div>
+                            </div>
+                            <div class="security-history-item">
+                                <div class="security-history-icon desktop">
+                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect x="2" y="4" width="20" height="14" rx="2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M8 22H16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M12 18V22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                                <div class="security-history-info">
+                                    <div class="security-history-name">По договору</div>
+                                    <div class="security-history-desc">Chrome · Москва</div>
+                                </div>
+                                <div class="security-history-date">
+                                    <div>10.01.2025</div>
+                                    <div class="security-history-time">11:15</div>
+                                </div>
+                            </div>
+                            <div class="security-history-item">
+                                <div class="security-history-icon phone">
+                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M22 16.92V19.92C22.0011 20.1985 21.9441 20.4742 21.8325 20.7292C21.7209 20.9841 21.5573 21.2126 21.3523 21.3999C21.1473 21.5872 20.9053 21.7292 20.6419 21.8167C20.3785 21.9042 20.0995 21.9354 19.8233 21.9083C16.4283 21.5731 13.1362 20.5205 10.1373 18.8113C7.30699 17.2568 4.76384 15.0784 2.65333 12.4033C0.975909 10.2831 -0.107238 7.79016 0.00933 5.25333C0.0311774 4.97928 0.106793 4.71214 0.231654 4.47052C0.356515 4.2289 0.527853 4.01807 0.735003 3.85168C0.942153 3.68529 1.18049 3.56698 1.43433 3.50333L4.31333 2.64333C4.76578 2.51678 5.24512 2.55058 5.67748 2.73921C6.10984 2.92784 6.46897 3.26029 6.69333 3.68333L8.48333 7.35333C8.72678 7.80289 8.81622 8.32073 8.73712 8.82523C8.65802 9.32973 8.41528 9.79273 8.05333 10.1433L6.43333 11.7633C7.42789 13.7204 8.91619 15.4011 10.7833 16.6667L12.4033 15.0467C12.7539 14.6847 13.2169 14.442 13.7214 14.3629C14.2259 14.2838 14.7437 14.3732 15.1933 14.6167L18.8633 16.4067C19.2864 16.631 19.6188 16.9902 19.8075 17.4225C19.9961 17.8549 20.0299 18.3342 19.9033 18.7867L19.0433 21.6667H19.0433Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                                <div class="security-history-info">
+                                    <div class="security-history-name">Telegram</div>
+                                    <div class="security-history-desc">App · Москва</div>
+                                </div>
+                                <div class="security-history-date">
+                                    <div>05.01.2025</div>
+                                    <div class="security-history-time">09:00</div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="security-end-all-btn" onclick="endAllSessions()">Завершить все сессии</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Содержимое вкладки: Профиль -->
+            <div class="cabinet-tab-content" id="tab-profile">
+                <!-- Подвкладки профиля -->
+                <div class="profile-tabs">
+                    <button class="profile-tab active" data-subtab="personal" onclick="switchProfileTab('personal')">
+                        Личные данные
+                    </button>
+                    <button class="profile-tab" data-subtab="notifications" onclick="switchProfileTab('notifications')">
+                        Уведомления
+                    </button>
+                </div>
+
+                <!-- Содержимое подвкладки: Личные данные -->
+                <div class="profile-subtab-content active" id="profile-personal">
+                    <div class="profile-grid">
+                        <!-- Карточка: Персональные данные -->
+                        <div class="cabinet-card profile-card">
+                            <div class="cabinet-card-header">
+                                <h2 class="cabinet-card-title">Персональные данные</h2>
+                                <a href="#" class="profile-edit-link" onclick="editPersonalData(event)">Редактировать</a>
+                            </div>
+                            <div class="profile-personal-content">
+                                <div class="profile-avatar-section">
+                                    <div class="profile-avatar" id="profile-avatar">ПИ</div>
+                                    <div class="profile-name-section">
+                                        <div class="profile-name" id="profile-name">Иван Иванов</div>
+                                        <div class="profile-subscriber" id="profile-subscriber">Абонент #CL-00001</div>
+                                    </div>
+                                </div>
+                                <div class="profile-info-grid">
+                                    <div class="profile-info-column">
+                                        <div class="profile-info-item">
+                                            <div class="profile-info-icon phone">
+                                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M3 5C3 3.89543 3.89543 3 5 3H8.27924C8.70967 3 9.09181 3.27543 9.22792 3.68377L10.7257 8.17721C10.8831 8.64932 10.6694 9.16531 10.2243 9.38787L7.96701 10.5165C9.06925 12.9612 11.0388 14.9308 13.4835 16.033L14.6121 13.7757C14.8347 13.3306 15.3507 13.1169 15.8228 13.2743L20.3162 14.7721C20.7246 14.9082 21 15.2903 21 15.7208V19C21 20.1046 20.1046 21 19 21H18C9.71573 21 3 14.2843 3 6V5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </svg>
+                                            </div>
+                                            <div class="profile-info-text">
+                                                <div class="profile-info-label">Телефон</div>
+                                                <div class="profile-info-value" id="profile-phone">+7 (900) 111-11-11</div>
+                                            </div>
+                                        </div>
+                                        <div class="profile-info-item">
+                                            <div class="profile-info-icon telegram">
+                                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM16.64 8.8C16.49 10.38 15.84 14.22 15.51 15.99C15.37 16.74 15.09 16.99 14.83 17.02C14.25 17.07 13.81 16.64 13.25 16.27C12.37 15.69 11.87 15.33 11.02 14.77C10.03 14.12 10.67 13.76 11.24 13.18C11.39 13.03 14.95 9.7 15.02 9.37C15.03 9.3 15.03 9.14 14.95 9.07C14.87 9 14.73 9.02 14.63 9.03C14.5 9.04 12.99 10.01 9.78 11.68C9.23 11.95 8.72 12.08 8.26 12.07C7.75 12.05 6.78 11.8 6.05 11.58C5.38 11.38 4.82 11.27 4.87 10.9C4.89 10.75 5.11 10.61 5.5 10.46C9.14 8.9 11.85 7.7 13.61 6.86C17.01 5.24 17.7 5.02 18.12 5.02C18.2 5.02 18.38 5.04 18.5 5.13C18.6 5.21 18.63 5.32 18.65 5.4C18.67 5.48 18.69 5.65 18.67 5.78C18.62 6.17 17.9 8.38 16.64 8.8Z" fill="currentColor"/>
+                                                </svg>
+                                            </div>
+                                            <div class="profile-info-text">
+                                                <div class="profile-info-label">Telegram</div>
+                                                <div class="profile-info-value" id="profile-telegram">@ivan_petrov</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="profile-info-column">
+                                        <div class="profile-info-item">
+                                            <div class="profile-info-icon email">
+                                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M3 8L10.89 13.26C11.2187 13.4793 11.6049 13.5963 12 13.5963C12.3951 13.5963 12.7813 13.4793 13.11 13.26L21 8M5 19H19C19.5304 19 20.0391 18.7893 20.4142 18.4142C20.7893 18.0391 21 17.5304 21 17V7C21 6.46957 20.7893 5.96086 20.4142 5.58579C20.0391 5.21071 19.5304 5 19 5H5C4.46957 5 3.96086 5.21071 3.58579 5.58579C3.21071 5.96086 3 6.46957 3 7V17C3 17.5304 3.21071 18.0391 3.58579 18.4142C3.96086 18.7893 4.46957 19 5 19Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </svg>
+                                            </div>
+                                            <div class="profile-info-text">
+                                                <div class="profile-info-label">Email</div>
+                                                <div class="profile-info-value" id="profile-email">ivan@test.com</div>
+                                            </div>
+                                        </div>
+                                        <div class="profile-info-item">
+                                            <div class="profile-info-icon status">
+                                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <circle cx="12" cy="12" r="10" fill="currentColor"/>
+                                                </svg>
+                                            </div>
+                                            <div class="profile-info-text">
+                                                <div class="profile-info-label">Статус</div>
+                                                <span class="profile-status-badge active">Активен</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Карточка: Договор -->
+                        <div class="cabinet-card profile-card">
+                            <div class="cabinet-card-header">
+                                <h2 class="cabinet-card-title">Договор</h2>
+                            </div>
+                            <div class="profile-contract-content">
+                                <div class="profile-contract-row">
+                                    <div class="profile-contract-label">Номер договора</div>
+                                    <div class="profile-contract-value-row">
+                                        <span class="profile-contract-value" id="profile-contract-number">100001</span>
+                                        <span class="profile-status-badge active">Активен</span>
+                                    </div>
+                                </div>
+                                <div class="profile-contract-row">
+                                    <div class="profile-contract-label">Дата заключения</div>
+                                    <div class="profile-contract-value" id="profile-contract-date">15.06.2023</div>
+                                </div>
+                                <div class="profile-contract-row">
+                                    <div class="profile-contract-label">Адрес по договору</div>
+                                    <div class="profile-contract-value" id="profile-contract-address">г. Таганрог, ул. Петровская, д. 19, кв. 1</div>
+                                </div>
+                                <a href="#" class="profile-download-link" onclick="downloadContract(event)">
+                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M14 2V8H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    Скачать договор (PDF)
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Карточка: Адрес подключения -->
+                        <div class="cabinet-card profile-card">
+                            <div class="cabinet-card-header">
+                                <h2 class="cabinet-card-title">Адрес подключения</h2>
+                            </div>
+                            <div class="profile-address-content">
+                                <div class="profile-address-item">
+                                    <svg class="profile-address-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M21 10C21 17 12 23 12 23C12 23 3 17 3 10C3 7.61305 3.94821 5.32387 5.63604 3.63604C7.32387 1.94821 9.61305 1 12 1C14.3869 1 16.6761 1.94821 18.364 3.63604C20.0518 5.32387 21 7.61305 21 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M12 13C13.6569 13 15 11.6569 15 10C15 8.34315 13.6569 7 12 7C10.3431 7 9 8.34315 9 10C9 11.6569 10.3431 13 12 13Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    <span id="profile-connection-address">г. Таганрог, ул. Петровская, д. 19, кв. 1</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Карточка: Лицевой счёт -->
+                        <div class="cabinet-card profile-card">
+                            <div class="cabinet-card-header">
+                                <h2 class="cabinet-card-title">Лицевой счёт</h2>
+                            </div>
+                            <div class="profile-account-content">
+                                <div class="profile-account-row">
+                                    <div class="profile-account-label">Номер счёта</div>
+                                    <div class="profile-account-value-row">
+                                        <span class="profile-account-value" id="profile-account-number">ЛС-00000001</span>
+                                        <span class="profile-account-balance" id="profile-account-balance">699,00 ₽</span>
+                                    </div>
+                                </div>
+                                <div class="profile-account-row">
+                                    <div class="profile-account-label">Статус</div>
+                                    <span class="profile-status-badge active">Активен</span>
+                                </div>
+                                <div class="profile-account-row">
+                                    <div class="profile-account-label">Следующее списание</div>
+                                    <div class="profile-account-value" id="profile-next-debit">01.12.2026</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Содержимое подвкладки: Уведомления -->
+                <div class="profile-subtab-content" id="profile-notifications">
+                    <div class="cabinet-card">
+                        <div class="cabinet-card-header">
+                            <h2 class="cabinet-card-title">Уведомления</h2>
+                        </div>
+                        <div class="profile-notifications-content">
+                            <p style="color: #666; text-align: center; padding: 40px 0;">Настройки уведомлений будут доступны в ближайшее время</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Содержимое вкладки: Заявки -->
+            <div class="cabinet-tab-content" id="tab-applications">
+                <div class="cabinet-card">
+                    <div class="cabinet-card-header">
+                        <h2 class="cabinet-card-title">
+                            Мои заявки
+                        </h2>
+                    </div>
+                    <div id="applications-list">
+                        <div class="cabinet-history-item">
+                            <div>
+                                <div style="font-weight: 600; margin-bottom: 4px;">Заявка на подключение</div>
+                                <div class="cabinet-history-date">10.12.2024</div>
+                            </div>
+                            <span class="cabinet-status active">Выполнена</span>
+                        </div>
+                    </div>
+                    <button class="cabinet-btn cabinet-btn-secondary" onclick="createApplication()">Создать заявку</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p class="footer-copyright">
+                    © 2026 PG19
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Модальное окно подтверждения выхода -->
+    <div class="logout-modal" id="logout-modal">
+        <div class="logout-modal-content">
+            <button class="logout-modal-close" onclick="closeLogoutModal()">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <div class="logout-modal-icon">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M16 17L21 12L16 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M21 12H9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            <h2 class="logout-modal-title">Выход из личного кабинета</h2>
+            <p class="logout-modal-message">
+                Вы уверены, что хотите выйти из личного кабинета?<br>
+                Для повторного входа потребуется авторизация.
+            </p>
+            <div class="logout-modal-actions">
+                <button class="logout-modal-btn logout-modal-btn-cancel" onclick="closeLogoutModal()">
+                    Отмена
+                </button>
+                <button class="logout-modal-btn logout-modal-btn-confirm" onclick="confirmLogout()">
+                    Выйти
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Функция переключения вкладок
+        function switchTab(tabName) {
+            // Убираем активный класс у всех вкладок (в header)
+            document.querySelectorAll('.cabinet-header-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Убираем активный класс у всего содержимого
+            document.querySelectorAll('.cabinet-tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Добавляем активный класс выбранной вкладке
+            const selectedTab = document.querySelector(`[data-tab="${tabName}"]`);
+            if (selectedTab) {
+                selectedTab.classList.add('active');
+            }
+            
+            // Показываем соответствующее содержимое
+            const selectedContent = document.getElementById(`tab-${tabName}`);
+            if (selectedContent) {
+                selectedContent.classList.add('active');
+            }
+        }
+
+        // Загрузка данных пользователя из localStorage
+        document.addEventListener('DOMContentLoaded', function() {
+            loadUserData();
+            
+            // Мобильное меню
+            const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+            const nav = document.querySelector('.nav');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            if (mobileMenuToggle) {
+                mobileMenuToggle.addEventListener('click', function() {
+                    nav.classList.toggle('active');
+                    mobileMenuToggle.classList.toggle('active');
+                });
+            }
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    if (window.innerWidth <= 768) {
+                        nav.classList.remove('active');
+                        mobileMenuToggle.classList.remove('active');
+                    }
+                });
+            });
+        });
+
+        function loadUserData() {
+            // Получаем данные из localStorage (сохраненные при входе)
+            const userPhone = localStorage.getItem('userPhone') || '+7 (900) 111-11-11';
+            const userEmail = localStorage.getItem('userEmail') || 'ivan@test.com';
+            const userContract = localStorage.getItem('userContract') || '100001';
+            const userName = localStorage.getItem('userName') || 'Петров Иван';
+            
+            // Обновляем отображение в header
+            const headerUserName = document.getElementById('header-user-name');
+            if (headerUserName) {
+                headerUserName.textContent = userName;
+            }
+
+            // Обновляем данные в профиле
+            const profileName = document.getElementById('profile-name');
+            if (profileName) {
+                profileName.textContent = userName;
+            }
+
+            const profilePhone = document.getElementById('profile-phone');
+            if (profilePhone) {
+                profilePhone.textContent = userPhone;
+            }
+
+            const profileEmail = document.getElementById('profile-email');
+            if (profileEmail) {
+                profileEmail.textContent = userEmail;
+            }
+
+            const profileContractNumber = document.getElementById('profile-contract-number');
+            if (profileContractNumber) {
+                profileContractNumber.textContent = userContract;
+            }
+
+            // Устанавливаем первую букву имени в аватар
+            const profileAvatar = document.getElementById('profile-avatar');
+            if (profileAvatar) {
+                const firstLetters = userName.split(' ').map(n => n[0]).join('').toUpperCase();
+                profileAvatar.textContent = firstLetters || 'ПИ';
+            }
+        }
+
+        function handleLogout(event) {
+            event.preventDefault();
+            openLogoutModal();
+        }
+
+        function openLogoutModal() {
+            const modal = document.getElementById('logout-modal');
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLogoutModal() {
+            const modal = document.getElementById('logout-modal');
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function confirmLogout() {
+            localStorage.removeItem('userPhone');
+            localStorage.removeItem('userEmail');
+            localStorage.removeItem('userContract');
+            localStorage.removeItem('userName');
+            window.location.href = 'login.html';
+        }
+
+        // Закрытие модального окна при клике на фон
+        document.addEventListener('DOMContentLoaded', function() {
+            const logoutModal = document.getElementById('logout-modal');
+            if (logoutModal) {
+                logoutModal.addEventListener('click', function(e) {
+                    if (e.target === logoutModal) {
+                        closeLogoutModal();
+                    }
+                });
+            }
+
+            // Закрытие по клавише Escape
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    const logoutModal = document.getElementById('logout-modal');
+                    if (logoutModal && logoutModal.classList.contains('active')) {
+                        closeLogoutModal();
+                    }
+                }
+            });
+        });
+
+        // Функции для работы с балансом
+        let selectedAmount = 0;
+        let selectedPaymentMethod = 'card';
+
+        function selectQuickAmount(amount, element) {
+            // Убираем активный класс у всех кнопок
+            document.querySelectorAll('.balance-quick-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            if (amount === 'other') {
+                // Если выбрана "Другая", фокусируемся на поле ввода
+                document.getElementById('balance-amount').focus();
+                document.getElementById('balance-amount').value = '';
+                selectedAmount = 0;
+            } else {
+                // Устанавливаем сумму и активируем кнопку
+                selectedAmount = amount;
+                const formatted = amount.toLocaleString('ru-RU');
+                document.getElementById('balance-amount').value = formatted + ' ₽';
+                if (element) {
+                    element.classList.add('active');
+                }
+            }
+            updatePayButton();
+        }
+
+        function selectPaymentMethod(method, element) {
+            selectedPaymentMethod = method;
+            // Убираем selected у всех методов
+            document.querySelectorAll('.balance-payment-method').forEach(methodEl => {
+                methodEl.classList.remove('selected');
+                methodEl.querySelector('input[type="radio"]').checked = false;
+            });
+            // Добавляем selected к выбранному
+            if (element) {
+                element.classList.add('selected');
+                element.querySelector('input[type="radio"]').checked = true;
+            }
+        }
+
+        function toggleAutopay(checkboxEl) {
+            checkboxEl.classList.toggle('checked');
+            const checkbox = checkboxEl.querySelector('input[type="checkbox"]');
+            checkbox.checked = checkboxEl.classList.contains('checked');
+        }
+
+        function updatePayButton() {
+            const inputValue = document.getElementById('balance-amount').value;
+            const amount = parseFloat(inputValue.replace(/\D/g, '')) || 0;
+            const formattedAmount = amount.toLocaleString('ru-RU', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            document.getElementById('pay-button-text').textContent = `Оплатить ${formattedAmount} ₽`;
+        }
+
+        function processPayment() {
+            const inputValue = document.getElementById('balance-amount').value;
+            const amount = parseFloat(inputValue.replace(/\D/g, '')) || 0;
+            if (amount <= 0) {
+                alert('Пожалуйста, введите сумму пополнения');
+                return;
+            }
+            alert(`Оплата на сумму ${amount.toLocaleString('ru-RU', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ₽ через ${getPaymentMethodName(selectedPaymentMethod)} будет обработана в ближайшее время`);
+        }
+
+        function getPaymentMethodName(method) {
+            const methods = {
+                'card': 'Банковскую карту',
+                'sbp': 'СБП',
+                'yukassa': 'ЮKassa'
+            };
+            return methods[method] || 'выбранный способ';
+        }
+
+        // Обработчик изменения суммы в поле ввода
+        document.addEventListener('DOMContentLoaded', function() {
+            const amountInput = document.getElementById('balance-amount');
+            if (amountInput) {
+                amountInput.addEventListener('input', function(e) {
+                    // Убираем активный класс у всех кнопок при ручном вводе
+                    document.querySelectorAll('.balance-quick-btn').forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    // Форматируем ввод (только цифры)
+                    let value = e.target.value.replace(/\D/g, '');
+                    if (value) {
+                        selectedAmount = parseFloat(value);
+                        // Форматируем с пробелами для тысяч
+                        const formatted = selectedAmount.toLocaleString('ru-RU');
+                        e.target.value = formatted + ' ₽';
+                    } else {
+                        selectedAmount = 0;
+                        e.target.value = '';
+                    }
+                    updatePayButton();
+                });
+
+                // Форматирование при потере фокуса
+                amountInput.addEventListener('blur', function(e) {
+                    const value = parseFloat(e.target.value.replace(/\D/g, '')) || 0;
+                    if (value > 0) {
+                        const formatted = value.toLocaleString('ru-RU');
+                        e.target.value = formatted + ' ₽';
+                    } else {
+                        e.target.value = '';
+                    }
+                    updatePayButton();
+                });
+
+                // При фокусе убираем "₽" для удобства ввода
+                amountInput.addEventListener('focus', function(e) {
+                    let value = e.target.value.replace(/\D/g, '');
+                    if (value) {
+                        e.target.value = value;
+                    } else {
+                        e.target.value = '';
+                    }
+                });
+            }
+        });
+
+        function showAllPayments() {
+            alert('Показать все платежи');
+        }
+
+        function createApplication() {
+            window.location.href = 'application.html';
+        }
+
+        // Функции для вкладки Безопасность
+        function unlinkTelegram() {
+            if (confirm('Вы уверены, что хотите отвязать Telegram? Для повторной привязки потребуется авторизация через Telegram.')) {
+                alert('Telegram успешно отвязан');
+                // Здесь должна быть реальная логика отвязки Telegram
+            }
+        }
+
+        function endAllSessions() {
+            if (confirm('Вы уверены, что хотите завершить все сессии? Вам потребуется повторная авторизация на всех устройствах.')) {
+                alert('Все сессии успешно завершены');
+                // Здесь должна быть реальная логика завершения всех сессий
+            }
+        }
+
+        // Функции для вкладки Профиль
+        function switchProfileTab(tabName) {
+            // Убираем активный класс у всех подвкладок
+            document.querySelectorAll('.profile-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Убираем активный класс у всего содержимого
+            document.querySelectorAll('.profile-subtab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Добавляем активный класс выбранной подвкладке
+            const selectedTab = document.querySelector(`[data-subtab="${tabName}"]`);
+            if (selectedTab) {
+                selectedTab.classList.add('active');
+            }
+            
+            // Показываем соответствующее содержимое
+            const selectedContent = document.getElementById(`profile-${tabName}`);
+            if (selectedContent) {
+                selectedContent.classList.add('active');
+            }
+        }
+
+        function editPersonalData(event) {
+            event.preventDefault();
+            alert('Функция редактирования персональных данных будет доступна в ближайшее время');
+        }
+
+        function downloadContract(event) {
+            event.preventDefault();
+            alert('Скачивание договора будет доступно в ближайшее время');
+        }
+    </script>
+</body>
+</html>
+

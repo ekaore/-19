@@ -52,7 +52,18 @@ document.addEventListener('DOMContentLoaded', function() {
     const cabinetBtn = document.querySelector('.btn-cabinet');
     if (cabinetBtn && !cabinetBtn.hasAttribute('onclick')) {
         cabinetBtn.addEventListener('click', function() {
-            window.location.href = 'login.html';
+            // Проверяем, есть ли данные пользователя в localStorage
+            const userPhone = localStorage.getItem('userPhone');
+            const userEmail = localStorage.getItem('userEmail');
+            const userContract = localStorage.getItem('userContract');
+            
+            if (userPhone || userEmail || userContract) {
+                // Пользователь авторизован - переходим в кабинет
+                window.location.href = 'cabinet.html';
+            } else {
+                // Пользователь не авторизован - переходим на страницу входа
+                window.location.href = 'login.html';
+            }
         });
     }
 

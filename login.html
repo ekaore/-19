@@ -916,6 +916,246 @@
                 font-size: 24px;
             }
         }
+        
+        /* Модальное окно ошибки входа */
+        .error-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(6px);
+            z-index: 10001;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .error-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+        
+        .error-modal-content {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 1) 0%, rgba(255, 250, 250, 1) 100%);
+            border-radius: 24px;
+            padding: 50px 40px;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 
+                0 20px 60px rgba(220, 38, 38, 0.25),
+                0 10px 40px rgba(239, 68, 68, 0.15);
+            position: relative;
+            transform: scale(0.85) translateY(-20px);
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            animation: shake 0.5s ease-in-out;
+        }
+        
+        .error-modal.active .error-modal-content {
+            transform: scale(1) translateY(0);
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-8px); }
+            20%, 40%, 60%, 80% { transform: translateX(8px); }
+        }
+        
+        .error-modal-icon {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 28px;
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(220, 38, 38, 0.08) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 0 0 10px rgba(239, 68, 68, 0);
+            }
+        }
+        
+        .error-modal-icon::before {
+            content: '';
+            position: absolute;
+            inset: -6px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(220, 38, 38, 0.1));
+            z-index: -1;
+            animation: rotate 3s linear infinite;
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .error-modal-icon svg {
+            width: 50px;
+            height: 50px;
+            color: #EF4444;
+            position: relative;
+            z-index: 1;
+            animation: bounce 1s ease-in-out infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        
+        .error-modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 36px;
+            height: 36px;
+            border: none;
+            background: rgba(239, 68, 68, 0.1);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            color: #EF4444;
+        }
+        
+        .error-modal-close:hover {
+            background: rgba(239, 68, 68, 0.2);
+            transform: rotate(90deg) scale(1.1);
+        }
+        
+        .error-modal-close svg {
+            width: 20px;
+            height: 20px;
+        }
+        
+        .error-modal-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1A1A1A;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+            text-align: center;
+        }
+        
+        .error-modal-message {
+            font-size: 16px;
+            color: #666666;
+            line-height: 1.7;
+            margin-bottom: 32px;
+            text-align: center;
+        }
+        
+        .error-modal-phone {
+            font-weight: 600;
+            color: #EF4444;
+            background: rgba(239, 68, 68, 0.1);
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+        
+        .error-modal-suggestions {
+            background: rgba(239, 68, 68, 0.05);
+            border-left: 3px solid #EF4444;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 32px;
+        }
+        
+        .error-modal-suggestions-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #DC2626;
+            margin-bottom: 10px;
+        }
+        
+        .error-modal-suggestions-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .error-modal-suggestions-list li {
+            font-size: 14px;
+            color: #666666;
+            line-height: 1.8;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .error-modal-suggestions-list li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: #EF4444;
+            font-weight: bold;
+        }
+        
+        .error-modal-btn {
+            width: 100%;
+            padding: 18px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #FFFFFF;
+            background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+        }
+        
+        .error-modal-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(239, 68, 68, 0.4);
+            background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%);
+        }
+        
+        .error-modal-btn:active {
+            transform: translateY(0);
+        }
+        
+        @media (max-width: 480px) {
+            .error-modal-content {
+                padding: 40px 28px;
+                border-radius: 20px;
+            }
+            
+            .error-modal-icon {
+                width: 80px;
+                height: 80px;
+                margin-bottom: 24px;
+            }
+            
+            .error-modal-icon svg {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .error-modal-title {
+                font-size: 24px;
+            }
+            
+            .error-modal-message {
+                font-size: 15px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1094,7 +1334,7 @@
                         <form id="contract-form" onsubmit="handleContractLogin(event)">
                             <div class="login-form-group">
                                 <label class="login-form-label" for="contract-number">Номер договора</label>
-                                <input type="text" id="contract-number" class="login-form-input" placeholder="Введите номер договора" inputmode="numeric" pattern="[0-9]*" required>
+                                <input type="text" id="contract-number" class="login-form-input" placeholder="Введите номер договора" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" required>
                             </div>
                             <div class="login-form-group">
                                 <label class="login-form-label" for="contract-password">Пароль</label>
@@ -1212,6 +1452,37 @@
         </div>
     </div>
 
+    <!-- Модальное окно ошибки входа -->
+    <div class="error-modal" id="error-modal">
+        <div class="error-modal-content">
+            <button class="error-modal-close" onclick="closeErrorModal()">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <div class="error-modal-icon">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 9V13M12 17H12.01M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            <h2 class="error-modal-title">Номер не найден</h2>
+            <p class="error-modal-message">
+                Номер телефона <span class="error-modal-phone" id="error-modal-phone"></span> не зарегистрирован в системе или введен некорректно.
+            </p>
+            <div class="error-modal-suggestions">
+                <div class="error-modal-suggestions-title">Что можно сделать:</div>
+                <ul class="error-modal-suggestions-list">
+                    <li>Проверьте правильность введенного номера</li>
+                    <li>Используйте другой метод входа (по договору или Telegram)</li>
+                    <li>Обратитесь в службу поддержки для регистрации</li>
+                </ul>
+            </div>
+            <button class="error-modal-btn" onclick="closeErrorModal()">
+                Понятно
+            </button>
+        </div>
+    </div>
+
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
@@ -1305,7 +1576,8 @@
         
         // Обработчики форм входа
         function handleTelegramLogin() {
-            alert('Интеграция с Telegram ботом будет реализована позже. Для входа используйте другие методы.');
+            // Открываем Telegram бота для авторизации
+            window.open('https://t.me/PG19CONNECTBOT?start=auth_76d88bd8-6fe6-436e-af58-58b86ed53f11', '_blank');
         }
         
         function handleContractLogin(event) {
@@ -1319,6 +1591,12 @@
             
             if (!contractNumber || !password) {
                 alert('Пожалуйста, заполните все поля');
+                return;
+            }
+            
+            // Проверяем, что номер договора содержит ровно 6 цифр
+            if (contractNumber.length !== 6) {
+                alert('Номер договора должен содержать 6 цифр');
                 return;
             }
             
@@ -1370,6 +1648,18 @@
                 return;
             }
             
+            // Нормализуем номер телефона (убираем все символы кроме цифр)
+            const normalizedPhone = phone.replace(/\D/g, '');
+            
+            // Разрешенные номера телефонов
+            const allowedPhones = ['79001111111', '79002222222', '79003333333'];
+            
+            // Проверяем, есть ли номер в списке разрешенных
+            if (!allowedPhones.includes(normalizedPhone)) {
+                openErrorModal(phone);
+                return;
+            }
+            
             // Сохраняем номер телефона для модального окна
             document.getElementById('sms-modal-phone').textContent = phone;
             
@@ -1413,6 +1703,47 @@
                 smsResendTimer = null;
             }
         }
+        
+        // Функции для модального окна ошибки
+        function openErrorModal(phone) {
+            const modal = document.getElementById('error-modal');
+            const phoneElement = document.getElementById('error-modal-phone');
+            
+            if (phoneElement) {
+                phoneElement.textContent = phone;
+            }
+            
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeErrorModal() {
+            const modal = document.getElementById('error-modal');
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        
+        // Закрытие модального окна ошибки при клике на фон
+        document.addEventListener('DOMContentLoaded', function() {
+            const errorModal = document.getElementById('error-modal');
+            if (errorModal) {
+                errorModal.addEventListener('click', function(e) {
+                    if (e.target === errorModal) {
+                        closeErrorModal();
+                    }
+                });
+            }
+            
+            // Закрытие по клавише Escape
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    const errorModal = document.getElementById('error-modal');
+                    if (errorModal && errorModal.classList.contains('active')) {
+                        closeErrorModal();
+                    }
+                }
+            });
+        });
         
         function resetSmsResendTimer() {
             if (smsResendTimer) {
@@ -1513,6 +1844,10 @@
             const confirmModalPhone = document.getElementById('confirm-modal-phone');
             const confirmModalMessage = document.getElementById('confirm-modal-message');
             
+            // Сохраняем данные пользователя в localStorage
+            localStorage.setItem('userPhone', phone);
+            localStorage.setItem('userName', 'Иван Иванов'); // В реальности это будет получено с сервера
+            
             confirmModalTitle.textContent = 'Код подтвержден!';
             confirmModalPhone.textContent = phone;
             confirmModalMessage.textContent = 'Вход в личный кабинет выполнен успешно с номера ';
@@ -1527,6 +1862,10 @@
             const confirmModalPhone = document.getElementById('confirm-modal-phone');
             const confirmModalMessage = document.getElementById('confirm-modal-message');
             
+            // Сохраняем данные пользователя в localStorage
+            localStorage.setItem('userContract', contractNumber);
+            localStorage.setItem('userName', 'Иван Иванов'); // В реальности это будет получено с сервера
+            
             confirmModalTitle.textContent = 'Вход выполнен!';
             confirmModalPhone.textContent = 'договор №' + contractNumber;
             confirmModalMessage.textContent = 'Вход в личный кабинет выполнен успешно по ';
@@ -1540,6 +1879,10 @@
             const confirmModalTitle = document.getElementById('confirm-modal-title');
             const confirmModalPhone = document.getElementById('confirm-modal-phone');
             const confirmModalMessage = document.getElementById('confirm-modal-message');
+            
+            // Сохраняем данные пользователя в localStorage
+            localStorage.setItem('userEmail', email);
+            localStorage.setItem('userName', 'Иван Иванов'); // В реальности это будет получено с сервера
             
             confirmModalTitle.textContent = 'Вход выполнен!';
             confirmModalPhone.textContent = email;
@@ -1572,26 +1915,32 @@
         function handleConfirmSuccess() {
             console.log('Успешный вход в личный кабинет');
             closeConfirmModal();
-            // Здесь можно перенаправить на страницу личного кабинета
-            // window.location.href = 'cabinet.html';
-            // Или показать сообщение
-            alert('Добро пожаловать в личный кабинет!');
+            // Перенаправляем на страницу личного кабинета
+            window.location.href = 'cabinet.html';
         }
         
         // Обработка ввода кода в поля
         document.addEventListener('DOMContentLoaded', function() {
-            // Ограничение ввода только цифрами для номера договора
+            // Ограничение ввода только цифрами для номера договора (максимум 6 цифр)
             const contractNumberInput = document.getElementById('contract-number');
             if (contractNumberInput) {
                 contractNumberInput.addEventListener('input', function(e) {
-                    const value = e.target.value.replace(/\D/g, '');
+                    let value = e.target.value.replace(/\D/g, '');
+                    // Ограничиваем до 6 цифр
+                    if (value.length > 6) {
+                        value = value.substring(0, 6);
+                    }
                     e.target.value = value;
                 });
                 
                 // Предотвращаем вставку нецифровых символов
                 contractNumberInput.addEventListener('paste', function(e) {
                     e.preventDefault();
-                    const pastedData = e.clipboardData.getData('text').replace(/\D/g, '');
+                    let pastedData = e.clipboardData.getData('text').replace(/\D/g, '');
+                    // Ограничиваем до 6 цифр
+                    if (pastedData.length > 6) {
+                        pastedData = pastedData.substring(0, 6);
+                    }
                     e.target.value = pastedData;
                 });
             }
