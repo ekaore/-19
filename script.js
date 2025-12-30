@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 window.location.href = 'cabinet.html';
             } else {
                 // Пользователь не авторизован - переходим на страницу входа
-                window.location.href = 'login.html';
+            window.location.href = 'login.html';
             }
         });
     }

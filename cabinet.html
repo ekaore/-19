@@ -918,6 +918,454 @@
             }
         }
 
+        /* Стили для вкладки Поддержка */
+        .support-contact-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .support-contact-card {
+            background: #FFFFFF;
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            border: none;
+            width: 100%;
+            cursor: pointer;
+        }
+
+        .support-contact-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+        }
+
+        .support-contact-note {
+            font-size: 12px;
+            color: #999999;
+            margin-top: 4px;
+        }
+
+
+        .support-contact-label {
+            font-size: 14px;
+            color: #666666;
+            margin-bottom: 4px;
+            font-weight: 500;
+        }
+
+        .support-contact-value {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1A1A1A;
+        }
+
+        .support-subtabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #E0E0E0;
+        }
+
+        .support-subtab {
+            padding: 10px 20px;
+            background: transparent;
+            border: none;
+            border-bottom: 3px solid transparent;
+            color: #666666;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .support-subtab:hover {
+            color: #0066CC;
+            background: rgba(0, 102, 204, 0.05);
+        }
+
+        .support-subtab.active {
+            color: #0066CC;
+            border-bottom-color: #0066CC;
+            background: rgba(0, 102, 204, 0.05);
+        }
+
+        .support-subtab-badge {
+            background: #0066CC;
+            color: #FFFFFF;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 12px;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        .support-subtab-content {
+            display: none;
+        }
+
+        .support-subtab-content.active {
+            display: block;
+        }
+
+        .support-create-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #0066CC 0%, #0052A3 100%);
+            color: #FFFFFF;
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0, 102, 204, 0.2);
+        }
+
+        .support-create-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 102, 204, 0.3);
+        }
+
+
+        .support-applications-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .support-application-item {
+            background: #FFFFFF;
+            border-radius: 12px;
+            padding: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .support-application-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+        }
+
+        .support-application-content {
+            flex: 1;
+        }
+
+        .support-application-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: #1A1A1A;
+            margin-bottom: 6px;
+        }
+
+        .support-application-desc {
+            font-size: 13px;
+            color: #666666;
+            margin-bottom: 6px;
+        }
+
+        .support-application-meta {
+            font-size: 12px;
+            color: #999999;
+        }
+
+        .support-application-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .support-status {
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .support-status.in-progress {
+            background: rgba(251, 191, 36, 0.15);
+            color: #F59E0B;
+        }
+
+        .support-status.closed {
+            background: rgba(156, 163, 175, 0.15);
+            color: #6B7280;
+        }
+
+
+        .support-faq-content {
+            background: #FFFFFF;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Быстрые действия */
+        .support-quick-actions {
+            margin-bottom: 24px;
+        }
+
+        .support-section-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1A1A1A;
+            margin-bottom: 16px;
+        }
+
+        .support-quick-actions-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .support-quick-action {
+            background: #FFFFFF;
+            border: 2px solid #E0E0E0;
+            border-radius: 10px;
+            padding: 14px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .support-quick-action:hover {
+            border-color: #0066CC;
+            background: rgba(0, 102, 204, 0.05);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 102, 204, 0.15);
+        }
+
+        .support-quick-action-text {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1A1A1A;
+        }
+
+        /* Заголовок и фильтры заявок */
+        .support-applications-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            gap: 12px;
+        }
+
+        .support-applications-filters {
+            display: flex;
+            gap: 8px;
+        }
+
+        .support-filter-btn {
+            padding: 8px 16px;
+            background: #F5F5F5;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #666666;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .support-filter-btn:hover {
+            background: #E0E0E0;
+        }
+
+        .support-filter-btn.active {
+            background: linear-gradient(135deg, #0066CC 0%, #0052A3 100%);
+            color: #FFFFFF;
+        }
+
+        /* FAQ стили */
+        .support-faq-search {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .support-faq-search-input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #E0E0E0;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .support-faq-search-input:focus {
+            outline: none;
+            border-color: #0066CC;
+            box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+        }
+
+
+        .support-faq-categories {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .support-faq-category {
+            padding: 8px 16px;
+            background: #F5F5F5;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #666666;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .support-faq-category:hover {
+            background: #E0E0E0;
+        }
+
+        .support-faq-category.active {
+            background: linear-gradient(135deg, #0066CC 0%, #0052A3 100%);
+            color: #FFFFFF;
+        }
+
+        .support-faq-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .support-faq-item {
+            background: #FFFFFF;
+            border-radius: 10px;
+            border: 1px solid #E0E0E0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .support-faq-item:hover {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .support-faq-question {
+            padding: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 600;
+            color: #1A1A1A;
+            transition: all 0.3s ease;
+        }
+
+        .support-faq-question:hover {
+            color: #0066CC;
+        }
+
+
+        .support-faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .support-faq-item.active .support-faq-answer {
+            max-height: 500px;
+        }
+
+        .support-faq-answer p {
+            padding: 0 14px 14px;
+            margin: 0;
+            font-size: 13px;
+            line-height: 1.6;
+            color: #666666;
+        }
+
+        .support-faq-item.hidden {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .support-contact-cards {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .support-subtabs {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .support-subtab {
+                padding: 10px 16px;
+                font-size: 14px;
+                white-space: nowrap;
+            }
+
+            .support-application-item {
+                padding: 16px;
+            }
+
+            .support-application-right {
+                flex-direction: column;
+                align-items: flex-end;
+                gap: 8px;
+            }
+
+            .support-quick-actions-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .support-applications-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .support-applications-filters {
+                width: 100%;
+                justify-content: flex-start;
+            }
+
+            .support-create-btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .support-quick-actions-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .support-faq-categories {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .support-faq-category {
+                white-space: nowrap;
+            }
+        }
+
         @media (max-width: 768px) {
             .security-method-item,
             .security-history-item {
@@ -1154,6 +1602,11 @@
             border-radius: 20px;
             padding: 32px;
             box-shadow: 0 4px 12px rgba(0, 102, 204, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .cabinet-card:last-child {
+            margin-bottom: 0;
         }
 
         .cabinet-card:hover {
@@ -1243,6 +1696,353 @@
             font-size: 20px;
         }
 
+        /* Стили для вкладки Подключение */
+        .connection-status-card {
+            background: #FFFFFF;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .connection-status-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .connection-status-info {
+            flex: 1;
+        }
+
+        .connection-status-label {
+            font-size: 14px;
+            color: #666666;
+            margin-bottom: 8px;
+        }
+
+        .connection-status-value {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .connection-status-value.active {
+            color: #10B981;
+        }
+
+        .connection-status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #10B981;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        .connection-refresh-btn {
+            padding: 8px 16px;
+            background: #F5F5F5;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #1A1A1A;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .connection-refresh-btn:hover {
+            background: #E0E0E0;
+        }
+
+        .connection-status-details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            padding-top: 16px;
+            border-top: 1px solid #F0F0F0;
+        }
+
+        .connection-detail-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .connection-detail-label {
+            font-size: 14px;
+            color: #999999;
+        }
+
+        .connection-detail-value {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1A1A1A;
+        }
+
+        .connection-info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .connection-info-item {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .connection-info-label {
+            font-size: 14px;
+            color: #666666;
+        }
+
+        .connection-info-value {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1A1A1A;
+        }
+
+        .connection-change-tariff-btn {
+            padding: 8px 16px;
+            background: linear-gradient(135deg, #0066CC 0%, #0052A3 100%);
+            color: #FFFFFF;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .connection-change-tariff-btn:hover {
+            box-shadow: 0 4px 12px rgba(0, 102, 204, 0.3);
+        }
+
+        .connection-tariff-card {
+            background: linear-gradient(135deg, rgba(0, 102, 204, 0.05) 0%, rgba(0, 102, 204, 0.02) 100%);
+            border: 2px solid rgba(0, 102, 204, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 16px;
+        }
+
+        .connection-tariff-main {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .connection-tariff-name {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1A1A1A;
+        }
+
+        .connection-tariff-price {
+            font-size: 18px;
+            font-weight: 600;
+            color: #0066CC;
+        }
+
+        .connection-tariff-features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(0, 102, 204, 0.1);
+        }
+
+        .connection-tariff-feature {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .connection-tariff-feature-label {
+            font-size: 14px;
+            color: #666666;
+        }
+
+        .connection-tariff-feature-value {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1A1A1A;
+        }
+
+        .connection-traffic {
+            margin-top: 16px;
+        }
+
+        .connection-traffic-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .connection-traffic-label {
+            font-size: 14px;
+            color: #666666;
+        }
+
+        .connection-traffic-value {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1A1A1A;
+        }
+
+        .connection-traffic-bar {
+            width: 100%;
+            height: 8px;
+            background: #F0F0F0;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+
+        .connection-traffic-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #0066CC 0%, #0052A3 100%);
+            transition: width 0.3s ease;
+        }
+
+        .connection-traffic-note {
+            font-size: 12px;
+            color: #999999;
+        }
+
+        .connection-equipment {
+            margin-top: 16px;
+        }
+
+        .connection-equipment-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #F0F0F0;
+        }
+
+        .connection-equipment-item:last-of-type {
+            border-bottom: none;
+            margin-bottom: 16px;
+        }
+
+        .connection-equipment-label {
+            font-size: 14px;
+            color: #666666;
+        }
+
+        .connection-equipment-value {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1A1A1A;
+        }
+
+        .connection-equipment-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .connection-action-btn {
+            flex: 1;
+            padding: 12px;
+            background: linear-gradient(135deg, #0066CC 0%, #0052A3 100%);
+            color: #FFFFFF;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .connection-action-btn:hover {
+            box-shadow: 0 4px 12px rgba(0, 102, 204, 0.3);
+        }
+
+        .connection-action-btn.secondary {
+            background: #F5F5F5;
+            color: #1A1A1A;
+        }
+
+        .connection-action-btn.secondary:hover {
+            background: #E0E0E0;
+        }
+
+        .connection-quick-actions {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .connection-quick-action {
+            padding: 16px;
+            background: #FAFAFA;
+            border: 1px solid #E0E0E0;
+            border-radius: 12px;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .connection-quick-action:hover {
+            background: #F5F5F5;
+            border-color: #0066CC;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .connection-quick-action-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1A1A1A;
+            margin-bottom: 4px;
+        }
+
+        .connection-quick-action-desc {
+            font-size: 13px;
+            color: #666666;
+        }
+
+        @media (max-width: 768px) {
+            .connection-status-details {
+                grid-template-columns: 1fr;
+            }
+
+            .connection-info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .connection-tariff-features {
+                grid-template-columns: 1fr;
+            }
+
+            .connection-equipment-actions {
+                flex-direction: column;
+            }
+
+            .connection-quick-actions {
+                grid-template-columns: 1fr;
+            }
+        }
+
         .cabinet-tariff-card {
             background: linear-gradient(135deg, rgba(0, 102, 204, 0.05) 0%, rgba(0, 102, 204, 0.02) 100%);
             border: 2px solid rgba(0, 102, 204, 0.1);
@@ -1309,6 +2109,238 @@
         }
 
         /* Стили для новой вкладки баланса */
+        .balance-main-card {
+            background: linear-gradient(135deg, #0052A3 0%, #0066CC 100%);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .balance-main-left {
+            flex: 1;
+        }
+
+        .balance-main-label {
+            font-size: 14px;
+            color: #FFFFFF;
+            margin-bottom: 8px;
+            font-weight: 500;
+            opacity: 0.9;
+        }
+
+        .balance-main-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #FFFFFF;
+            margin-bottom: 12px;
+            line-height: 1;
+        }
+
+        .balance-main-info-items {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .balance-info-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .balance-info-text {
+            font-size: 13px;
+            color: #FFFFFF;
+            opacity: 0.9;
+        }
+
+        .balance-main-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .balance-topup-btn {
+            padding: 12px 24px;
+            background: #FFFFFF;
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #0066CC;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .balance-topup-btn:hover {
+            background: #F5F5F5;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .balance-autopay-card {
+            margin-top: 0;
+        }
+
+        .balance-autopay-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .balance-autopay-main {
+            flex: 1;
+        }
+
+        .balance-autopay-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1A1A1A;
+            margin-bottom: 4px;
+        }
+
+        .balance-autopay-desc {
+            font-size: 13px;
+            color: #666666;
+        }
+
+        .balance-autopay-switch {
+            position: relative;
+            display: inline-block;
+            width: 48px;
+            height: 26px;
+            flex-shrink: 0;
+        }
+
+        .balance-autopay-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .balance-autopay-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: 0.3s;
+            border-radius: 26px;
+        }
+
+        .balance-autopay-slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: 0.3s;
+            border-radius: 50%;
+        }
+
+        .balance-autopay-switch input:checked + .balance-autopay-slider {
+            background: linear-gradient(135deg, #0066CC 0%, #0052A3 100%);
+        }
+
+        .balance-autopay-switch input:checked + .balance-autopay-slider:before {
+            transform: translateX(22px);
+        }
+
+        .balance-autopay-details {
+            display: flex;
+            gap: 24px;
+            padding-top: 16px;
+            border-top: 1px solid #F0F0F0;
+        }
+
+        .balance-autopay-detail {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .balance-autopay-detail-label {
+            font-size: 14px;
+            color: #999999;
+        }
+
+        .balance-autopay-detail-value {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1A1A1A;
+        }
+
+        .balance-view-all-btn {
+            padding: 6px 12px;
+            background: transparent;
+            border: 1px solid #E0E0E0;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #666666;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .balance-view-all-btn:hover {
+            border-color: #0066CC;
+            color: #0066CC;
+        }
+
+        .balance-recent-operations {
+            margin-top: 16px;
+        }
+
+        .balance-operation-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            border-bottom: 1px solid #F0F0F0;
+        }
+
+        .balance-operation-item:last-child {
+            border-bottom: none;
+        }
+
+        .balance-operation-info {
+            flex: 1;
+        }
+
+        .balance-operation-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1A1A1A;
+            margin-bottom: 4px;
+        }
+
+        .balance-operation-date {
+            font-size: 13px;
+            color: #999999;
+        }
+
+        .balance-operation-amount {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .balance-operation-amount.positive {
+            color: #10B981;
+        }
+
+        .balance-operation-amount.negative {
+            color: #EF4444;
+        }
+
         .balance-header {
             background: linear-gradient(135deg, rgba(0, 102, 204, 0.08) 0%, rgba(0, 102, 204, 0.03) 100%);
             border-radius: 16px;
@@ -1601,6 +2633,24 @@
         }
 
         @media (max-width: 768px) {
+            .balance-main-card {
+                padding: 16px;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .balance-main-value {
+                font-size: 28px;
+            }
+
+            .balance-main-right {
+                width: 100%;
+            }
+
+            .balance-topup-btn {
+                width: 100%;
+            }
+
             .balance-header {
                 flex-direction: column;
                 align-items: flex-start;
@@ -1761,6 +2811,9 @@
                     <button class="cabinet-header-tab" data-tab="applications" onclick="switchTab('applications')">
                         Заявки
                     </button>
+                    <button class="cabinet-header-tab" data-tab="support" onclick="switchTab('support')">
+                        Поддержка
+                    </button>
                     <button class="cabinet-header-tab" data-tab="profile" onclick="switchTab('profile')">
                         Профиль
                     </button>
@@ -1793,56 +2846,142 @@
 
             <!-- Содержимое вкладки: Подключение -->
             <div class="cabinet-tab-content active" id="tab-connection">
-                <div class="cabinet-card">
-                    <div class="cabinet-card-header">
-                        <h2 class="cabinet-card-title">
-                            Подключение
-                        </h2>
-                        <span class="cabinet-status active" id="connection-status">Активно</span>
-                    </div>
-                    <div class="cabinet-info-row">
-                        <span class="cabinet-info-label">Адрес подключения</span>
-                        <span class="cabinet-info-value" id="connection-address">г. Таганрог, ул. Петровская, д. 19, кв. 1</span>
-                    </div>
-                    <div class="cabinet-info-row">
-                        <span class="cabinet-info-label">Дата подключения</span>
-                        <span class="cabinet-info-value" id="connection-date">15.12.2024</span>
-                    </div>
-                    <div class="cabinet-tariff-card">
-                        <div class="cabinet-tariff-name" id="tariff-name">Базовый тариф</div>
-                        <div class="cabinet-tariff-details">
-                            <div class="cabinet-tariff-speed">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                                100 Мбит/с
+                <!-- Статус подключения -->
+                <div class="connection-status-card">
+                    <div class="connection-status-header">
+                        <div class="connection-status-info">
+                            <div class="connection-status-label">Статус подключения</div>
+                            <div class="connection-status-value active" id="connection-status">
+                                <span class="connection-status-dot"></span>
+                                Активно
                             </div>
-                            <div class="cabinet-tariff-price" id="tariff-price">699 ₽/мес</div>
+                        </div>
+                    </div>
+                    <div class="connection-status-details">
+                        <div class="connection-detail-item">
+                            <span class="connection-detail-label">IP-адрес</span>
+                            <span class="connection-detail-value" id="connection-ip">192.168.1.100</span>
+                        </div>
+                        <div class="connection-detail-item">
+                            <span class="connection-detail-label">MAC-адрес</span>
+                            <span class="connection-detail-value" id="connection-mac">00:1B:44:11:3A:B7</span>
                         </div>
                     </div>
                 </div>
+
+                <!-- Информация о подключении -->
+                <div class="cabinet-card">
+                    <div class="cabinet-card-header">
+                        <h2 class="cabinet-card-title">Информация о подключении</h2>
+                    </div>
+                    <div class="connection-info-grid">
+                        <div class="connection-info-item">
+                            <div class="connection-info-label">Адрес подключения</div>
+                            <div class="connection-info-value" id="connection-address">г. Таганрог, ул. Петровская, д. 19, кв. 1</div>
+                        </div>
+                        <div class="connection-info-item">
+                            <div class="connection-info-label">Дата подключения</div>
+                            <div class="connection-info-value" id="connection-date">15.12.2025</div>
+                        </div>
+                        <div class="connection-info-item">
+                            <div class="connection-info-label">Номер договора</div>
+                            <div class="connection-info-value" id="connection-contract">ДГ-2025-001234</div>
+                        </div>
+                        <div class="connection-info-item">
+                            <div class="connection-info-label">Лицевой счёт</div>
+                            <div class="connection-info-value" id="connection-account">1234567890</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Текущий тариф -->
+                <div class="cabinet-card">
+                    <div class="cabinet-card-header">
+                        <h2 class="cabinet-card-title">Текущий тариф</h2>
+                    </div>
+                    <div class="connection-tariff-card">
+                        <div class="connection-tariff-main">
+                            <div class="connection-tariff-name" id="tariff-name">Базовый тариф</div>
+                            <div class="connection-tariff-price" id="tariff-price">699 ₽/мес</div>
+                        </div>
+                        <div class="connection-tariff-features">
+                            <div class="connection-tariff-feature">
+                                <div class="connection-tariff-feature-label">Скорость</div>
+                                <div class="connection-tariff-feature-value" id="tariff-speed">100 Мбит/с</div>
+                            </div>
+                            <div class="connection-tariff-feature">
+                                <div class="connection-tariff-feature-label">Тип подключения</div>
+                                <div class="connection-tariff-feature-value">Оптоволокно</div>
+                            </div>
+                            <div class="connection-tariff-feature">
+                                <div class="connection-tariff-feature-label">Следующий платёж</div>
+                                <div class="connection-tariff-feature-value" id="next-payment">15.01.2026</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
             <!-- Содержимое вкладки: Баланс -->
             <div class="cabinet-tab-content" id="tab-balance">
-                <!-- Верхний блок с балансом -->
-                <div class="balance-header">
-                    <div class="balance-header-item">
-                        <div class="balance-header-label">Текущий баланс</div>
-                        <div class="balance-header-value" id="current-balance">699,00 ₽</div>
+                <!-- Главный блок с балансом -->
+                <div class="balance-main-card">
+                    <div class="balance-main-left">
+                        <div class="balance-main-label">Баланс</div>
+                        <div class="balance-main-value" id="current-balance">699,00 ₽</div>
+                        <div class="balance-main-info-items">
+                            <div class="balance-info-item">
+                                <span class="balance-info-text">Списание 15.01.2026 699,00 ₽</span>
+                            </div>
+                            <div class="balance-info-item">
+                                <span class="balance-info-text">Хватит на 63 дня</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="balance-header-item">
-                        <div class="balance-header-label">Рекомендуем</div>
-                        <div class="balance-header-value recommended">699,00 ₽</div>
+                    <div class="balance-main-right">
+                        <button class="balance-topup-btn" onclick="scrollToTopup()">
+                            Пополнить
+                        </button>
                     </div>
                 </div>
 
+                <!-- Автоплатёж -->
                 <div class="cabinet-card">
-                    <!-- Секция суммы пополнения -->
+                    <div class="balance-autopay-card">
+                        <div class="balance-autopay-content">
+                            <div class="balance-autopay-main">
+                                <div class="balance-autopay-title">Автоплатёж</div>
+                                <div class="balance-autopay-desc">Автоматическое пополнение за 3 дня до списания</div>
+                            </div>
+                            <label class="balance-autopay-switch">
+                                <input type="checkbox" id="autopay-checkbox" onchange="toggleAutopay(this)">
+                                <span class="balance-autopay-slider"></span>
+                            </label>
+                        </div>
+                        <div class="balance-autopay-details">
+                            <div class="balance-autopay-detail">
+                                <span class="balance-autopay-detail-label">Списание:</span>
+                                <span class="balance-autopay-detail-value">15.01.2026</span>
+                            </div>
+                            <div class="balance-autopay-detail">
+                                <span class="balance-autopay-detail-label">Сумма:</span>
+                                <span class="balance-autopay-detail-value">699,00 ₽</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Пополнение баланса -->
+                <div class="cabinet-card">
+                    <div class="cabinet-card-header">
+                        <h2 class="cabinet-card-title">Пополнить баланс</h2>
+                    </div>
+                    
                     <div class="balance-section">
                         <h3 class="balance-section-title">Сумма пополнения</h3>
                         <div class="balance-amount-input-wrapper">
-                            <input type="text" class="balance-amount-input" id="balance-amount" placeholder="₽ 0" value="0">
+                            <input type="text" class="balance-amount-input" id="balance-amount" placeholder="0" value="">
                         </div>
                         <div class="balance-quick-buttons">
                             <button class="balance-quick-btn" data-amount="500" onclick="selectQuickAmount(500, this)">500 ₽</button>
@@ -1853,7 +2992,6 @@
                         </div>
                     </div>
 
-                    <!-- Секция способа оплаты -->
                     <div class="balance-section">
                         <h3 class="balance-section-title">Способ оплаты</h3>
                         <div class="balance-payment-methods">
@@ -1884,31 +3022,11 @@
                         </div>
                     </div>
 
-                    <!-- Автоплатёж -->
-                    <div class="balance-autopay">
-                        <div class="balance-autopay-checkbox" onclick="toggleAutopay(this)">
-                            <input type="checkbox" id="autopay-checkbox">
-                        </div>
-                        <div class="balance-autopay-label">
-                            <div class="balance-autopay-label-text" onclick="toggleAutopay(document.querySelector('.balance-autopay-checkbox'))">Подключить автоплатёж</div>
-                            <div class="balance-autopay-desc">Автоматическое пополнение при балансе ниже 100,00 ₽</div>
-                        </div>
-                    </div>
-
-                    <!-- Кнопка оплаты -->
                     <button class="balance-pay-btn" onclick="processPayment()">
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M3 10H21M7 15H8M12 15H13M6 20H18C19.1046 20 20 19.1046 20 18V6C20 4.89543 19.1046 4 18 4H6C4.89543 4 4 4.89543 4 6V18C4 19.1046 4.89543 20 6 20Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                        <span id="pay-button-text">Оплатить 0,00 ₽</span>
+                        <span id="pay-button-text">Оплатить</span>
                     </button>
 
-                    <!-- Сообщение о безопасности -->
                     <div class="balance-security">
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 22C12 22 20 18 20 12V5L12 2L4 5V12C4 18 12 22 12 22Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M9 12L11 14L15 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
                         <span>Безопасная оплата через защищённое соединение</span>
                     </div>
                 </div>
@@ -2404,12 +3522,248 @@
                         <div class="cabinet-history-item">
                             <div>
                                 <div style="font-weight: 600; margin-bottom: 4px;">Заявка на подключение</div>
-                                <div class="cabinet-history-date">10.12.2024</div>
+                                <div class="cabinet-history-date">10.12.2025</div>
                             </div>
                             <span class="cabinet-status active">Выполнена</span>
                         </div>
                     </div>
                     <button class="cabinet-btn cabinet-btn-secondary" onclick="createApplication()">Создать заявку</button>
+                </div>
+            </div>
+
+            <!-- Содержимое вкладки: Поддержка -->
+            <div class="cabinet-tab-content" id="tab-support">
+                <!-- Быстрые способы связи -->
+                <div class="support-contact-cards">
+                    <a href="tel:+78001234567" class="support-contact-card">
+                        <div class="support-contact-label">Позвонить</div>
+                        <div class="support-contact-value">8 (800) 123-45-67</div>
+                    </a>
+                    <a href="https://t.me/PG19CONNECTBOT" target="_blank" class="support-contact-card">
+                        <div class="support-contact-label">Telegram</div>
+                        <div class="support-contact-value">@pg19support</div>
+                    </a>
+                    <button class="support-contact-card" onclick="openSupportChat()">
+                        <div class="support-contact-label">Онлайн-чат</div>
+                        <div class="support-contact-value">Ответим за 5 минут</div>
+                    </button>
+                </div>
+
+                <!-- Быстрые действия -->
+                <div class="support-quick-actions">
+                    <h3 class="support-section-title">Быстрые действия</h3>
+                    <div class="support-quick-actions-grid">
+                        <button class="support-quick-action" onclick="createQuickApplication('speed')">
+                            <div class="support-quick-action-text">Проблема со скоростью</div>
+                        </button>
+                        <button class="support-quick-action" onclick="createQuickApplication('connection')">
+                            <div class="support-quick-action-text">Нет подключения</div>
+                        </button>
+                        <button class="support-quick-action" onclick="createQuickApplication('payment')">
+                            <div class="support-quick-action-text">Вопрос по оплате</div>
+                        </button>
+                        <button class="support-quick-action" onclick="createQuickApplication('equipment')">
+                            <div class="support-quick-action-text">Ремонт оборудования</div>
+                        </button>
+                        <button class="support-quick-action" onclick="createQuickApplication('tariff')">
+                            <div class="support-quick-action-text">Смена тарифа</div>
+                        </button>
+                        <button class="support-quick-action" onclick="createQuickApplication('other')">
+                            <div class="support-quick-action-text">Другое</div>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Подвкладки -->
+                <div class="support-subtabs">
+                    <button class="support-subtab active" data-subtab="applications" onclick="switchSupportTab('applications')">
+                        Мои заявки
+                        <span class="support-subtab-badge" id="applications-badge">2</span>
+                    </button>
+                    <button class="support-subtab" data-subtab="faq" onclick="switchSupportTab('faq')">
+                        Частые вопросы
+                    </button>
+                </div>
+
+                <!-- Содержимое подвкладки: Мои заявки -->
+                <div class="support-subtab-content active" id="support-applications">
+                    <div class="support-applications-header">
+                        <div class="support-applications-filters">
+                            <button class="support-filter-btn active" data-filter="all" onclick="filterApplications('all')">Все</button>
+                            <button class="support-filter-btn" data-filter="in-progress" onclick="filterApplications('in-progress')">В работе</button>
+                            <button class="support-filter-btn" data-filter="closed" onclick="filterApplications('closed')">Закрытые</button>
+                        </div>
+                        <button class="support-create-btn" onclick="createApplication()">
+                            Создать заявку
+                        </button>
+                    </div>
+
+                    <div class="support-applications-list" id="applications-list">
+                        <div class="support-application-item" data-status="in-progress">
+                            <div class="support-application-content">
+                                <div class="support-application-title">Низкая скорость интернета</div>
+                                <div class="support-application-desc">Мастер выехал на адрес, ожидайте звонка в течение часа</div>
+                                <div class="support-application-meta">#12345 · 15.01.2025, 14:30</div>
+                            </div>
+                            <div class="support-application-right">
+                                <span class="support-status in-progress">В работе</span>
+                            </div>
+                        </div>
+                        <div class="support-application-item" data-status="closed">
+                            <div class="support-application-content">
+                                <div class="support-application-title">Вопрос по оплате</div>
+                                <div class="support-application-desc">Ваш вопрос решён. Спасибо за обращение!</div>
+                                <div class="support-application-meta">#12340 · 10.01.2025, 11:15</div>
+                            </div>
+                            <div class="support-application-right">
+                                <span class="support-status closed">Закрыта</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Содержимое подвкладки: Частые вопросы -->
+                <div class="support-subtab-content" id="support-faq">
+                    <div class="support-faq-search">
+                        <input type="text" class="support-faq-search-input" id="faq-search" placeholder="Поиск по вопросам..." onkeyup="searchFAQ(this.value)">
+                    </div>
+
+                    <div class="support-faq-categories">
+                        <button class="support-faq-category active" data-category="all" onclick="filterFAQ('all')">Все вопросы</button>
+                        <button class="support-faq-category" data-category="connection" onclick="filterFAQ('connection')">Подключение</button>
+                        <button class="support-faq-category" data-category="payment" onclick="filterFAQ('payment')">Оплата</button>
+                        <button class="support-faq-category" data-category="technical" onclick="filterFAQ('technical')">Технические</button>
+                        <button class="support-faq-category" data-category="tariff" onclick="filterFAQ('tariff')">Тарифы</button>
+                        <button class="support-faq-category" data-category="profile" onclick="filterFAQ('profile')">Профиль</button>
+                    </div>
+
+                    <div class="support-faq-list" id="faq-list">
+                        <div class="support-faq-item" data-category="connection">
+                            <div class="support-faq-question" onclick="toggleFAQ(this)">
+                                <span>Как подключить интернет?</span>
+                            </div>
+                            <div class="support-faq-answer">
+                                <p>Для подключения интернета заполните заявку на нашем сайте или позвоните по телефону 8 (800) 123-45-67. Наш специалист свяжется с вами в течение 24 часов для уточнения деталей и согласования времени подключения.</p>
+                            </div>
+                        </div>
+
+                        <div class="support-faq-item" data-category="payment">
+                            <div class="support-faq-question" onclick="toggleFAQ(this)">
+                                <span>Какие способы оплаты доступны?</span>
+                            </div>
+                            <div class="support-faq-answer">
+                                <p>Мы принимаем оплату банковскими картами (Visa, MasterCard, МИР), через банковский перевод, электронные кошельки (ЮMoney, Qiwi), а также наличными при подключении. Все платежи безопасны и защищены.</p>
+                            </div>
+                        </div>
+
+                        <div class="support-faq-item" data-category="technical">
+                            <div class="support-faq-question" onclick="toggleFAQ(this)">
+                                <span>Что делать, если нет интернета?</span>
+                            </div>
+                            <div class="support-faq-answer">
+                                <p>Проверьте баланс лицевого счёта, перезагрузите роутер. Если проблема не решена, создайте заявку в поддержку в разделе "Поддержка" → "Мои заявки" или позвоните в службу поддержки.</p>
+                            </div>
+                        </div>
+
+                        <div class="support-faq-item" data-category="technical">
+                            <div class="support-faq-question" onclick="toggleFAQ(this)">
+                                <span>Как проверить скорость?</span>
+                            </div>
+                            <div class="support-faq-answer">
+                                <p>Используйте встроенный тест скорости в разделе "Главная" или сторонние сервисы (speedtest.net). Для точного результата подключите устройство по кабелю напрямую к роутеру.</p>
+                            </div>
+                        </div>
+
+                        <div class="support-faq-item" data-category="technical">
+                            <div class="support-faq-question" onclick="toggleFAQ(this)">
+                                <span>Почему скорость ниже заявленной?</span>
+                            </div>
+                            <div class="support-faq-answer">
+                                <p>На скорость влияют многие факторы: качество Wi-Fi, загруженность сети, устройство. Попробуйте подключиться по кабелю для точного теста. Если скорость всё равно низкая, создайте заявку в поддержку для технической проверки.</p>
+                            </div>
+                        </div>
+
+                        <div class="support-faq-item" data-category="technical">
+                            <div class="support-faq-question" onclick="toggleFAQ(this)">
+                                <span>Как увеличить скорость интернета?</span>
+                            </div>
+                            <div class="support-faq-answer">
+                                <p>Вы можете изменить тариф в личном кабинете во вкладке "Подключение". Также проверьте, не используются ли другие устройства, которые могут снижать скорость. При необходимости создайте заявку на техническую проверку.</p>
+                            </div>
+                        </div>
+
+                        <div class="support-faq-item" data-category="tariff">
+                            <div class="support-faq-question" onclick="toggleFAQ(this)">
+                                <span>Как сменить тариф?</span>
+                            </div>
+                            <div class="support-faq-answer">
+                                <p>Перейдите в раздел "Сервисы", выберите нужный тариф и нажмите "Подключить". Изменения применятся с начала следующего периода или сразу с перерасчётом.</p>
+                            </div>
+                        </div>
+
+                        <div class="support-faq-item" data-category="tariff">
+                            <div class="support-faq-question" onclick="toggleFAQ(this)">
+                                <span>Можно ли приостановить услуги?</span>
+                            </div>
+                            <div class="support-faq-answer">
+                                <p>Да, вы можете приостановить услуги на время отпуска (от 7 до 90 дней). Перейдите в "Сервисы" → "Приостановка услуг" или создайте заявку в поддержку.</p>
+                            </div>
+                        </div>
+
+                        <div class="support-faq-item" data-category="payment">
+                            <div class="support-faq-question" onclick="toggleFAQ(this)">
+                                <span>Как пополнить баланс?</span>
+                            </div>
+                            <div class="support-faq-answer">
+                                <p>Вы можете пополнить баланс банковской картой, через СБП или в терминалах оплаты. Перейдите в раздел "Оплата" в личном кабинете. После пополнения средства зачисляются на счёт в течение нескольких минут.</p>
+                            </div>
+                        </div>
+
+                        <div class="support-faq-item" data-category="payment">
+                            <div class="support-faq-question" onclick="toggleFAQ(this)">
+                                <span>Почему списали больше обычного?</span>
+                            </div>
+                            <div class="support-faq-answer">
+                                <p>Возможно, вы подключили дополнительные услуги или изменился тариф. Проверьте историю операций для детальной информации во вкладке "История" личного кабинета.</p>
+                            </div>
+                        </div>
+
+                        <div class="support-faq-item" data-category="connection">
+                            <div class="support-faq-question" onclick="toggleFAQ(this)">
+                                <span>Сколько времени занимает подключение?</span>
+                            </div>
+                            <div class="support-faq-answer">
+                                <p>Обычно подключение занимает 1-3 рабочих дня с момента подачи заявки. В некоторых случаях возможно подключение в день обращения. Точное время согласовывается со специалистом при оформлении заявки.</p>
+                            </div>
+                        </div>
+
+                        <div class="support-faq-item" data-category="technical">
+                            <div class="support-faq-question" onclick="toggleFAQ(this)">
+                                <span>Нужен ли роутер для подключения?</span>
+                            </div>
+                            <div class="support-faq-answer">
+                                <p>Роутер необходим для создания Wi-Fi сети. Вы можете использовать свой роутер или приобрести его у нас. При подключении наш специалист поможет настроить оборудование и обеспечит стабильную работу сети.</p>
+                            </div>
+                        </div>
+
+                        <div class="support-faq-item" data-category="profile">
+                            <div class="support-faq-question" onclick="toggleFAQ(this)">
+                                <span>Как изменить контактные данные?</span>
+                            </div>
+                            <div class="support-faq-answer">
+                                <p>Перейдите в раздел "Профиль" и нажмите кнопку редактирования рядом с контактными данными. Вы сможете изменить телефон, email и другие данные.</p>
+                            </div>
+                        </div>
+
+                        <div class="support-faq-item" data-category="profile">
+                            <div class="support-faq-question" onclick="toggleFAQ(this)">
+                                <span>Как настроить уведомления?</span>
+                            </div>
+                            <div class="support-faq-answer">
+                                <p>В разделе "Профиль" → "Уведомления" вы можете выбрать, какие уведомления получать и каким способом (SMS, Email, Telegram). Настройки сохраняются автоматически.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -2700,10 +4054,35 @@
             }
         }
 
+        function scrollToTopup() {
+            const topupCard = document.querySelector('.cabinet-card');
+            if (topupCard) {
+                topupCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                topupCard.style.animation = 'pulse 0.5s ease';
+                setTimeout(() => {
+                    topupCard.style.animation = '';
+                }, 500);
+            }
+        }
+
         function toggleAutopay(checkboxEl) {
-            checkboxEl.classList.toggle('checked');
-            const checkbox = checkboxEl.querySelector('input[type="checkbox"]');
-            checkbox.checked = checkboxEl.classList.contains('checked');
+            // Если передан input элемент (новый переключатель)
+            if (checkboxEl.tagName === 'INPUT') {
+                // Состояние уже обновлено через onchange
+                const isEnabled = checkboxEl.checked;
+                if (isEnabled) {
+                    alert('Автоплатёж включён. Баланс будет автоматически пополняться за 3 дня до списания');
+                } else {
+                    alert('Автоплатёж отключён');
+                }
+            } else {
+                // Старая логика для совместимости
+                checkboxEl.classList.toggle('checked');
+                const checkbox = checkboxEl.querySelector('input[type="checkbox"]');
+                if (checkbox) {
+                    checkbox.checked = checkboxEl.classList.contains('checked');
+                }
+            }
         }
 
         function updatePayButton() {
@@ -2787,6 +4166,47 @@
             window.location.href = 'application.html';
         }
 
+        // Функции для вкладки Подключение
+        function refreshConnection() {
+            alert('Статус подключения обновлён');
+            // Здесь должна быть реальная логика обновления статуса
+        }
+
+        function changeTariff() {
+            alert('Переход к выбору тарифа. Функция будет реализована в ближайшее время.');
+            // Здесь должна быть логика перехода к выбору тарифа
+        }
+
+        function restartEquipment() {
+            if (confirm('Вы уверены, что хотите перезагрузить оборудование? Интернет может быть недоступен в течение 1-2 минут.')) {
+                alert('Команда на перезагрузку оборудования отправлена. Интернет будет восстановлен в течение 1-2 минут.');
+                // Здесь должна быть реальная логика перезагрузки оборудования
+            }
+        }
+
+        function viewEquipmentInfo() {
+            alert('Подробная информация об оборудовании:\n\nМодель: TP-Link Archer C6\nСерийный номер: SN-2024-567890\nВерсия прошивки: 1.0.0\nMAC-адрес: 00:1B:44:11:3A:B7');
+        }
+
+        function testSpeed() {
+            alert('Запуск теста скорости интернета...\n\nФункция будет доступна в ближайшее время.');
+            // Здесь должна быть логика теста скорости
+        }
+
+        function viewStatistics() {
+            alert('Просмотр статистики использования интернета.\n\nФункция будет доступна в ближайшее время.');
+            // Здесь должна быть логика просмотра статистики
+        }
+
+        function downloadConfig() {
+            alert('Скачивание конфигурации оборудования.\n\nФункция будет доступна в ближайшее время.');
+            // Здесь должна быть логика скачивания конфигурации
+        }
+
+        function contactSupport() {
+            switchTab('support');
+        }
+
         // Функции для вкладки Безопасность
         function unlinkTelegram() {
             if (confirm('Вы уверены, что хотите отвязать Telegram? Для повторной привязки потребуется авторизация через Telegram.')) {
@@ -2824,6 +4244,138 @@
             const selectedContent = document.getElementById(`profile-${tabName}`);
             if (selectedContent) {
                 selectedContent.classList.add('active');
+            }
+        }
+
+        function switchSupportTab(tabName) {
+            // Убираем активный класс у всех подвкладок
+            document.querySelectorAll('.support-subtab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Убираем активный класс у всего содержимого
+            document.querySelectorAll('.support-subtab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Добавляем активный класс выбранной подвкладке
+            const selectedTab = document.querySelector(`.support-subtab[data-subtab="${tabName}"]`);
+            if (selectedTab) {
+                selectedTab.classList.add('active');
+            }
+            
+            // Показываем соответствующее содержимое
+            const selectedContent = document.getElementById(`support-${tabName}`);
+            if (selectedContent) {
+                selectedContent.classList.add('active');
+            }
+        }
+
+        // Открытие онлайн-чата
+        function openSupportChat() {
+            alert('Онлайн-чат будет доступен в ближайшее время. Пока вы можете связаться с нами по телефону или через Telegram.');
+        }
+
+        // Создание быстрой заявки
+        function createQuickApplication(type) {
+            const types = {
+                'speed': 'Проблема со скоростью',
+                'connection': 'Нет подключения',
+                'payment': 'Вопрос по оплате',
+                'equipment': 'Ремонт оборудования',
+                'tariff': 'Смена тарифа',
+                'other': 'Другое'
+            };
+            
+            // Сохраняем тип заявки в localStorage для передачи на страницу создания заявки
+            localStorage.setItem('quickApplicationType', types[type] || 'Другое');
+            window.location.href = 'application.html';
+        }
+
+        // Фильтрация заявок
+        function filterApplications(filter) {
+            // Обновляем активную кнопку фильтра
+            document.querySelectorAll('.support-filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            const filterBtn = document.querySelector(`[data-filter="${filter}"]`);
+            if (filterBtn) {
+                filterBtn.classList.add('active');
+            }
+
+            // Фильтруем заявки
+            const items = document.querySelectorAll('.support-application-item');
+            items.forEach(item => {
+                if (filter === 'all') {
+                    item.style.display = 'flex';
+                } else {
+                    const status = item.getAttribute('data-status');
+                    if (status === filter) {
+                        item.style.display = 'flex';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                }
+            });
+        }
+
+        // Поиск по FAQ
+        function searchFAQ(query) {
+            const items = document.querySelectorAll('.support-faq-item');
+            const searchTerm = query.toLowerCase().trim();
+
+            items.forEach(item => {
+                const question = item.querySelector('.support-faq-question span').textContent.toLowerCase();
+                const answer = item.querySelector('.support-faq-answer p').textContent.toLowerCase();
+                
+                if (question.includes(searchTerm) || answer.includes(searchTerm)) {
+                    item.classList.remove('hidden');
+                } else {
+                    item.classList.add('hidden');
+                }
+            });
+        }
+
+        // Фильтрация FAQ по категориям
+        function filterFAQ(category) {
+            // Обновляем активную кнопку категории
+            document.querySelectorAll('.support-faq-category').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            const categoryBtn = document.querySelector(`[data-category="${category}"]`);
+            if (categoryBtn) {
+                categoryBtn.classList.add('active');
+            }
+
+            // Фильтруем вопросы
+            const items = document.querySelectorAll('.support-faq-item');
+            items.forEach(item => {
+                if (category === 'all') {
+                    item.classList.remove('hidden');
+                } else {
+                    const itemCategory = item.getAttribute('data-category');
+                    if (itemCategory === category) {
+                        item.classList.remove('hidden');
+                    } else {
+                        item.classList.add('hidden');
+                    }
+                }
+            });
+        }
+
+        // Открытие/закрытие вопроса FAQ
+        function toggleFAQ(element) {
+            const item = element.closest('.support-faq-item');
+            const isActive = item.classList.contains('active');
+
+            // Закрываем все вопросы
+            document.querySelectorAll('.support-faq-item').forEach(faqItem => {
+                faqItem.classList.remove('active');
+            });
+
+            // Открываем выбранный вопрос, если он был закрыт
+            if (!isActive) {
+                item.classList.add('active');
             }
         }
 
