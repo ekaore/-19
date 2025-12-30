@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+                <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -2341,6 +2341,311 @@
             color: #EF4444;
         }
 
+        /* Стили для вкладки Счета */
+        .bills-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .bills-stat-card {
+            background: #FFFFFF;
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .bills-stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .bills-stat-icon svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .bills-stat-icon.warning {
+            background: rgba(239, 68, 68, 0.1);
+            color: #EF4444;
+        }
+
+        .bills-stat-icon.overdue {
+            background: rgba(251, 191, 36, 0.1);
+            color: #F59E0B;
+        }
+
+        .bills-stat-icon.paid {
+            background: rgba(16, 185, 129, 0.1);
+            color: #10B981;
+        }
+
+        .bills-stat-icon.total {
+            background: rgba(0, 102, 204, 0.1);
+            color: #0066CC;
+        }
+
+        .bills-stat-content {
+            flex: 1;
+        }
+
+        .bills-stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1A1A1A;
+            margin-bottom: 4px;
+            line-height: 1;
+        }
+
+        .bills-stat-label {
+            font-size: 13px;
+            color: #666666;
+        }
+
+        .bills-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 24px;
+            border-bottom: 2px solid #E0E0E0;
+        }
+
+        .bills-tab {
+            padding: 12px 24px;
+            background: transparent;
+            border: none;
+            border-bottom: 3px solid transparent;
+            color: #666666;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .bills-tab:hover {
+            color: #0066CC;
+            background: rgba(0, 102, 204, 0.05);
+        }
+
+        .bills-tab.active {
+            color: #0066CC;
+            border-bottom-color: #0066CC;
+            background: rgba(0, 102, 204, 0.05);
+        }
+
+        .bills-tab-badge {
+            background: #0066CC;
+            color: #FFFFFF;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 12px;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        .bills-content {
+            background: #FFFFFF;
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .bills-list {
+            min-height: 300px;
+        }
+
+        .bills-empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .bills-empty-state.active {
+            display: flex;
+        }
+
+        .bills-empty-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: #F5F5F5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            color: #999999;
+        }
+
+        .bills-empty-icon svg {
+            width: 40px;
+            height: 40px;
+        }
+
+        .bills-empty-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1A1A1A;
+            margin-bottom: 8px;
+        }
+
+        .bills-empty-desc {
+            font-size: 14px;
+            color: #666666;
+        }
+
+        .bill-item {
+            background: #FAFAFA;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .bill-item:hover {
+            background: #F5F5F5;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .bill-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .bill-item-content {
+            flex: 1;
+        }
+
+        .bill-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .bill-item-number {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1A1A1A;
+        }
+
+        .bill-item-status {
+            padding: 4px 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .bill-item-status.paid {
+            background: rgba(16, 185, 129, 0.15);
+            color: #10B981;
+        }
+
+        .bill-item-status.overdue {
+            background: rgba(239, 68, 68, 0.15);
+            color: #EF4444;
+        }
+
+        .bill-item-status.pending {
+            background: rgba(251, 191, 36, 0.15);
+            color: #F59E0B;
+        }
+
+        .bill-item-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .bill-item-date {
+            font-size: 14px;
+            color: #666666;
+        }
+
+        .bill-item-amount {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1A1A1A;
+        }
+
+        .bill-item-details {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .bill-item-period,
+        .bill-item-payment-date {
+            font-size: 13px;
+            color: #999999;
+        }
+
+        .bill-item-action {
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #0066CC 0%, #0052A3 100%);
+            color: #FFFFFF;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            align-self: flex-start;
+        }
+
+        .bill-item-action:hover {
+            box-shadow: 0 4px 12px rgba(0, 102, 204, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .bills-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .bills-tabs {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .bills-tab {
+                padding: 10px 16px;
+                font-size: 14px;
+                white-space: nowrap;
+            }
+
+            .bills-content {
+                padding: 20px;
+            }
+
+            .bill-item {
+                flex-direction: column;
+            }
+
+            .bill-item-action {
+                width: 100%;
+            }
+        }
+
         .balance-header {
             background: linear-gradient(135deg, rgba(0, 102, 204, 0.08) 0%, rgba(0, 102, 204, 0.03) 100%);
             border-radius: 16px;
@@ -2808,8 +3113,8 @@
                     <button class="cabinet-header-tab" data-tab="history" onclick="switchTab('history')">
                         История
                     </button>
-                    <button class="cabinet-header-tab" data-tab="applications" onclick="switchTab('applications')">
-                        Заявки
+                    <button class="cabinet-header-tab" data-tab="bills" onclick="switchTab('bills')">
+                        Счета
                     </button>
                     <button class="cabinet-header-tab" data-tab="support" onclick="switchTab('support')">
                         Поддержка
@@ -2928,7 +3233,7 @@
                 <!-- Главный блок с балансом -->
                 <div class="balance-main-card">
                     <div class="balance-main-left">
-                        <div class="balance-main-label">Баланс</div>
+                        <div class="balance-main-label">Текущий баланс</div>
                         <div class="balance-main-value" id="current-balance">699,00 ₽</div>
                         <div class="balance-main-info-items">
                             <div class="balance-info-item">
@@ -3510,24 +3815,105 @@
                 </div>
             </div>
 
-            <!-- Содержимое вкладки: Заявки -->
-            <div class="cabinet-tab-content" id="tab-applications">
-                <div class="cabinet-card">
-                    <div class="cabinet-card-header">
-                        <h2 class="cabinet-card-title">
-                            Мои заявки
-                        </h2>
-                    </div>
-                    <div id="applications-list">
-                        <div class="cabinet-history-item">
-                            <div>
-                                <div style="font-weight: 600; margin-bottom: 4px;">Заявка на подключение</div>
-                                <div class="cabinet-history-date">10.12.2025</div>
-                            </div>
-                            <span class="cabinet-status active">Выполнена</span>
+            <!-- Содержимое вкладки: Счета -->
+            <div class="cabinet-tab-content" id="tab-bills">
+                <!-- Статистика счетов -->
+                <div class="bills-stats">
+                    <div class="bills-stat-card">
+                        <div class="bills-stat-icon warning">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 9V13M12 17H12.01M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div class="bills-stat-content">
+                            <div class="bills-stat-value" id="bills-to-pay">0 ₽</div>
+                            <div class="bills-stat-label">К оплате</div>
                         </div>
                     </div>
-                    <button class="cabinet-btn cabinet-btn-secondary" onclick="createApplication()">Создать заявку</button>
+                    <div class="bills-stat-card">
+                        <div class="bills-stat-icon overdue">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 8V12L16 14M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div class="bills-stat-content">
+                            <div class="bills-stat-value" id="bills-overdue">0</div>
+                            <div class="bills-stat-label">Просрочено</div>
+                        </div>
+                    </div>
+                    <div class="bills-stat-card">
+                        <div class="bills-stat-icon paid">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div class="bills-stat-content">
+                            <div class="bills-stat-value" id="bills-paid">699 ₽</div>
+                            <div class="bills-stat-label">Оплачено в 2025</div>
+                        </div>
+                    </div>
+                    <div class="bills-stat-card">
+                        <div class="bills-stat-icon total">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 12H15M9 16H15M17 21H7C5.89543 21 5 20.1046 5 19V5C5 3.89543 5.89543 3 7 3H12.5858C12.851 3 13.1054 3.10536 13.2929 3.29289L18.7071 8.70711C18.8946 8.89464 19 9.149 19 9.41421V19C19 20.1046 18.1046 21 17 21Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div class="bills-stat-content">
+                            <div class="bills-stat-value" id="bills-total">1</div>
+                            <div class="bills-stat-label">Всего счетов</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Вкладки фильтров -->
+                <div class="bills-tabs">
+                    <button class="bills-tab active" data-bill-filter="to-pay" onclick="filterBills('to-pay')">
+                        К оплате
+                    </button>
+                    <button class="bills-tab" data-bill-filter="paid" onclick="filterBills('paid')">
+                        Оплаченные
+                        <span class="bills-tab-badge">1</span>
+                    </button>
+                    <button class="bills-tab" data-bill-filter="all" onclick="filterBills('all')">
+                        Все счета
+                        <span class="bills-tab-badge">1</span>
+                    </button>
+                </div>
+
+                <!-- Список счетов -->
+                <div class="bills-content">
+                    <div class="bills-list" id="bills-list">
+                        <!-- Пустое состояние для "К оплате" -->
+                        <div class="bills-empty-state active" id="bills-empty-to-pay">
+                            <div class="bills-empty-icon">
+                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9 12H15M9 16H15M17 21H7C5.89543 21 5 20.1046 5 19V5C5 3.89543 5.89543 3 7 3H12.5858C12.851 3 13.1054 3.10536 13.2929 3.29289L18.7071 8.70711C18.8946 8.89464 19 9.149 19 9.41421V19C19 20.1046 18.1046 21 17 21Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <div class="bills-empty-title">Нет счетов к оплате</div>
+                            <div class="bills-empty-desc">Выберите другой фильтр или период</div>
+                        </div>
+
+
+                        <!-- Оплаченный счёт -->
+                        <div class="bill-item" data-bill-status="paid" style="display: none;">
+                            <div class="bill-item-content">
+                                <div class="bill-item-header">
+                                    <div class="bill-item-number">Счёт №2025-001</div>
+                                    <div class="bill-item-status paid">Оплачен</div>
+                                </div>
+                                <div class="bill-item-info">
+                                    <div class="bill-item-date">Дата: 15.12.2025</div>
+                                    <div class="bill-item-amount">699,00 ₽</div>
+                                </div>
+                                <div class="bill-item-details">
+                                    <div class="bill-item-period">Период: 15.12.2025 - 14.01.2026</div>
+                                    <div class="bill-item-payment-date">Оплачено: 15.12.2025</div>
+                                </div>
+                            </div>
+                            <button class="bill-item-action" onclick="viewBill('2025-001')">Подробнее</button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -4377,6 +4763,50 @@
             if (!isActive) {
                 item.classList.add('active');
             }
+        }
+
+        // Функции для вкладки Счета
+        function filterBills(filter) {
+            // Обновляем активную вкладку
+            document.querySelectorAll('.bills-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            const selectedTab = document.querySelector(`[data-bill-filter="${filter}"]`);
+            if (selectedTab) {
+                selectedTab.classList.add('active');
+            }
+
+            // Показываем/скрываем элементы
+            const emptyToPay = document.getElementById('bills-empty-to-pay');
+            const emptyPaid = document.getElementById('bills-empty-paid');
+            const paidBill = document.querySelector('.bill-item[data-bill-status="paid"]');
+
+            if (filter === 'to-pay') {
+                // Показываем пустое состояние "К оплате"
+                if (emptyToPay) {
+                    emptyToPay.classList.add('active');
+                    emptyToPay.style.display = 'flex';
+                }
+                if (paidBill) paidBill.style.display = 'none';
+            } else if (filter === 'paid') {
+                // Показываем оплаченные счета, скрываем пустое состояние
+                if (emptyToPay) {
+                    emptyToPay.classList.remove('active');
+                    emptyToPay.style.display = 'none';
+                }
+                if (paidBill) paidBill.style.display = 'flex';
+            } else if (filter === 'all') {
+                // Показываем все счета, скрываем пустое состояние
+                if (emptyToPay) {
+                    emptyToPay.classList.remove('active');
+                    emptyToPay.style.display = 'none';
+                }
+                if (paidBill) paidBill.style.display = 'flex';
+            }
+        }
+
+        function viewBill(billNumber) {
+            alert(`Просмотр счёта №${billNumber}. Функция будет реализована в ближайшее время.`);
         }
 
         function editPersonalData(event) {
