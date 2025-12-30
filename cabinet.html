@@ -1386,6 +1386,163 @@
             }
         }
 
+        /* Модальное окно отправки на email */
+        .email-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            z-index: 10000;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .email-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .email-modal-content {
+            background: #FFFFFF;
+            border-radius: 20px;
+            padding: 32px;
+            max-width: 480px;
+            width: 90%;
+            position: relative;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .email-modal.active .email-modal-content {
+            transform: scale(1);
+        }
+
+        .email-modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 32px;
+            height: 32px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            color: #666666;
+            transition: all 0.3s ease;
+        }
+
+        .email-modal-close:hover {
+            background: #F5F5F5;
+            color: #1A1A1A;
+        }
+
+        .email-modal-close svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .email-modal-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1A1A1A;
+            margin-bottom: 12px;
+        }
+
+        .email-modal-message {
+            font-size: 14px;
+            color: #666666;
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+
+        .email-modal-form {
+            margin-bottom: 24px;
+        }
+
+        .email-modal-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #1A1A1A;
+            margin-bottom: 8px;
+        }
+
+        .email-modal-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #E0E0E0;
+            border-radius: 10px;
+            font-size: 16px;
+            color: #1A1A1A;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        .email-modal-input:focus {
+            outline: none;
+            border-color: #0066CC;
+            box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+        }
+
+        .email-modal-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .email-modal-btn {
+            flex: 1;
+            padding: 14px;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .email-modal-btn-cancel {
+            background: #F5F5F5;
+            color: #666666;
+        }
+
+        .email-modal-btn-cancel:hover {
+            background: #E0E0E0;
+        }
+
+        .email-modal-btn-send {
+            background: linear-gradient(135deg, #0066CC 0%, #0052A3 100%);
+            color: #FFFFFF;
+            box-shadow: 0 4px 12px rgba(0, 102, 204, 0.3);
+        }
+
+        .email-modal-btn-send:hover {
+            box-shadow: 0 6px 16px rgba(0, 102, 204, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .email-modal-content {
+                padding: 24px;
+                border-radius: 16px;
+            }
+
+            .email-modal-title {
+                font-size: 20px;
+            }
+
+            .email-modal-actions {
+                flex-direction: column;
+            }
+        }
+
         /* Модальное окно подтверждения выхода */
         .logout-modal {
             display: none;
@@ -2411,11 +2568,112 @@
             color: #666666;
         }
 
+        .bills-filters {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            gap: 20px;
+        }
+
         .bills-tabs {
             display: flex;
             gap: 8px;
-            margin-bottom: 24px;
             border-bottom: 2px solid #E0E0E0;
+            flex: 1;
+        }
+
+        .bills-year-selector {
+            position: relative;
+        }
+
+        .bills-year-dropdown {
+            position: relative;
+        }
+
+        .bills-year-button {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            padding: 10px 16px;
+            background: #FFFFFF;
+            border: 1px solid #E0E0E0;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #1A1A1A;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 90px;
+        }
+
+        .bills-year-button:hover {
+            border-color: #0066CC;
+            background: rgba(0, 102, 204, 0.05);
+        }
+
+        .bills-year-dropdown.active .bills-year-button {
+            border-color: #0066CC;
+            background: rgba(0, 102, 204, 0.05);
+        }
+
+        .bills-year-button svg {
+            width: 14px;
+            height: 14px;
+            color: #666666;
+            transition: transform 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .bills-year-dropdown.active .bills-year-button svg {
+            transform: rotate(180deg);
+            color: #0066CC;
+        }
+
+        .bills-year-dropdown-menu {
+            position: absolute;
+            top: calc(100% + 4px);
+            right: 0;
+            background: #FFFFFF;
+            border: 1px solid #E0E0E0;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            min-width: 90px;
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 1000;
+            display: none;
+        }
+
+        .bills-year-dropdown.active .bills-year-dropdown-menu {
+            display: block;
+        }
+
+        .bills-year-option {
+            padding: 10px 16px;
+            font-size: 14px;
+            color: #1A1A1A;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .bills-year-option:first-child {
+            border-radius: 8px 8px 0 0;
+        }
+
+        .bills-year-option:last-child {
+            border-radius: 0 0 8px 8px;
+        }
+
+        .bills-year-option:hover {
+            background: rgba(0, 102, 204, 0.05);
+        }
+
+        .bills-year-option.active {
+            background: linear-gradient(135deg, #0066CC 0%, #0052A3 100%);
+            color: #FFFFFF;
+            font-weight: 600;
         }
 
         .bills-tab {
@@ -2599,27 +2857,48 @@
             color: #999999;
         }
 
-        .bill-item-action {
-            padding: 10px 20px;
-            background: linear-gradient(135deg, #0066CC 0%, #0052A3 100%);
-            color: #FFFFFF;
-            border: none;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            white-space: nowrap;
-            align-self: flex-start;
+        .bill-item-actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            margin-top: 35px;
         }
 
-        .bill-item-action:hover {
-            box-shadow: 0 4px 12px rgba(0, 102, 204, 0.3);
+        .bill-item-icon-btn {
+            width: 40px;
+            height: 40px;
+            padding: 0;
+            background: #F5F5F5;
+            border: 1px solid #E0E0E0;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #666666;
+        }
+
+        .bill-item-icon-btn:hover {
+            background: #E0E0E0;
+            border-color: #0066CC;
+            color: #0066CC;
+        }
+
+        .bill-item-icon-btn svg {
+            width: 20px;
+            height: 20px;
         }
 
         @media (max-width: 768px) {
             .bills-stats {
                 grid-template-columns: repeat(2, 1fr);
+            }
+
+            .bills-filters {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 16px;
             }
 
             .bills-tabs {
@@ -2631,6 +2910,19 @@
                 padding: 10px 16px;
                 font-size: 14px;
                 white-space: nowrap;
+            }
+
+            .bills-year-selector {
+                width: 100%;
+            }
+
+            .bills-year-button {
+                width: 100%;
+            }
+
+            .bills-year-dropdown-menu {
+                right: 0;
+                left: 0;
             }
 
             .bills-content {
@@ -3865,19 +4157,38 @@
                     </div>
                 </div>
 
-                <!-- Вкладки фильтров -->
-                <div class="bills-tabs">
-                    <button class="bills-tab active" data-bill-filter="to-pay" onclick="filterBills('to-pay')">
-                        К оплате
-                    </button>
-                    <button class="bills-tab" data-bill-filter="paid" onclick="filterBills('paid')">
-                        Оплаченные
-                        <span class="bills-tab-badge">1</span>
-                    </button>
-                    <button class="bills-tab" data-bill-filter="all" onclick="filterBills('all')">
-                        Все счета
-                        <span class="bills-tab-badge">1</span>
-                    </button>
+                <!-- Вкладки фильтров и селектор года -->
+                <div class="bills-filters">
+                    <div class="bills-tabs">
+                        <button class="bills-tab active" data-bill-filter="to-pay" onclick="filterBills('to-pay')">
+                            К оплате
+                        </button>
+                        <button class="bills-tab" data-bill-filter="paid" onclick="filterBills('paid')">
+                            Оплаченные
+                            <span class="bills-tab-badge">1</span>
+                        </button>
+                        <button class="bills-tab" data-bill-filter="all" onclick="filterBills('all')">
+                            Все счета
+                            <span class="bills-tab-badge">1</span>
+                        </button>
+                    </div>
+                    <div class="bills-year-selector">
+                        <div class="bills-year-dropdown">
+                            <button class="bills-year-button" onclick="toggleYearDropdown()" id="bills-year-button">
+                                <span id="bills-year-selected">2025</span>
+                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </button>
+                            <div class="bills-year-dropdown-menu" id="bills-year-dropdown">
+                                <div class="bills-year-option active" onclick="selectYear(2025)">2025</div>
+                                <div class="bills-year-option" onclick="selectYear(2024)">2024</div>
+                                <div class="bills-year-option" onclick="selectYear(2023)">2023</div>
+                                <div class="bills-year-option" onclick="selectYear(2022)">2022</div>
+                                <div class="bills-year-option" onclick="selectYear(2021)">2021</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Список счетов -->
@@ -3911,7 +4222,21 @@
                                     <div class="bill-item-payment-date">Оплачено: 15.12.2025</div>
                                 </div>
                             </div>
-                            <button class="bill-item-action" onclick="viewBill('2025-001')">Подробнее</button>
+                            <div class="bill-item-actions">
+                                <button class="bill-item-icon-btn" onclick="downloadBill('2025-001')" title="Скачать счёт">
+                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M21 15V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M7 10L12 15L17 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M12 15V3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </button>
+                                <button class="bill-item-icon-btn" onclick="sendBillToEmail('2025-001')" title="Отправить на email">
+                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M22 6L12 13L2 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -4165,6 +4490,33 @@
         </div>
     </footer>
 
+    <!-- Модальное окно отправки на email -->
+    <div class="email-modal" id="email-modal">
+        <div class="email-modal-content">
+            <button class="email-modal-close" onclick="closeEmailModal()">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <h2 class="email-modal-title">Отправить на email</h2>
+            <p class="email-modal-message">
+                Счёт <span id="email-bill-number">СФ-2025-001</span> будет отправлен на указанный email
+            </p>
+            <div class="email-modal-form">
+                <label class="email-modal-label">Email адрес</label>
+                <input type="email" class="email-modal-input" id="email-input" placeholder="ivan@test.com" value="ivan@test.com">
+            </div>
+            <div class="email-modal-actions">
+                <button class="email-modal-btn email-modal-btn-cancel" onclick="closeEmailModal()">
+                    Отмена
+                </button>
+                <button class="email-modal-btn email-modal-btn-send" onclick="sendEmail()">
+                    Отправить
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- Модальное окно подтверждения выхода -->
     <div class="logout-modal" id="logout-modal">
         <div class="logout-modal-content">
@@ -4395,8 +4747,22 @@
                     if (logoutModal && logoutModal.classList.contains('active')) {
                         closeLogoutModal();
                     }
+                    const emailModal = document.getElementById('email-modal');
+                    if (emailModal && emailModal.classList.contains('active')) {
+                        closeEmailModal();
+                    }
                 }
             });
+
+            // Закрытие модального окна email при клике на фон
+            const emailModal = document.getElementById('email-modal');
+            if (emailModal) {
+                emailModal.addEventListener('click', function(e) {
+                    if (e.target === emailModal) {
+                        closeEmailModal();
+                    }
+                });
+            }
         });
 
         // Функции для работы с балансом
@@ -4781,6 +5147,10 @@
             const emptyPaid = document.getElementById('bills-empty-paid');
             const paidBill = document.querySelector('.bill-item[data-bill-status="paid"]');
 
+            // Получаем выбранный год
+            const selectedYearElement = document.getElementById('bills-year-selected');
+            const selectedYear = selectedYearElement ? parseInt(selectedYearElement.textContent) : new Date().getFullYear();
+
             if (filter === 'to-pay') {
                 // Показываем пустое состояние "К оплате"
                 if (emptyToPay) {
@@ -4794,20 +5164,194 @@
                     emptyToPay.classList.remove('active');
                     emptyToPay.style.display = 'none';
                 }
-                if (paidBill) paidBill.style.display = 'flex';
+                // Фильтруем по году
+                if (paidBill) {
+                    const billDate = paidBill.querySelector('.bill-item-date');
+                    if (billDate) {
+                        const dateText = billDate.textContent;
+                        const billYear = extractYearFromDate(dateText);
+                        if (billYear === selectedYear) {
+                            paidBill.style.display = 'flex';
+                        } else {
+                            paidBill.style.display = 'none';
+                        }
+                    } else {
+                        paidBill.style.display = 'flex';
+                    }
+                }
             } else if (filter === 'all') {
                 // Показываем все счета, скрываем пустое состояние
                 if (emptyToPay) {
                     emptyToPay.classList.remove('active');
                     emptyToPay.style.display = 'none';
                 }
-                if (paidBill) paidBill.style.display = 'flex';
+                // Фильтруем по году
+                if (paidBill) {
+                    const billDate = paidBill.querySelector('.bill-item-date');
+                    if (billDate) {
+                        const dateText = billDate.textContent;
+                        const billYear = extractYearFromDate(dateText);
+                        if (billYear === selectedYear) {
+                            paidBill.style.display = 'flex';
+                        } else {
+                            paidBill.style.display = 'none';
+                        }
+                    } else {
+                        paidBill.style.display = 'flex';
+                    }
+                }
             }
         }
 
-        function viewBill(billNumber) {
-            alert(`Просмотр счёта №${billNumber}. Функция будет реализована в ближайшее время.`);
+        // Функции для фильтрации по годам
+        function toggleYearDropdown() {
+            const dropdown = document.querySelector('.bills-year-dropdown');
+            if (dropdown) {
+                dropdown.classList.toggle('active');
+            }
         }
+
+        function selectYear(year) {
+            const selectedElement = document.getElementById('bills-year-selected');
+            if (selectedElement) {
+                selectedElement.textContent = year;
+            }
+
+            // Обновляем активный год в списке
+            document.querySelectorAll('.bills-year-option').forEach(option => {
+                option.classList.remove('active');
+                if (parseInt(option.textContent) === year) {
+                    option.classList.add('active');
+                }
+            });
+
+            // Закрываем выпадающий список
+            const dropdown = document.querySelector('.bills-year-dropdown');
+            if (dropdown) {
+                dropdown.classList.remove('active');
+            }
+
+            // Фильтруем счета по году
+            filterBillsByYear(year);
+        }
+
+        function filterBillsByYear(year) {
+            // Получаем все счета
+            const bills = document.querySelectorAll('.bill-item');
+            
+            bills.forEach(bill => {
+                const billDate = bill.querySelector('.bill-item-date');
+                if (billDate) {
+                    const dateText = billDate.textContent;
+                    const billYear = extractYearFromDate(dateText);
+                    
+                    if (billYear === year) {
+                        // Показываем счёт только если он соответствует текущему фильтру
+                        const currentFilter = document.querySelector('.bills-tab.active')?.getAttribute('data-bill-filter');
+                        if (currentFilter === 'all' || (currentFilter === 'paid' && bill.getAttribute('data-bill-status') === 'paid')) {
+                            bill.style.display = 'flex';
+                        }
+                    } else {
+                        bill.style.display = 'none';
+                    }
+                }
+            });
+
+            // Обновляем статистику
+            updateBillsStats(year);
+        }
+
+        function extractYearFromDate(dateText) {
+            // Извлекаем год из текста типа "Дата: 15.12.2025"
+            const match = dateText.match(/(\d{4})/);
+            return match ? parseInt(match[1]) : new Date().getFullYear();
+        }
+
+        function updateBillsStats(year) {
+            // Обновляем статистику на основе выбранного года
+            const bills = document.querySelectorAll('.bill-item');
+            let paidCount = 0;
+            let paidAmount = 0;
+
+            bills.forEach(bill => {
+                const billDate = bill.querySelector('.bill-item-date');
+                if (billDate) {
+                    const dateText = billDate.textContent;
+                    const billYear = extractYearFromDate(dateText);
+                    
+                    if (billYear === year && bill.style.display !== 'none') {
+                        const status = bill.querySelector('.bill-item-status');
+                        if (status && status.classList.contains('paid')) {
+                            paidCount++;
+                            const amountText = bill.querySelector('.bill-item-amount').textContent;
+                            const amount = parseFloat(amountText.replace(/[^\d,]/g, '').replace(',', '.'));
+                            paidAmount += amount;
+                        }
+                    }
+                }
+            });
+
+            // Обновляем отображение статистики
+            const paidElement = document.getElementById('bills-paid');
+            if (paidElement) {
+                paidElement.textContent = `${Math.round(paidAmount)} ₽`;
+            }
+
+            const totalElement = document.getElementById('bills-total');
+            if (totalElement) {
+                // Считаем только видимые счета
+                const visibleBills = Array.from(bills).filter(bill => bill.style.display !== 'none');
+                totalElement.textContent = visibleBills.length;
+            }
+        }
+
+        function downloadBill(billNumber) {
+            alert(`Скачивание счёта СФ-${billNumber} будет доступно в ближайшее время.`);
+        }
+
+        function sendBillToEmail(billNumber) {
+            openEmailModal(billNumber);
+        }
+
+        function openEmailModal(billNumber) {
+            const modal = document.getElementById('email-modal');
+            if (modal) {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                // Устанавливаем номер счёта в модальное окно
+                const billNumberElement = document.getElementById('email-bill-number');
+                if (billNumberElement) {
+                    billNumberElement.textContent = `СФ-${billNumber}`;
+                }
+            }
+        }
+
+        function closeEmailModal() {
+            const modal = document.getElementById('email-modal');
+            if (modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        }
+
+        function sendEmail() {
+            const emailInput = document.getElementById('email-input');
+            const email = emailInput ? emailInput.value : '';
+            if (!email || !email.includes('@')) {
+                alert('Пожалуйста, введите корректный email адрес');
+                return;
+            }
+            alert(`Счёт будет отправлен на ${email}`);
+            closeEmailModal();
+        }
+
+        // Закрытие выпадающего списка года при клике вне его
+        document.addEventListener('click', function(e) {
+            const dropdown = document.querySelector('.bills-year-dropdown');
+            if (dropdown && !dropdown.contains(e.target)) {
+                dropdown.classList.remove('active');
+            }
+        });
 
         function editPersonalData(event) {
             event.preventDefault();
