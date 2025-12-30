@@ -3,34 +3,149 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Вход в личный кабинет - ПЖ-19</title>
+    <title>Вход в личный кабинет</title>
     <link rel="stylesheet" href="styles.css">
     <style>
         .login-page {
             min-height: 100vh;
-            background: linear-gradient(135deg, #E6F2FF 0%, #FFFFFF 50%, #F0F8FF 100%);
-            padding: 120px 0 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            background: linear-gradient(135deg, rgba(230, 242, 255, 0.4) 0%, rgba(255, 255, 255, 0.8) 50%, rgba(230, 242, 255, 0.2) 100%);
+            padding: 20px 0 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .login-page::before,
+        .login-page::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.06;
+            pointer-events: none;
+            animation: float 20s ease-in-out infinite;
+        }
+        
+        .login-page::before {
+            width: clamp(300px, 40vw, 500px);
+            height: clamp(300px, 40vw, 500px);
+            background: radial-gradient(circle, #0066CC 0%, transparent 70%);
+            top: -10%;
+            right: -10%;
+            animation-delay: 0s;
+        }
+        
+        .login-page::after {
+            width: clamp(250px, 35vw, 400px);
+            height: clamp(250px, 35vw, 400px);
+            background: radial-gradient(circle, #0066CC 0%, transparent 70%);
+            bottom: -10%;
+            left: -10%;
+            animation-delay: 10s;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+            }
+            33% {
+                transform: translate(30px, -30px) scale(1.1);
+            }
+            66% {
+                transform: translate(-20px, 20px) scale(0.9);
+            }
         }
         
         .login-container {
-            max-width: 500px;
-            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
             padding: 0 20px;
+            position: relative;
+            z-index: 1;
         }
         
-        .login-card {
-            background: #FFFFFF;
-            border-radius: 24px;
+        .login-content-wrapper {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+        }
+        
+        .login-back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: #0066CC;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            margin-bottom: 20px;
+            margin-right: 40px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            z-index: 1;
+            padding: 8px 16px;
+            border-radius: 10px;
+        }
+        
+        .login-wrapper-container {
+            flex: 1;
+        }
+        
+        .login-back-link:hover {
+            color: #0052A3;
+            gap: 14px;
+            background: rgba(0, 102, 204, 0.05);
+            transform: translateX(-4px);
+        }
+        
+        .login-back-link svg {
+            transition: transform 0.3s ease;
+        }
+        
+        .login-back-link:hover svg {
+            transform: translateX(-4px);
+        }
+        
+        .login-wrapper {
+            display: grid;
+            grid-template-columns: 380px 1fr;
+            gap: 40px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 1) 0%, rgba(250, 252, 255, 1) 100%);
+            border-radius: 28px;
+            box-shadow: 
+                0 10px 40px rgba(0, 102, 204, 0.15),
+                0 20px 60px rgba(0, 102, 204, 0.08);
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .login-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #0066CC 0%, rgba(0, 102, 204, 0.6) 50%, #0066CC 100%);
+            background-size: 200% 100%;
+            animation: gradientShift 3s ease-in-out infinite;
+        }
+        
+        @keyframes gradientShift {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+        
+        .login-sidebar {
+            background: linear-gradient(180deg, rgba(0, 102, 204, 0.05) 0%, rgba(0, 102, 204, 0.02) 100%);
             padding: 50px 40px;
-            box-shadow: 0 10px 40px rgba(0, 102, 204, 0.15);
+            border-right: 1px solid rgba(0, 102, 204, 0.1);
         }
         
-        .login-header {
-            text-align: center;
-            margin-bottom: 40px;
+        .login-sidebar-header {
+            margin-bottom: 20px;
         }
         
         .login-logo {
@@ -40,115 +155,187 @@
         .login-logo img {
             height: 50px;
             width: auto;
+            filter: drop-shadow(0 4px 8px rgba(0, 102, 204, 0.15));
         }
         
         .login-title {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #0066CC 0%, #0080FF 50%, #0052A3 100%);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientMove 3s ease-in-out infinite;
+        }
+        
+        @keyframes gradientMove {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+        
+        .login-subtitle {
+            font-size: 15px;
+            color: #666666;
+            line-height: 1.6;
+        }
+        
+        .login-methods-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .login-method-item {
+            position: relative;
+        }
+        
+        .login-method-btn {
+            width: 100%;
+            padding: 18px 24px;
+            background: transparent;
+            border: 2px solid transparent;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .login-method-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg, #0066CC 0%, #0052A3 100%);
+            transform: scaleY(0);
+            transform-origin: bottom;
+            transition: transform 0.3s ease;
+        }
+        
+        .login-method-btn:hover {
+            background: rgba(0, 102, 204, 0.05);
+            border-color: rgba(0, 102, 204, 0.2);
+        }
+        
+        .login-method-btn.active {
+            background: linear-gradient(135deg, rgba(0, 102, 204, 0.1) 0%, rgba(0, 102, 204, 0.05) 100%);
+            border-color: #0066CC;
+            box-shadow: 0 4px 16px rgba(0, 102, 204, 0.15);
+        }
+        
+        .login-method-btn.active::before {
+            transform: scaleY(1);
+        }
+        
+        .login-method-btn-content {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        .login-method-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, rgba(0, 102, 204, 0.15) 0%, rgba(0, 102, 204, 0.08) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .login-method-btn.active .login-method-icon {
+            background: linear-gradient(135deg, #0066CC 0%, #0052A3 100%);
+        }
+        
+        .login-method-icon svg {
+            width: 24px;
+            height: 24px;
+            color: #0066CC;
+            transition: color 0.3s ease;
+        }
+        
+        .login-method-btn.active .login-method-icon svg {
+            color: #FFFFFF;
+        }
+        
+        .login-method-info {
+            flex: 1;
+        }
+        
+        .login-method-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1A1A1A;
+            margin-bottom: 4px;
+            transition: color 0.3s ease;
+        }
+        
+        .login-method-btn.active .login-method-name {
+            color: #0066CC;
+        }
+        
+        .login-method-hint {
+            font-size: 13px;
+            color: #999999;
+        }
+        
+        .login-content-area {
+            padding: 60px 50px;
+            position: relative;
+            min-height: 500px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .login-method-panel {
+            width: 100%;
+            max-width: 480px;
+            margin: 0 auto;
+            opacity: 0;
+            transform: translateX(20px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: none;
+            position: absolute;
+        }
+        
+        .login-method-panel.active {
+            opacity: 1;
+            transform: translateX(0);
+            pointer-events: all;
+            position: relative;
+        }
+        
+        .login-method-panel-header {
+            margin-bottom: 32px;
+        }
+        
+        .login-method-panel-title {
             font-size: 32px;
             font-weight: 700;
             color: #1A1A1A;
             margin-bottom: 12px;
-            line-height: 1.2;
+            letter-spacing: -0.02em;
         }
         
-        .login-subtitle {
+        .login-method-panel-description {
             font-size: 16px;
             color: #666666;
-            line-height: 1.5;
-        }
-        
-        .login-tabs {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 32px;
-            border-bottom: 2px solid #E0E0E0;
-            padding-bottom: 0;
-        }
-        
-        .login-tab {
-            flex: 1;
-            padding: 12px 16px;
-            background: none;
-            border: none;
-            font-size: 15px;
-            font-weight: 500;
-            color: #666666;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            border-bottom: 3px solid transparent;
-            margin-bottom: -2px;
-        }
-        
-        .login-tab:hover {
-            color: #0066CC;
-            background: rgba(0, 102, 204, 0.05);
-        }
-        
-        .login-tab.active {
-            color: #0066CC;
-            font-weight: 600;
-            border-bottom-color: #0066CC;
-        }
-        
-        .login-content {
-            min-height: 300px;
-        }
-        
-        .login-method {
-            display: none;
-            animation: fadeIn 0.3s ease;
-        }
-        
-        .login-method.active {
-            display: block;
-        }
-        
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .login-icon-wrapper {
-            text-align: center;
-            margin-bottom: 32px;
-        }
-        
-        .login-icon {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #E6F2FF 0%, #CCE5FF 100%);
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto;
-        }
-        
-        .login-icon svg {
-            width: 40px;
-            height: 40px;
-            color: #0066CC;
-        }
-        
-        .login-method-title {
-            font-size: 22px;
-            font-weight: 600;
-            color: #1A1A1A;
-            text-align: center;
-            margin-bottom: 12px;
-        }
-        
-        .login-method-description {
-            font-size: 15px;
-            color: #666666;
-            text-align: center;
-            margin-bottom: 32px;
             line-height: 1.6;
         }
         
@@ -161,18 +348,23 @@
             font-size: 14px;
             font-weight: 600;
             color: #333;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
         
         .login-form-input {
             width: 100%;
-            padding: 14px 18px;
+            padding: 16px 20px;
             font-size: 16px;
             border: 2px solid #E0E0E0;
-            border-radius: 12px;
-            transition: all 0.3s ease;
+            border-radius: 14px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             font-family: inherit;
             background: #FAFAFA;
+        }
+        
+        .login-form-input:hover {
+            border-color: rgba(0, 102, 204, 0.3);
+            background: #FFFFFF;
         }
         
         .login-form-input:focus {
@@ -184,48 +376,66 @@
         
         .login-btn {
             width: 100%;
-            padding: 16px;
+            padding: 18px;
             font-size: 16px;
             font-weight: 600;
             color: #FFFFFF;
             background: linear-gradient(135deg, #0066CC 0%, #0052A3 100%);
             border: none;
-            border-radius: 12px;
+            border-radius: 14px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             margin-top: 8px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0, 102, 204, 0.25);
+        }
+        
+        .login-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .login-btn:hover::before {
+            width: 300px;
+            height: 300px;
         }
         
         .login-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0, 102, 204, 0.3);
+            box-shadow: 0 8px 24px rgba(0, 102, 204, 0.35);
         }
         
         .login-btn:active {
             transform: translateY(0);
         }
         
-        .login-btn svg {
-            width: 20px;
-            height: 20px;
+        .login-btn span {
+            position: relative;
+            z-index: 1;
         }
         
         .login-info {
-            margin-top: 24px;
-            padding: 16px;
-            background: #F5F5F5;
-            border-radius: 12px;
+            margin-top: 28px;
+            padding: 20px;
+            background: rgba(230, 242, 255, 0.5);
+            border-radius: 14px;
             font-size: 14px;
             color: #666666;
-            line-height: 1.6;
+            line-height: 1.7;
+            border: 1px solid rgba(0, 102, 204, 0.1);
         }
         
         .login-info-item {
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
         
         .login-info-item:last-child {
@@ -235,45 +445,67 @@
         .login-link {
             color: #0066CC;
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid transparent;
         }
         
         .login-link:hover {
-            text-decoration: underline;
-        }
-        
-        .login-back-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            color: #0066CC;
-            text-decoration: none;
-            font-size: 15px;
-            font-weight: 500;
-            margin-bottom: 24px;
-            transition: all 0.3s ease;
-        }
-        
-        .login-back-link:hover {
             color: #0052A3;
-            gap: 12px;
+            border-bottom-color: #0052A3;
         }
         
-        .login-divider {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            margin: 32px 0;
-            color: #999999;
-            font-size: 14px;
-        }
-        
-        .login-divider::before,
-        .login-divider::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: #E0E0E0;
+        @media (max-width: 968px) {
+            .login-content-wrapper {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .login-back-link {
+                margin-left: 0;
+            }
+            
+            .login-wrapper {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+            
+            .login-sidebar {
+                border-right: none;
+                border-bottom: 1px solid rgba(0, 102, 204, 0.1);
+                padding: 40px 30px;
+            }
+            
+            .login-content-area {
+                padding: 40px 30px;
+                min-height: auto;
+            }
+            
+            .login-methods-list {
+                flex-direction: row;
+                overflow-x: auto;
+                gap: 12px;
+                padding-bottom: 10px;
+            }
+            
+            .login-method-btn {
+                min-width: 200px;
+            }
+            
+            .login-method-btn::before {
+                top: auto;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                width: auto;
+                height: 4px;
+                transform: scaleX(0);
+                transform-origin: left;
+            }
+            
+            .login-method-btn.active::before {
+                transform: scaleX(1);
+            }
         }
         
         @media (max-width: 768px) {
@@ -281,21 +513,407 @@
                 padding: 100px 0 40px;
             }
             
-            .login-card {
-                padding: 40px 24px;
+            .login-sidebar {
+                padding: 30px 20px;
             }
             
-            .login-title {
-                font-size: 28px;
+            .login-content-area {
+                padding: 30px 20px;
             }
             
-            .login-tabs {
-                flex-wrap: wrap;
+            .login-method-panel-title {
+                font-size: 26px;
+            }
+        }
+        
+        /* Модальное окно для SMS кода */
+        .sms-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            z-index: 10000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .sms-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+        
+        .sms-modal-content {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 1) 0%, rgba(250, 252, 255, 1) 100%);
+            border-radius: 24px;
+            padding: 40px;
+            max-width: 480px;
+            width: 100%;
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.3),
+                0 10px 40px rgba(0, 102, 204, 0.2);
+            position: relative;
+            transform: scale(0.9);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .sms-modal.active .sms-modal-content {
+            transform: scale(1);
+        }
+        
+        .sms-modal-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #0066CC 0%, rgba(0, 102, 204, 0.6) 50%, #0066CC 100%);
+            background-size: 200% 100%;
+            animation: gradientShift 3s ease-in-out infinite;
+            border-radius: 24px 24px 0 0;
+        }
+        
+        .sms-modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 32px;
+            height: 32px;
+            border: none;
+            background: rgba(0, 102, 204, 0.1);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            color: #0066CC;
+        }
+        
+        .sms-modal-close:hover {
+            background: rgba(0, 102, 204, 0.2);
+            transform: rotate(90deg);
+        }
+        
+        .sms-modal-close svg {
+            width: 20px;
+            height: 20px;
+        }
+        
+        .sms-modal-header {
+            margin-bottom: 28px;
+            padding-top: 8px;
+        }
+        
+        .sms-modal-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1A1A1A;
+            margin-bottom: 8px;
+            letter-spacing: -0.02em;
+        }
+        
+        .sms-modal-description {
+            font-size: 15px;
+            color: #666666;
+            line-height: 1.6;
+        }
+        
+        .sms-modal-phone {
+            font-weight: 600;
+            color: #0066CC;
+        }
+        
+        .sms-code-inputs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+            justify-content: center;
+        }
+        
+        .sms-code-input {
+            width: 56px;
+            height: 64px;
+            font-size: 28px;
+            font-weight: 600;
+            text-align: center;
+            border: 2px solid #E0E0E0;
+            border-radius: 12px;
+            background: #FAFAFA;
+            color: #1A1A1A;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-family: inherit;
+        }
+        
+        .sms-code-input:focus {
+            outline: none;
+            border-color: #0066CC;
+            background: #FFFFFF;
+            box-shadow: 0 0 0 4px rgba(0, 102, 204, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .sms-code-input.filled {
+            border-color: #0066CC;
+            background: rgba(0, 102, 204, 0.05);
+        }
+        
+        .sms-modal-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .sms-modal-btn {
+            width: 100%;
+            padding: 16px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #FFFFFF;
+            background: linear-gradient(135deg, #0066CC 0%, #0052A3 100%);
+            border: none;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0, 102, 204, 0.25);
+        }
+        
+        .sms-modal-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 102, 204, 0.35);
+        }
+        
+        .sms-modal-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        .sms-resend {
+            text-align: center;
+            font-size: 14px;
+            color: #666666;
+        }
+        
+        .sms-resend-link {
+            color: #0066CC;
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid transparent;
+        }
+        
+        .sms-resend-link:hover:not(.disabled) {
+            color: #0052A3;
+            border-bottom-color: #0052A3;
+        }
+        
+        .sms-resend-link.disabled {
+            color: #999999;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+        
+        .sms-resend-timer {
+            color: #0066CC;
+            font-weight: 600;
+        }
+        
+        @media (max-width: 480px) {
+            .sms-modal-content {
+                padding: 32px 24px;
+                border-radius: 20px;
             }
             
-            .login-tab {
-                font-size: 14px;
-                padding: 10px 12px;
+            .sms-code-input {
+                width: 48px;
+                height: 56px;
+                font-size: 24px;
+            }
+            
+            .sms-modal-title {
+                font-size: 22px;
+            }
+        }
+        
+        /* Модальное окно подтверждения */
+        .confirm-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            z-index: 10001;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .confirm-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+        
+        .confirm-modal-content {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 1) 0%, rgba(250, 252, 255, 1) 100%);
+            border-radius: 24px;
+            padding: 50px 40px;
+            max-width: 480px;
+            width: 100%;
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.3),
+                0 10px 40px rgba(0, 102, 204, 0.2);
+            position: relative;
+            transform: scale(0.9);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-align: center;
+        }
+        
+        .confirm-modal.active .confirm-modal-content {
+            transform: scale(1);
+        }
+        
+        .confirm-modal-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #0066CC 0%, rgba(0, 102, 204, 0.6) 50%, #0066CC 100%);
+            background-size: 200% 100%;
+            animation: gradientShift 3s ease-in-out infinite;
+            border-radius: 24px 24px 0 0;
+        }
+        
+        .confirm-modal-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 24px;
+            background: linear-gradient(135deg, rgba(0, 102, 204, 0.1) 0%, rgba(0, 102, 204, 0.05) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            animation: iconSuccess 0.6s ease-out;
+        }
+        
+        .confirm-modal-icon::before {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #0066CC, #0052A3);
+            opacity: 0.1;
+            animation: iconPulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes iconSuccess {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes iconPulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.1;
+            }
+            50% {
+                transform: scale(1.2);
+                opacity: 0.05;
+            }
+        }
+        
+        .confirm-modal-icon svg {
+            width: 40px;
+            height: 40px;
+            color: #0066CC;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .confirm-modal-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1A1A1A;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+        
+        .confirm-modal-message {
+            font-size: 16px;
+            color: #666666;
+            line-height: 1.6;
+            margin-bottom: 32px;
+        }
+        
+        .confirm-modal-phone {
+            font-weight: 600;
+            color: #0066CC;
+        }
+        
+        .confirm-modal-btn {
+            width: 100%;
+            padding: 18px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #FFFFFF;
+            background: linear-gradient(135deg, #0066CC 0%, #0052A3 100%);
+            border: none;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 16px rgba(0, 102, 204, 0.25);
+        }
+        
+        .confirm-modal-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 102, 204, 0.35);
+        }
+        
+        @media (max-width: 480px) {
+            .confirm-modal-content {
+                padding: 40px 28px;
+                border-radius: 20px;
+            }
+            
+            .confirm-modal-icon {
+                width: 70px;
+                height: 70px;
+                margin-bottom: 20px;
+            }
+            
+            .confirm-modal-icon svg {
+                width: 35px;
+                height: 35px;
+            }
+            
+            .confirm-modal-title {
+                font-size: 24px;
             }
         }
     </style>
@@ -363,112 +981,156 @@
                 Вернуться на главную
             </a>
             
-            <div class="login-card">
-                <div class="login-header">
-                    <div class="login-logo">
-                        <img src="logo.png" alt="ПЖ-19">
-                    </div>
-                    <h1 class="login-title">Вход в личный кабинет</h1>
-                    <p class="login-subtitle">Выберите способ входа для управления услугами</p>
-                </div>
-                
-                <div class="login-tabs">
-                    <button class="login-tab active" data-method="telegram">Telegram</button>
-                    <button class="login-tab" data-method="contract">Договор</button>
-                    <button class="login-tab" data-method="phone">Телефон</button>
-                    <button class="login-tab" data-method="email">Email</button>
-                </div>
-                
-                <div class="login-content">
-                    <!-- Telegram метод -->
-                    <div class="login-method active" id="telegram-method">
-                        <div class="login-icon-wrapper">
-                            <div class="login-icon">
-                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM16.64 8.8C16.49 10.38 15.84 14.22 15.51 15.99C15.37 16.74 15.09 16.99 14.83 17.02C14.25 17.07 13.81 16.64 13.25 16.27C12.37 15.69 11.87 15.33 11.02 14.77C10.03 14.12 10.67 13.76 11.24 13.18C11.39 13.03 14.95 9.7 15.02 9.37C15.03 9.3 15.03 9.15 14.93 9.08C14.84 9 14.7 9.03 14.59 9.05C14.43 9.08 12.39 10.24 8.46 12.52C7.8 12.89 7.19 13.07 6.64 13.05C6.02 13.02 4.84 12.74 4.01 12.5C2.99 12.19 2.2 12.01 2.26 11.38C2.29 11.06 2.75 10.72 3.73 10.38C7.27 9.18 9.98 8.35 11.85 7.89C15.35 6.98 16.11 6.78 16.55 6.78C16.64 6.78 16.85 6.8 17 6.92C17.12 7.02 17.15 7.14 17.17 7.22C17.19 7.3 17.21 7.5 17.19 7.68L16.64 8.8Z" fill="currentColor"/>
-                                </svg>
-                            </div>
+            <div class="login-wrapper">
+                <!-- Боковая панель с методами -->
+                <div class="login-sidebar">
+                    <div class="login-sidebar-header">
+                        <div class="login-logo">
+                            <img src="logo.png" alt="ПЖ-19">
                         </div>
-                        <h2 class="login-method-title">Войти через Telegram</h2>
-                        <p class="login-method-description">Нажмите кнопку для авторизации через Telegram бота</p>
-                        <button class="login-btn" onclick="handleTelegramLogin()">
-                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM16.64 8.8C16.49 10.38 15.84 14.22 15.51 15.99C15.37 16.74 15.09 16.99 14.83 17.02C14.25 17.07 13.81 16.64 13.25 16.27C12.37 15.69 11.87 15.33 11.02 14.77C10.03 14.12 10.67 13.76 11.24 13.18C11.39 13.03 14.95 9.7 15.02 9.37C15.03 9.3 15.03 9.15 14.93 9.08C14.84 9 14.7 9.03 14.59 9.05C14.43 9.08 12.39 10.24 8.46 12.52C7.8 12.89 7.19 13.07 6.64 13.05C6.02 13.02 4.84 12.74 4.01 12.5C2.99 12.19 2.2 12.01 2.26 11.38C2.29 11.06 2.75 10.72 3.73 10.38C7.27 9.18 9.98 8.35 11.85 7.89C15.35 6.98 16.11 6.78 16.55 6.78C16.64 6.78 16.85 6.8 17 6.92C17.12 7.02 17.15 7.14 17.17 7.22C17.19 7.3 17.21 7.5 17.19 7.68L16.64 8.8Z" fill="currentColor"/>
-                            </svg>
-                            Войти через Telegram
-                        </button>
-                        <div class="login-info">
-                            <div class="login-info-item">Ваш Telegram должен быть привязан к аккаунту.</div>
-                            <div class="login-info-item">Для привязки обратитесь в <a href="index.html#contact" class="login-link">поддержку</a>.</div>
-                        </div>
+                        <h1 class="login-title">Вход в личный кабинет</h1>
+                        <p class="login-subtitle">Выберите способ входа</p>
                     </div>
                     
-                    <!-- Договор метод -->
-                    <div class="login-method" id="contract-method">
-                        <div class="login-icon-wrapper">
-                            <div class="login-icon">
-                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M14 2V8H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M8 13H16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M8 17H16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                            </div>
-                        </div>
-                        <h2 class="login-method-title">Вход по номеру договора</h2>
-                        <p class="login-method-description">Введите номер договора и пароль для входа</p>
-                        <form id="contract-form" onsubmit="handleContractLogin(event)">
-                            <div class="login-form-group">
-                                <label class="login-form-label" for="contract-number">Номер договора</label>
-                                <input type="text" id="contract-number" class="login-form-input" placeholder="Введите номер договора" required>
-                            </div>
-                            <div class="login-form-group">
-                                <label class="login-form-label" for="contract-password">Пароль</label>
-                                <input type="password" id="contract-password" class="login-form-input" placeholder="Введите пароль" required>
-                            </div>
-                            <button type="submit" class="login-btn">Войти</button>
-                        </form>
-                        <div class="login-info">
-                            <div class="login-info-item">Номер договора указан в договоре на оказание услуг.</div>
-                            <div class="login-info-item">Забыли пароль? <a href="index.html#contact" class="login-link">Восстановить доступ</a></div>
-                        </div>
-                    </div>
-                    
+                    <ul class="login-methods-list">
+                        <li class="login-method-item">
+                            <button class="login-method-btn active" data-method="phone">
+                                <div class="login-method-btn-content">
+                                    <div class="login-method-icon">
+                                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M3 5C3 3.89543 3.89543 3 5 3H8.27924C8.70967 3 9.09181 3.27543 9.22792 3.68377L10.7257 8.17721C10.8831 8.64932 10.6694 9.16531 10.2243 9.38787L7.96701 10.5165C9.06925 12.9612 11.0388 14.9308 13.4835 16.033L14.6121 13.7757C14.8347 13.3306 15.3507 13.1169 15.8228 13.2743L20.3162 14.7721C20.7246 14.9082 21 15.2903 21 15.7208V19C21 20.1046 20.1046 21 19 21H18C9.71573 21 3 14.2843 3 6V5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </div>
+                                    <div class="login-method-info">
+                                        <div class="login-method-name">Телефон</div>
+                                        <div class="login-method-hint">SMS код</div>
+                                    </div>
+                                </div>
+                            </button>
+                        </li>
+                        
+                        <li class="login-method-item">
+                            <button class="login-method-btn" data-method="contract">
+                                <div class="login-method-btn-content">
+                                    <div class="login-method-icon">
+                                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <path d="M14 2V8H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <path d="M8 13H16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <path d="M8 17H16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </div>
+                                    <div class="login-method-info">
+                                        <div class="login-method-name">Договор</div>
+                                        <div class="login-method-hint">Номер и пароль</div>
+                                    </div>
+                                </div>
+                            </button>
+                        </li>
+                        
+                        <li class="login-method-item">
+                            <button class="login-method-btn" data-method="telegram">
+                                <div class="login-method-btn-content">
+                                    <div class="login-method-icon">
+                                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM16.64 8.8C16.49 10.38 15.84 14.22 15.51 15.99C15.37 16.74 15.09 16.99 14.83 17.02C14.25 17.07 13.81 16.64 13.25 16.27C12.37 15.69 11.87 15.33 11.02 14.77C10.03 14.12 10.67 13.76 11.24 13.18C11.39 13.03 14.95 9.7 15.02 9.37C15.03 9.3 15.03 9.15 14.93 9.08C14.84 9 14.7 9.03 14.59 9.05C14.43 9.08 12.39 10.24 8.46 12.52C7.8 12.89 7.19 13.07 6.64 13.05C6.02 13.02 4.84 12.74 4.01 12.5C2.99 12.19 2.2 12.01 2.26 11.38C2.29 11.06 2.75 10.72 3.73 10.38C7.27 9.18 9.98 8.35 11.85 7.89C15.35 6.98 16.11 6.78 16.55 6.78C16.64 6.78 16.85 6.8 17 6.92C17.12 7.02 17.15 7.14 17.17 7.22C17.19 7.3 17.21 7.5 17.19 7.68L16.64 8.8Z" fill="currentColor"/>
+                                        </svg>
+                                    </div>
+                                    <div class="login-method-info">
+                                        <div class="login-method-name">Telegram</div>
+                                        <div class="login-method-hint">Быстрый вход</div>
+                                    </div>
+                                </div>
+                            </button>
+                        </li>
+                        
+                        <li class="login-method-item">
+                            <button class="login-method-btn" data-method="email">
+                                <div class="login-method-btn-content">
+                                    <div class="login-method-icon">
+                                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M3 8L10.89 13.26C11.2187 13.4793 11.6049 13.5963 12 13.5963C12.3951 13.5963 12.7813 13.4793 13.11 13.26L21 8M5 19H19C19.5304 19 20.0391 18.7893 20.4142 18.4142C20.7893 18.0391 21 17.5304 21 17V7C21 6.46957 20.7893 5.96086 20.4142 5.58579C20.0391 5.21071 19.5304 5 19 5H5C4.46957 5 3.96086 5.21071 3.58579 5.58579C3.21071 5.96086 3 6.46957 3 7V17C3 17.5304 3.21071 18.0391 3.58579 18.4142C3.96086 18.7893 4.46957 19 5 19Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </div>
+                                    <div class="login-method-info">
+                                        <div class="login-method-name">Email</div>
+                                        <div class="login-method-hint">Email и пароль</div>
+                                    </div>
+                                </div>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Основная область с формами -->
+                <div class="login-content-area">
                     <!-- Телефон метод -->
-                    <div class="login-method" id="phone-method">
-                        <div class="login-icon-wrapper">
-                            <div class="login-icon">
-                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M3 5C3 3.89543 3.89543 3 5 3H8.27924C8.70967 3 9.09181 3.27543 9.22792 3.68377L10.7257 8.17721C10.8831 8.64932 10.6694 9.16531 10.2243 9.38787L7.96701 10.5165C9.06925 12.9612 11.0388 14.9308 13.4835 16.033L14.6121 13.7757C14.8347 13.3306 15.3507 13.1169 15.8228 13.2743L20.3162 14.7721C20.7246 14.9082 21 15.2903 21 15.7208V19C21 20.1046 20.1046 21 19 21H18C9.71573 21 3 14.2843 3 6V5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                            </div>
+                    <div class="login-method-panel active" id="phone-panel">
+                        <div class="login-method-panel-header">
+                            <h2 class="login-method-panel-title">Вход по телефону</h2>
+                            <p class="login-method-panel-description">Введите номер телефона для получения кода подтверждения</p>
                         </div>
-                        <h2 class="login-method-title">Вход по телефону</h2>
-                        <p class="login-method-description">Введите номер телефона для получения кода подтверждения</p>
                         <form id="phone-form" onsubmit="handlePhoneLogin(event)">
                             <div class="login-form-group">
                                 <label class="login-form-label" for="phone-number">Номер телефона</label>
                                 <input type="tel" id="phone-number" class="login-form-input" placeholder="+7 (___) ___-__-__" required>
                             </div>
-                            <button type="submit" class="login-btn">Получить код</button>
+                            <button type="submit" class="login-btn">
+                                <span>Получить код</span>
+                            </button>
                         </form>
                         <div class="login-info">
-                            <div class="login-info-item">На указанный номер будет отправлен SMS-код для входа.</div>
-                            <div class="login-info-item">Код действителен в течение 5 минут.</div>
+                            <div class="login-info-item">На указанный номер будет отправлен SMS-код для входа</div>
+                            <div class="login-info-item">Код действителен в течение 5 минут</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Договор метод -->
+                    <div class="login-method-panel" id="contract-panel">
+                        <div class="login-method-panel-header">
+                            <h2 class="login-method-panel-title">Вход по номеру договора</h2>
+                            <p class="login-method-panel-description">Введите номер договора и пароль для входа</p>
+                        </div>
+                        <form id="contract-form" onsubmit="handleContractLogin(event)">
+                            <div class="login-form-group">
+                                <label class="login-form-label" for="contract-number">Номер договора</label>
+                                <input type="text" id="contract-number" class="login-form-input" placeholder="Введите номер договора" inputmode="numeric" pattern="[0-9]*" required>
+                            </div>
+                            <div class="login-form-group">
+                                <label class="login-form-label" for="contract-password">Пароль</label>
+                                <input type="password" id="contract-password" class="login-form-input" placeholder="Введите пароль" required>
+                            </div>
+                            <button type="submit" class="login-btn">
+                                <span>Войти</span>
+                            </button>
+                        </form>
+                        <div class="login-info">
+                            <div class="login-info-item">Номер договора указан в договоре на оказание услуг</div>
+                            <div class="login-info-item">Забыли пароль? <a href="index.html#contact" class="login-link">Восстановить доступ</a></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Telegram метод -->
+                    <div class="login-method-panel" id="telegram-panel">
+                        <div class="login-method-panel-header">
+                            <h2 class="login-method-panel-title">Войти через Telegram</h2>
+                            <p class="login-method-panel-description">Нажмите кнопку для авторизации через Telegram бота</p>
+                        </div>
+                        <button class="login-btn" onclick="handleTelegramLogin()">
+                            <span>Войти через Telegram</span>
+                        </button>
+                        <div class="login-info">
+                            <div class="login-info-item">Ваш Telegram должен быть привязан к аккаунту</div>
+                            <div class="login-info-item">Для привязки обратитесь в <a href="index.html#contact" class="login-link">поддержку</a></div>
                         </div>
                     </div>
                     
                     <!-- Email метод -->
-                    <div class="login-method" id="email-method">
-                        <div class="login-icon-wrapper">
-                            <div class="login-icon">
-                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M3 8L10.89 13.26C11.2187 13.4793 11.6049 13.5963 12 13.5963C12.3951 13.5963 12.7813 13.4793 13.11 13.26L21 8M5 19H19C19.5304 19 20.0391 18.7893 20.4142 18.4142C20.7893 18.0391 21 17.5304 21 17V7C21 6.46957 20.7893 5.96086 20.4142 5.58579C20.0391 5.21071 19.5304 5 19 5H5C4.46957 5 3.96086 5.21071 3.58579 5.58579C3.21071 5.96086 3 6.46957 3 7V17C3 17.5304 3.21071 18.0391 3.58579 18.4142C3.96086 18.7893 4.46957 19 5 19Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                            </div>
+                    <div class="login-method-panel" id="email-panel">
+                        <div class="login-method-panel-header">
+                            <h2 class="login-method-panel-title">Вход по email</h2>
+                            <p class="login-method-panel-description">Введите email и пароль для входа в личный кабинет</p>
                         </div>
-                        <h2 class="login-method-title">Вход по email</h2>
-                        <p class="login-method-description">Введите email и пароль для входа в личный кабинет</p>
                         <form id="email-form" onsubmit="handleEmailLogin(event)">
                             <div class="login-form-group">
                                 <label class="login-form-label" for="email-address">Email</label>
@@ -478,7 +1140,9 @@
                                 <label class="login-form-label" for="email-password">Пароль</label>
                                 <input type="password" id="email-password" class="login-form-input" placeholder="Введите пароль" required>
                             </div>
-                            <button type="submit" class="login-btn">Войти</button>
+                            <button type="submit" class="login-btn">
+                                <span>Войти</span>
+                            </button>
                         </form>
                         <div class="login-info">
                             <div class="login-info-item">Забыли пароль? <a href="index.html#contact" class="login-link">Восстановить доступ</a></div>
@@ -486,9 +1150,67 @@
                         </div>
                     </div>
                 </div>
+                </div>
             </div>
         </div>
     </section>
+
+    <!-- Модальное окно для SMS кода -->
+    <div class="sms-modal" id="sms-modal">
+        <div class="sms-modal-content">
+            <button class="sms-modal-close" onclick="closeSmsModal()">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <div class="sms-modal-header">
+                <h2 class="sms-modal-title">Введите код подтверждения</h2>
+                <p class="sms-modal-description">
+                    Мы отправили SMS с кодом на номер <span class="sms-modal-phone" id="sms-modal-phone"></span>
+                </p>
+            </div>
+            <form id="sms-code-form" onsubmit="handleSmsCodeSubmit(event)">
+                <div class="sms-code-inputs" id="sms-code-inputs">
+                    <input type="text" class="sms-code-input" maxlength="1" inputmode="numeric" pattern="[0-9]" required>
+                    <input type="text" class="sms-code-input" maxlength="1" inputmode="numeric" pattern="[0-9]" required>
+                    <input type="text" class="sms-code-input" maxlength="1" inputmode="numeric" pattern="[0-9]" required>
+                    <input type="text" class="sms-code-input" maxlength="1" inputmode="numeric" pattern="[0-9]" required>
+                    <input type="text" class="sms-code-input" maxlength="1" inputmode="numeric" pattern="[0-9]" required>
+                    <input type="text" class="sms-code-input" maxlength="1" inputmode="numeric" pattern="[0-9]" required>
+                </div>
+                <div class="sms-modal-actions">
+                    <button type="submit" class="sms-modal-btn" id="sms-submit-btn">
+                        <span>Подтвердить</span>
+                    </button>
+                    <div class="sms-resend">
+                        <span>Не пришел код? </span>
+                        <a href="#" class="sms-resend-link disabled" id="sms-resend-link" onclick="resendSmsCode(event)">
+                            <span id="sms-resend-text">Отправить повторно</span>
+                            <span class="sms-resend-timer" id="sms-resend-timer" style="display: none;"></span>
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Модальное окно подтверждения успешного входа -->
+    <div class="confirm-modal" id="confirm-modal">
+        <div class="confirm-modal-content">
+            <div class="confirm-modal-icon">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            <h2 class="confirm-modal-title" id="confirm-modal-title">Вход выполнен!</h2>
+            <p class="confirm-modal-message" id="confirm-modal-message">
+                Вход в личный кабинет выполнен успешно с номера <span class="confirm-modal-phone" id="confirm-modal-phone"></span>
+            </p>
+            <button class="confirm-modal-btn" onclick="handleConfirmSuccess()">
+                Продолжить
+            </button>
+        </div>
+    </div>
 
     <footer class="footer">
         <div class="container">
@@ -541,20 +1263,20 @@
     <script>
         // Переключение между методами входа
         document.addEventListener('DOMContentLoaded', function() {
-            const tabs = document.querySelectorAll('.login-tab');
-            const methods = document.querySelectorAll('.login-method');
+            const methodBtns = document.querySelectorAll('.login-method-btn');
+            const panels = document.querySelectorAll('.login-method-panel');
             
-            tabs.forEach(tab => {
-                tab.addEventListener('click', function() {
+            methodBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
                     const method = this.dataset.method;
                     
-                    // Убираем активный класс у всех вкладок и методов
-                    tabs.forEach(t => t.classList.remove('active'));
-                    methods.forEach(m => m.classList.remove('active'));
+                    // Убираем активный класс у всех кнопок и панелей
+                    methodBtns.forEach(b => b.classList.remove('active'));
+                    panels.forEach(p => p.classList.remove('active'));
                     
-                    // Добавляем активный класс к выбранной вкладке и методу
+                    // Добавляем активный класс к выбранной кнопке и панели
                     this.classList.add('active');
-                    document.getElementById(method + '-method').classList.add('active');
+                    document.getElementById(method + '-panel').classList.add('active');
                 });
             });
             
@@ -583,48 +1305,414 @@
         
         // Обработчики форм входа
         function handleTelegramLogin() {
-            // Здесь должна быть интеграция с Telegram Bot API
             alert('Интеграция с Telegram ботом будет реализована позже. Для входа используйте другие методы.');
         }
         
         function handleContractLogin(event) {
             event.preventDefault();
+            console.log('handleContractLogin вызвана');
+            
             const contractNumber = document.getElementById('contract-number').value;
             const password = document.getElementById('contract-password').value;
             
-            // Здесь должна быть проверка учетных данных
+            console.log('Данные формы:', { contractNumber, password });
+            
+            if (!contractNumber || !password) {
+                alert('Пожалуйста, заполните все поля');
+                return;
+            }
+            
+            // Блокируем кнопку отправки
+            const form = event.target;
+            const submitBtn = form.querySelector('button[type="submit"]');
+            
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<span>Вход...</span>';
+            }
+            
             console.log('Вход по договору:', { contractNumber, password });
-            alert('Вход выполнен успешно! (демо)');
-            // window.location.href = 'cabinet.html';
+            
+            // Имитация проверки на сервере
+            setTimeout(() => {
+                // Здесь должна быть реальная проверка учетных данных на сервере
+                // В демо-режиме всегда успешно
+                const isValid = true; // В реальности это будет ответ от сервера
+                
+                console.log('Проверка завершена, isValid:', isValid);
+                
+                if (isValid) {
+                    // Показываем модальное окно подтверждения для договора
+                    console.log('Показываем модальное окно для договора');
+                    showConfirmModalContract(contractNumber);
+                } else {
+                    // Ошибка входа
+                    const btn = form.querySelector('button[type="submit"]');
+                    if (btn) {
+                        btn.disabled = false;
+                        btn.innerHTML = '<span>Войти</span>';
+                    }
+                    alert('Неверный номер договора или пароль. Пожалуйста, попробуйте снова.');
+                }
+            }, 1000); // Имитация задержки запроса
         }
+        
+        // Модальное окно SMS кода
+        let smsResendTimer = null;
+        let smsResendSeconds = 60;
         
         function handlePhoneLogin(event) {
             event.preventDefault();
             const phone = document.getElementById('phone-number').value;
             
-            // Здесь должна быть отправка SMS кода
+            if (!phone || phone.length < 10) {
+                alert('Пожалуйста, введите корректный номер телефона');
+                return;
+            }
+            
+            // Сохраняем номер телефона для модального окна
+            document.getElementById('sms-modal-phone').textContent = phone;
+            
+            // Очищаем поля ввода кода
+            const codeInputs = document.querySelectorAll('.sms-code-input');
+            codeInputs.forEach(input => {
+                input.value = '';
+                input.classList.remove('filled');
+            });
+            codeInputs[0].focus();
+            
+            // Сброс таймера повторной отправки
+            resetSmsResendTimer();
+            
+            // Показываем модальное окно
+            openSmsModal();
+            
             console.log('Отправка SMS на:', phone);
-            alert('Код подтверждения отправлен на ' + phone + ' (демо)');
+            // Здесь должна быть реальная отправка SMS кода
         }
+        
+        function openSmsModal() {
+            const modal = document.getElementById('sms-modal');
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            
+            // Фокус на первый инпут
+            setTimeout(() => {
+                const firstInput = document.querySelector('.sms-code-input');
+                if (firstInput) firstInput.focus();
+            }, 100);
+        }
+        
+        function closeSmsModal() {
+            const modal = document.getElementById('sms-modal');
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+            
+            if (smsResendTimer) {
+                clearInterval(smsResendTimer);
+                smsResendTimer = null;
+            }
+        }
+        
+        function resetSmsResendTimer() {
+            if (smsResendTimer) {
+                clearInterval(smsResendTimer);
+            }
+            
+            smsResendSeconds = 60;
+            const resendLink = document.getElementById('sms-resend-link');
+            const resendText = document.getElementById('sms-resend-text');
+            const resendTimer = document.getElementById('sms-resend-timer');
+            
+            resendLink.classList.add('disabled');
+            resendText.style.display = 'none';
+            resendTimer.style.display = 'inline';
+            resendTimer.textContent = `Повторно через ${smsResendSeconds} сек`;
+            
+            smsResendTimer = setInterval(() => {
+                smsResendSeconds--;
+                resendTimer.textContent = `Повторно через ${smsResendSeconds} сек`;
+                
+                if (smsResendSeconds <= 0) {
+                    clearInterval(smsResendTimer);
+                    smsResendTimer = null;
+                    resendLink.classList.remove('disabled');
+                    resendText.style.display = 'inline';
+                    resendTimer.style.display = 'none';
+                }
+            }, 1000);
+        }
+        
+        function resendSmsCode(event) {
+            event.preventDefault();
+            const resendLink = document.getElementById('sms-resend-link');
+            
+            if (resendLink.classList.contains('disabled')) {
+                return;
+            }
+            
+            const phone = document.getElementById('phone-number').value;
+            console.log('Повторная отправка SMS на:', phone);
+            // Здесь должна быть реальная повторная отправка SMS кода
+            
+            resetSmsResendTimer();
+        }
+        
+        function handleSmsCodeSubmit(event) {
+            event.preventDefault();
+            const codeInputs = document.querySelectorAll('.sms-code-input');
+            let code = '';
+            
+            codeInputs.forEach(input => {
+                code += input.value;
+            });
+            
+            if (code.length !== 6) {
+                alert('Пожалуйста, введите 6-значный код');
+                return;
+            }
+            
+            console.log('Проверка SMS кода:', code);
+            
+            // Блокируем кнопку отправки
+            const submitBtn = document.getElementById('sms-submit-btn');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span>Проверка...</span>';
+            
+            // Имитация проверки кода на сервере
+            setTimeout(() => {
+                // Здесь должна быть реальная проверка кода на сервере
+                // В демо-режиме всегда успешно
+                const isValid = true; // В реальности это будет ответ от сервера
+                
+                if (isValid) {
+                    // Закрываем модальное окно с кодом
+                    closeSmsModal();
+                    
+                    // Показываем модальное окно подтверждения
+                    showConfirmModal();
+                } else {
+                    // Ошибка в коде
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<span>Подтвердить</span>';
+                    alert('Неверный код подтверждения. Пожалуйста, попробуйте снова.');
+                    
+                    // Очищаем поля
+                    codeInputs.forEach(input => {
+                        input.value = '';
+                        input.classList.remove('filled');
+                    });
+                    codeInputs[0].focus();
+                }
+            }, 1000); // Имитация задержки запроса
+        }
+        
+        function showConfirmModal() {
+            const phone = document.getElementById('phone-number').value;
+            const confirmModalTitle = document.getElementById('confirm-modal-title');
+            const confirmModalPhone = document.getElementById('confirm-modal-phone');
+            const confirmModalMessage = document.getElementById('confirm-modal-message');
+            
+            confirmModalTitle.textContent = 'Код подтвержден!';
+            confirmModalPhone.textContent = phone;
+            confirmModalMessage.textContent = 'Вход в личный кабинет выполнен успешно с номера ';
+            
+            const confirmModal = document.getElementById('confirm-modal');
+            confirmModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function showConfirmModalContract(contractNumber) {
+            const confirmModalTitle = document.getElementById('confirm-modal-title');
+            const confirmModalPhone = document.getElementById('confirm-modal-phone');
+            const confirmModalMessage = document.getElementById('confirm-modal-message');
+            
+            confirmModalTitle.textContent = 'Вход выполнен!';
+            confirmModalPhone.textContent = 'договор №' + contractNumber;
+            confirmModalMessage.textContent = 'Вход в личный кабинет выполнен успешно по ';
+            
+            const confirmModal = document.getElementById('confirm-modal');
+            confirmModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function showConfirmModalEmail(email) {
+            const confirmModalTitle = document.getElementById('confirm-modal-title');
+            const confirmModalPhone = document.getElementById('confirm-modal-phone');
+            const confirmModalMessage = document.getElementById('confirm-modal-message');
+            
+            confirmModalTitle.textContent = 'Вход выполнен!';
+            confirmModalPhone.textContent = email;
+            confirmModalMessage.textContent = 'Вход в личный кабинет выполнен успешно с email ';
+            
+            const confirmModal = document.getElementById('confirm-modal');
+            confirmModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeConfirmModal() {
+            const confirmModal = document.getElementById('confirm-modal');
+            confirmModal.classList.remove('active');
+            document.body.style.overflow = '';
+            
+            // Восстанавливаем кнопки в формах
+            const contractBtn = document.querySelector('#contract-form button[type="submit"]');
+            if (contractBtn) {
+                contractBtn.disabled = false;
+                contractBtn.innerHTML = '<span>Войти</span>';
+            }
+            
+            const emailBtn = document.querySelector('#email-form button[type="submit"]');
+            if (emailBtn) {
+                emailBtn.disabled = false;
+                emailBtn.innerHTML = '<span>Войти</span>';
+            }
+        }
+        
+        function handleConfirmSuccess() {
+            console.log('Успешный вход в личный кабинет');
+            closeConfirmModal();
+            // Здесь можно перенаправить на страницу личного кабинета
+            // window.location.href = 'cabinet.html';
+            // Или показать сообщение
+            alert('Добро пожаловать в личный кабинет!');
+        }
+        
+        // Обработка ввода кода в поля
+        document.addEventListener('DOMContentLoaded', function() {
+            // Ограничение ввода только цифрами для номера договора
+            const contractNumberInput = document.getElementById('contract-number');
+            if (contractNumberInput) {
+                contractNumberInput.addEventListener('input', function(e) {
+                    const value = e.target.value.replace(/\D/g, '');
+                    e.target.value = value;
+                });
+                
+                // Предотвращаем вставку нецифровых символов
+                contractNumberInput.addEventListener('paste', function(e) {
+                    e.preventDefault();
+                    const pastedData = e.clipboardData.getData('text').replace(/\D/g, '');
+                    e.target.value = pastedData;
+                });
+            }
+            
+            const codeInputs = document.querySelectorAll('.sms-code-input');
+            
+            codeInputs.forEach((input, index) => {
+                input.addEventListener('input', function(e) {
+                    const value = e.target.value.replace(/\D/g, '');
+                    e.target.value = value;
+                    
+                    if (value) {
+                        e.target.classList.add('filled');
+                        // Переход к следующему полю
+                        if (index < codeInputs.length - 1) {
+                            codeInputs[index + 1].focus();
+                        }
+                    } else {
+                        e.target.classList.remove('filled');
+                    }
+                });
+                
+                input.addEventListener('keydown', function(e) {
+                    if (e.key === 'Backspace' && !e.target.value && index > 0) {
+                        codeInputs[index - 1].focus();
+                        codeInputs[index - 1].value = '';
+                        codeInputs[index - 1].classList.remove('filled');
+                    }
+                });
+                
+                input.addEventListener('paste', function(e) {
+                    e.preventDefault();
+                    const pastedData = e.clipboardData.getData('text').replace(/\D/g, '');
+                    const digits = pastedData.split('').slice(0, 6);
+                    
+                    digits.forEach((digit, i) => {
+                        if (codeInputs[index + i]) {
+                            codeInputs[index + i].value = digit;
+                            codeInputs[index + i].classList.add('filled');
+                        }
+                    });
+                    
+                    if (digits.length === 6) {
+                        codeInputs[codeInputs.length - 1].focus();
+                    } else if (codeInputs[index + digits.length]) {
+                        codeInputs[index + digits.length].focus();
+                    }
+                });
+            });
+            
+            // Закрытие модального окна по клику вне его
+            const modal = document.getElementById('sms-modal');
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    closeSmsModal();
+                }
+            });
+            
+            // Закрытие модального окна по Escape
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    const smsModal = document.getElementById('sms-modal');
+                    const confirmModal = document.getElementById('confirm-modal');
+                    
+                    if (smsModal.classList.contains('active')) {
+                        closeSmsModal();
+                    } else if (confirmModal.classList.contains('active')) {
+                        closeConfirmModal();
+                    }
+                }
+            });
+            
+            // Закрытие модального окна подтверждения по клику вне его
+            const confirmModal = document.getElementById('confirm-modal');
+            confirmModal.addEventListener('click', function(e) {
+                if (e.target === confirmModal) {
+                    closeConfirmModal();
+                }
+            });
+        });
         
         function handleEmailLogin(event) {
             event.preventDefault();
             const email = document.getElementById('email-address').value;
             const password = document.getElementById('email-password').value;
             
-            // Здесь должна быть проверка учетных данных
+            if (!email || !password) {
+                alert('Пожалуйста, заполните все поля');
+                return;
+            }
+            
+            // Блокируем кнопку отправки
+            const form = event.target;
+            const submitBtn = form.querySelector('button[type="submit"]');
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<span>Вход...</span>';
+            }
+            
             console.log('Вход по email:', { email, password });
-            alert('Вход выполнен успешно! (демо)');
-            // window.location.href = 'cabinet.html';
-        }
-        
-        // Обработчик кнопки "Личный кабинет" (на странице логина ничего не делает)
-        const cabinetBtn = document.querySelector('.btn-cabinet');
-        if (cabinetBtn) {
-            cabinetBtn.addEventListener('click', function() {
-                // На странице логина кнопка не выполняет действий
-                // Можно добавить скролл вверх или другие действия
-            });
+            
+            // Имитация проверки на сервере
+            setTimeout(() => {
+                // Здесь должна быть реальная проверка учетных данных на сервере
+                // В демо-режиме всегда успешно
+                const isValid = true; // В реальности это будет ответ от сервера
+                
+                if (isValid) {
+                    // Показываем модальное окно подтверждения для email
+                    showConfirmModalEmail(email);
+                } else {
+                    // Ошибка входа
+                    const form = document.getElementById('email-form');
+                    const submitBtn = form ? form.querySelector('button[type="submit"]') : null;
+                    if (submitBtn) {
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = '<span>Войти</span>';
+                    }
+                    alert('Неверный email или пароль. Пожалуйста, попробуйте снова.');
+                }
+            }, 1000); // Имитация задержки запроса
         }
         
         // Мобильное меню
@@ -659,4 +1747,3 @@
     </script>
 </body>
 </html>
-

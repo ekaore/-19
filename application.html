@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Оставить заявку - ПЖ-19</title>
+    <title>Оставить заявку</title>
     <link rel="stylesheet" href="styles.css">
     <style>
         .application-page {
@@ -481,11 +481,32 @@
     </footer>
 
     <script>
-        // Маска для телефона
+        // Маска для телефона (такая же как в login.html)
         const phoneInput = document.getElementById('phone');
         if (phoneInput) {
             phoneInput.addEventListener('input', function(e) {
                 let value = e.target.value.replace(/\D/g, '');
+                if (value.startsWith('8')) {
+                    value = '7' + value.substring(1);
+                }
+                if (value.startsWith('7')) {
+                    value = value.substring(0, 11);
+                    let formatted = '+7';
+                    if (value.length > 1) formatted += ' (' + value.substring(1, 4);
+                    if (value.length > 4) formatted += ') ' + value.substring(4, 7);
+                    if (value.length > 7) formatted += '-' + value.substring(7, 9);
+                    if (value.length > 9) formatted += '-' + value.substring(9, 11);
+                    e.target.value = formatted;
+                } else if (value.length > 0) {
+                    e.target.value = '+' + value.substring(0, 15);
+                }
+            });
+            
+            // Обработка вставки из буфера обмена
+            phoneInput.addEventListener('paste', function(e) {
+                e.preventDefault();
+                const pastedData = e.clipboardData.getData('text').replace(/\D/g, '');
+                let value = pastedData;
                 if (value.startsWith('8')) {
                     value = '7' + value.substring(1);
                 }
