@@ -504,7 +504,6 @@ svg {
 
 .tariff-card-new:hover {
     box-shadow: var(--shadow-lg);
-    transform: translateY(-6px);
     border-color: rgba(0, 102, 204, 0.1);
 }
 
