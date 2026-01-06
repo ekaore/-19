@@ -151,24 +151,42 @@
             padding: 12px 20px;
             background: transparent;
             border: none;
-            border-bottom: 2px solid transparent;
             color: var(--text-dark);
             font-size: 15px;
             font-weight: 500;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             white-space: nowrap;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cabinet-header-tab::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #0066CC 0%, #0080FF 100%);
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 2px;
         }
 
         .cabinet-header-tab:hover {
             color: #0066CC;
-            background: rgba(0, 102, 204, 0.05);
+        }
+
+        .cabinet-header-tab:hover::before {
+            width: 100%;
         }
 
         .cabinet-header-tab.active {
             color: #0066CC;
-            border-bottom-color: #0066CC;
-            background: rgba(0, 102, 204, 0.05);
+        }
+
+        .cabinet-header-tab.active::before {
+            width: 100%;
         }
 
         .cabinet-header-tab-icon {
@@ -1099,6 +1117,11 @@
             font-size: 13px;
             font-weight: 600;
             white-space: nowrap;
+        }
+
+        .support-status.new {
+            background: rgba(59, 130, 246, 0.15);
+            color: #3B82F6;
         }
 
         .support-status.in-progress {
@@ -5746,6 +5769,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             loadUserData();
             loadNotificationSettings();
+            loadApplications();
             
             // Мобильное меню
             const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
@@ -6828,6 +6852,11 @@
             if (selectedContent) {
                 selectedContent.classList.add('active');
             }
+            
+            // Если переключились на вкладку заявок, обновляем список
+            if (tabName === 'applications') {
+                loadApplications();
+            }
         }
 
         // Открытие онлайн-чата
@@ -6848,7 +6877,63 @@
             
             // Сохраняем тип заявки в localStorage для передачи на страницу создания заявки
             localStorage.setItem('quickApplicationType', types[type] || 'Другое');
-            window.location.href = 'application.html';
+            window.location.href = 'support-application.html';
+        }
+
+        // Загрузка заявок из localStorage
+        function loadApplications() {
+            const applicationsList = document.getElementById('applications-list');
+            if (!applicationsList) return;
+            
+            const savedApplications = JSON.parse(localStorage.getItem('supportApplications') || '[]');
+            
+            // Очищаем список (кроме статических примеров, если они есть)
+            const existingItems = applicationsList.querySelectorAll('.support-application-item[data-dynamic="true"]');
+            existingItems.forEach(item => item.remove());
+            
+            // Добавляем заявки из localStorage
+            savedApplications.forEach(app => {
+                const statusMap = {
+                    'new': { text: 'Новая', class: 'new' },
+                    'in-progress': { text: 'В работе', class: 'in-progress' },
+                    'closed': { text: 'Закрыта', class: 'closed' }
+                };
+                
+                const status = statusMap[app.status] || statusMap['new'];
+                const date = new Date(app.createdAt);
+                const formattedDate = date.toLocaleDateString('ru-RU', { 
+                    day: '2-digit', 
+                    month: '2-digit', 
+                    year: 'numeric' 
+                }) + ', ' + date.toLocaleTimeString('ru-RU', { 
+                    hour: '2-digit', 
+                    minute: '2-digit' 
+                });
+                
+                const appItem = document.createElement('div');
+                appItem.className = 'support-application-item';
+                appItem.setAttribute('data-status', app.status);
+                appItem.setAttribute('data-dynamic', 'true');
+                appItem.innerHTML = `
+                    <div class="support-application-content">
+                        <div class="support-application-title">${app.problemType}</div>
+                        <div class="support-application-desc">${app.problemDescription.substring(0, 100)}${app.problemDescription.length > 100 ? '...' : ''}</div>
+                        <div class="support-application-meta">#${app.id} · ${formattedDate}</div>
+                    </div>
+                    <div class="support-application-right">
+                        <span class="support-status ${status.class}">${status.text}</span>
+                    </div>
+                `;
+                
+                applicationsList.appendChild(appItem);
+            });
+            
+            // Обновляем счетчик заявок
+            const badge = document.getElementById('applications-badge');
+            if (badge) {
+                const totalCount = savedApplications.length + (applicationsList.querySelectorAll('.support-application-item[data-dynamic!="true"]').length || 0);
+                badge.textContent = totalCount;
+            }
         }
 
         // Фильтрация заявок
