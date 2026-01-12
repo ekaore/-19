@@ -561,24 +561,13 @@
             position: relative;
             transform: scale(0.9);
             transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
         }
         
         .sms-modal.active .sms-modal-content {
             transform: scale(1);
         }
         
-        .sms-modal-content::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #0066CC 0%, rgba(0, 102, 204, 0.6) 50%, #0066CC 100%);
-            background-size: 200% 100%;
-            animation: gradientShift 3s ease-in-out infinite;
-            border-radius: 24px 24px 0 0;
-        }
         
         .sms-modal-close {
             position: absolute;
@@ -613,7 +602,7 @@
         }
         
         .sms-modal-title {
-            font-size: 24px;
+            font-size: 20px;
             font-weight: 700;
             color: #1A1A1A;
             margin-bottom: 8px;
@@ -621,9 +610,9 @@
         }
         
         .sms-modal-description {
-            font-size: 15px;
+            font-size: 14px;
             color: #666666;
-            line-height: 1.6;
+            line-height: 1.5;
         }
         
         .sms-modal-phone {
@@ -685,6 +674,10 @@
             position: relative;
             overflow: hidden;
             box-shadow: 0 4px 16px rgba(0, 102, 204, 0.25);
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         .sms-modal-btn:hover:not(:disabled) {
@@ -728,11 +721,66 @@
             font-weight: 600;
         }
         
+        /* Стили для модального окна звонка */
+        .call-status-container {
+            text-align: center;
+            padding: 20px 0;
+        }
+        
+        .call-status-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 24px;
+            color: #0066CC;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 0.8;
+            }
+        }
+        
+        .call-status-icon svg {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .call-phone-number {
+            font-size: 28px;
+            font-weight: 700;
+            color: #0066CC;
+            margin-bottom: 20px;
+            font-variant-numeric: tabular-nums;
+            letter-spacing: 1px;
+        }
+        
+        .call-status-text {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1A1A1A;
+            margin-bottom: 10px;
+        }
+        
+        .call-timer {
+            font-size: 18px;
+            font-weight: 600;
+            color: #666666;
+            font-variant-numeric: tabular-nums;
+        }
+        
         @media (max-width: 480px) {
             .sms-modal-content {
                 padding: 32px 24px;
                 border-radius: 20px;
+                overflow: hidden;
             }
+            
             
             .sms-code-input {
                 width: 48px;
@@ -787,18 +835,6 @@
             transform: scale(1);
         }
         
-        .confirm-modal-content::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #0066CC 0%, rgba(0, 102, 204, 0.6) 50%, #0066CC 100%);
-            background-size: 200% 100%;
-            animation: gradientShift 3s ease-in-out infinite;
-            border-radius: 24px 24px 0 0;
-        }
         
         .confirm-modal-icon {
             width: 80px;
@@ -1320,8 +1356,8 @@
                             </button>
                         </form>
                         <div class="login-info">
-                            <div class="login-info-item">На указанный номер будет отправлен SMS-код для входа</div>
-                            <div class="login-info-item">Код действителен в течение 5 минут</div>
+                            <div class="login-info-item">После ввода номера вам будет показан номер для звонка</div>
+                            <div class="login-info-item">Звонок будет автоматически сброшен, и вы будете авторизованы</div>
                         </div>
                     </div>
                     
@@ -1404,33 +1440,24 @@
                 </svg>
             </button>
             <div class="sms-modal-header">
-                <h2 class="sms-modal-title">Введите код подтверждения</h2>
+                <h2 class="sms-modal-title">Позвоните на указанный номер</h2>
                 <p class="sms-modal-description">
-                    Мы отправили SMS с кодом на номер <span class="sms-modal-phone" id="sms-modal-phone"></span>
+                    Для входа в личный кабинет позвоните на номер ниже. Звонок будет автоматически сброшен, и вы будете авторизованы.
                 </p>
             </div>
-            <form id="sms-code-form" onsubmit="handleSmsCodeSubmit(event)">
-                <div class="sms-code-inputs" id="sms-code-inputs">
-                    <input type="text" class="sms-code-input" maxlength="1" inputmode="numeric" pattern="[0-9]" required>
-                    <input type="text" class="sms-code-input" maxlength="1" inputmode="numeric" pattern="[0-9]" required>
-                    <input type="text" class="sms-code-input" maxlength="1" inputmode="numeric" pattern="[0-9]" required>
-                    <input type="text" class="sms-code-input" maxlength="1" inputmode="numeric" pattern="[0-9]" required>
-                    <input type="text" class="sms-code-input" maxlength="1" inputmode="numeric" pattern="[0-9]" required>
-                    <input type="text" class="sms-code-input" maxlength="1" inputmode="numeric" pattern="[0-9]" required>
-                </div>
-                <div class="sms-modal-actions">
-                    <button type="submit" class="sms-modal-btn" id="sms-submit-btn">
-                        <span>Подтвердить</span>
-                    </button>
-                    <div class="sms-resend">
-                        <span>Не пришел код? </span>
-                        <a href="#" class="sms-resend-link disabled" id="sms-resend-link" onclick="resendSmsCode(event)">
-                            <span id="sms-resend-text">Отправить повторно</span>
-                            <span class="sms-resend-timer" id="sms-resend-timer" style="display: none;"></span>
-                        </a>
-                    </div>
-                </div>
-            </form>
+            <div class="call-status-container">
+                <div class="call-phone-number" id="call-phone-number">8 800 222 55 19</div>
+                <div class="call-status-text" id="call-status-text" style="display: none;">Ожидание звонка...</div>
+                <div class="call-timer" id="call-timer"></div>
+            </div>
+            <div class="sms-modal-actions">
+                <a href="tel:+78002225519" class="sms-modal-btn" id="call-btn" style="text-decoration: none;">
+                    <span>Позвонить</span>
+                </a>
+                <button type="button" class="sms-modal-btn" id="call-cancel-btn" onclick="closeSmsModal()" style="background: transparent; color: #666; border: 2px solid #E0E0E0; margin-top: 12px;">
+                    <span>Отменить</span>
+                </button>
+            </div>
         </div>
     </div>
 
@@ -1638,6 +1665,7 @@
         // Модальное окно SMS кода
         let smsResendTimer = null;
         let smsResendSeconds = 60;
+        let callTimerInterval = null;
         
         function handlePhoneLogin(event) {
             event.preventDefault();
@@ -1660,43 +1688,122 @@
                 return;
             }
             
-            // Сохраняем номер телефона для модального окна
-            document.getElementById('sms-modal-phone').textContent = phone;
+            // Сохраняем номер телефона пользователя
+            const userPhone = phone;
             
-            // Очищаем поля ввода кода
-            const codeInputs = document.querySelectorAll('.sms-code-input');
-            codeInputs.forEach(input => {
-                input.value = '';
-                input.classList.remove('filled');
-            });
-            codeInputs[0].focus();
-            
-            // Сброс таймера повторной отправки
-            resetSmsResendTimer();
-            
-            // Показываем модальное окно
+            // Показываем модальное окно с номером для звонка
             openSmsModal();
             
-            console.log('Отправка SMS на:', phone);
-            // Здесь должна быть реальная отправка SMS кода
+            // Инициируем ожидание звонка
+            initiateCallWaiting(userPhone);
+        }
+        
+        function initiateCallWaiting(userPhone) {
+            const callStatusText = document.getElementById('call-status-text');
+            const callTimer = document.getElementById('call-timer');
+            const callBtn = document.getElementById('call-btn');
+            
+            // Обновляем статус
+            callStatusText.textContent = 'Ожидание звонка...';
+            callTimer.textContent = 'Нажмите кнопку "Позвонить" для авторизации';
+            
+            let callInitiated = false;
+            let callStartTime = null;
+            
+            // Отслеживаем клик по кнопке звонка
+            const handleCallClick = function(event) {
+                if (callInitiated) return;
+                
+                callInitiated = true;
+                callStartTime = Date.now();
+                
+                // Обновляем статус
+                callStatusText.textContent = 'Обнаружен звонок...';
+                callTimer.textContent = 'Ожидание сброса...';
+                
+                // Имитация обнаружения звонка и автоматического сброса через 2-3 секунды
+                setTimeout(() => {
+                    callStatusText.textContent = 'Звонок принят и сброшен';
+                    callTimer.textContent = 'Авторизация...';
+                    
+                    // Автоматическая авторизация через небольшую задержку
+                    setTimeout(() => {
+                        // Закрываем модальное окно
+                        closeSmsModal();
+                        
+                        // Автоматически авторизуем пользователя
+                        showConfirmModal();
+                    }, 1000);
+                }, 2000);
+            };
+            
+            callBtn.addEventListener('click', handleCallClick);
+            
+            // Альтернативный способ: отслеживание через visibility API (когда пользователь возвращается из звонка)
+            let lastVisibilityChange = Date.now();
+            let wasHidden = false;
+            
+            const handleVisibilityChange = function() {
+                if (document.hidden) {
+                    wasHidden = true;
+                    lastVisibilityChange = Date.now();
+                } else if (wasHidden && !callInitiated) {
+                    // Пользователь вернулся на страницу (возможно, после звонка)
+                    const timeSinceLastChange = Date.now() - lastVisibilityChange;
+                    
+                    // Если страница была скрыта больше 3 секунд, считаем что был звонок
+                    if (timeSinceLastChange > 3000) {
+                        handleCallClick();
+                    }
+                }
+            };
+            
+            document.addEventListener('visibilitychange', handleVisibilityChange);
+            
+            // Сохраняем обработчики для очистки при закрытии модального окна
+            window.currentCallHandlers = {
+                callClick: handleCallClick,
+                visibilityChange: handleVisibilityChange
+            };
+            
+            console.log('Ожидание звонка от пользователя:', userPhone);
         }
         
         function openSmsModal() {
             const modal = document.getElementById('sms-modal');
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
-            
-            // Фокус на первый инпут
-            setTimeout(() => {
-                const firstInput = document.querySelector('.sms-code-input');
-                if (firstInput) firstInput.focus();
-            }, 100);
         }
         
         function closeSmsModal() {
             const modal = document.getElementById('sms-modal');
             modal.classList.remove('active');
             document.body.style.overflow = '';
+            
+            // Останавливаем таймер звонка
+            if (callTimerInterval) {
+                clearTimeout(callTimerInterval);
+                callTimerInterval = null;
+            }
+            
+            // Удаляем обработчики событий
+            if (window.currentCallHandlers) {
+                const callBtn = document.getElementById('call-btn');
+                if (callBtn && window.currentCallHandlers.callClick) {
+                    callBtn.removeEventListener('click', window.currentCallHandlers.callClick);
+                }
+                if (window.currentCallHandlers.visibilityChange) {
+                    document.removeEventListener('visibilitychange', window.currentCallHandlers.visibilityChange);
+                }
+                window.currentCallHandlers = null;
+            }
+            
+            // Сбрасываем состояние звонка
+            const callStatusText = document.getElementById('call-status-text');
+            const callTimer = document.getElementById('call-timer');
+            
+            if (callStatusText) callStatusText.textContent = 'Ожидание звонка...';
+            if (callTimer) callTimer.textContent = '';
             
             if (smsResendTimer) {
                 clearInterval(smsResendTimer);
